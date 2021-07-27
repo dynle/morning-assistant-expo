@@ -17,13 +17,22 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.reactjs.native.MorningAssistant",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.1006268244497-b6pqec5i5s09ee71fjulkt2bajes8q2v"
+        }
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.morningassistant",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
