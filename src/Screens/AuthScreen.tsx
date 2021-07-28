@@ -71,7 +71,7 @@ export default function AuthScren() {
                             style={styles.text}
                             onPress={() => setCreate(false)}
                         >
-                            Sign Up
+                            Sign In
                         </Text>
                     </>
                 ) : (
