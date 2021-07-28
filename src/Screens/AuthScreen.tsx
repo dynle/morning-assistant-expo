@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { signInUtil, signUpUtil, signOutUtil } from "../Utils/AuthUtil";
 import GoogleLogin from "../Services/GoogleAuthService";
-import { SocialIcon } from "react-native-elements";
+import { SocialIcon, Input } from "react-native-elements";
 
 var width = Dimensions.get("window").width;
 var height = Dimensions.get("window").height;
@@ -39,7 +39,31 @@ export default function AuthScren() {
                 <Text style={styles.title}>오늘의 아침</Text>
             </View>
             <View style={styles.containerBottom}>
-                <TextInput
+                <Input
+                    placeholder="example@gmail.com"
+                    label='Email'
+                    leftIcon={{
+                        type: "font-awesome",
+                        name: "envelope",
+                        color: "#C6BF9F",
+                    }}
+                    style={{ color: "#C6BF9F" }}
+                    onChangeText={setEmail}
+                ></Input>
+                <Input
+                    placeholder="Password"
+                    label='Password'
+                    secureTextEntry={true}
+                    leftIcon={{
+                        type: "font-awesome",
+                        name: "lock",
+                        color: "#C6BF9F",
+                    }}
+                    style={{ color: "#C6BF9F" }}
+                    onChangeText={setPassword}
+                    passwordRules="required: upper; required: lower; minlength:6"
+                ></Input>
+                {/* <TextInput
                     placeholder="Email"
                     placeholderTextColor="#C6BF9F"
                     onChangeText={setEmail}
@@ -55,7 +79,7 @@ export default function AuthScren() {
                     style={styles.textInput}
                     secureTextEntry={true}
                     passwordRules="required: upper; required: lower; minlength:6"
-                />
+                /> */}
                 {create ? (
                     <>
                         <Pressable
@@ -95,7 +119,7 @@ export default function AuthScren() {
                             title="Sign in With Google"
                             button
                             type="google"
-                            style={{marginTop:30}}
+                            style={{ marginTop: 30 }}
                             onPress={GoogleLogin}
                         ></SocialIcon>
                     </>
@@ -136,7 +160,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 30,
         borderRadius: 5,
-        color: '#C6BF9F'
+        color: "#C6BF9F",
     },
     text: {
         color: "#C6BF9F",
