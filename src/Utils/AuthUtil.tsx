@@ -1,13 +1,13 @@
-import {auth} from '../fbase'
+import {authService} from '../fbase'
 
 export const signInUtil = async (email: string,password: string) => {
-    return await auth.signInWithEmailAndPassword(email,password);
+    return await authService.signInWithEmailAndPassword(email,password);
 }
 
 export const signUpUtil = async (email: string,password: string) => {
-    return await auth.createUserWithEmailAndPassword(email,password);
+    return await authService.createUserWithEmailAndPassword(email,password);
 }
 
 export const signOutUtil = async () => {
-    return await auth.signOut();
+    return await authService.signOut();
 }

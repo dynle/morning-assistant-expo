@@ -15,4 +15,5 @@ web-build/
 # security files
 google-services.json
 GoogleService-Info.plist
+.env
 

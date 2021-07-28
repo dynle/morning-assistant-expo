@@ -96,7 +96,7 @@ export default function AuthScren() {
                             button
                             type="google"
                             style={{marginTop:30}}
-                            onPress={()=>{alert('google social login')}}
+                            onPress={GoogleLogin}
                         ></SocialIcon>
                     </>
                 )}
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 30,
         borderRadius: 5,
+        color: '#C6BF9F'
     },
     text: {
         color: "#C6BF9F",
