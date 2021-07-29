@@ -48,6 +48,7 @@ export default function AuthScren() {
                         color: "#C6BF9F",
                     }}
                     style={{ color: "#C6BF9F" }}
+                    autoCapitalize="none"
                     onChangeText={setEmail}
                 ></Input>
                 <Input
@@ -126,7 +127,7 @@ export default function AuthScren() {
                 )}
             </View>
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({

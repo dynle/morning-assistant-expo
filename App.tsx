@@ -1,22 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import LoginProvider from './src/Utils/LoginProvider';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import {
+    Button,
+    StyleSheet,
+    Text,
+    View,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from "react-native";
+import LoginProvider from "./src/Utils/LoginProvider";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="light" />
-      <LoginProvider></LoginProvider>
-    </View>
-  );
+    return (
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <View style={styles.container}>
+                <StatusBar style="light" />
+                <LoginProvider></LoginProvider>
+            </View>
+        </TouchableWithoutFeedback>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
 });
