@@ -17,3 +17,7 @@ google-services.json
 GoogleService-Info.plist
 .env
 
+#temp
+.babelrc
+
+

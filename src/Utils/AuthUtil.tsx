@@ -1,11 +1,14 @@
-import {authService} from '../fbase'
+import {authService, dbService} from '../fbase'
+import { CreateDBUtil } from './CreateDBUtil';
 
 export const signInUtil = async (email: string,password: string) => {
     return await authService.signInWithEmailAndPassword(email,password);
 }
 
 export const signUpUtil = async (email: string,password: string) => {
-    return await authService.createUserWithEmailAndPassword(email,password);
+    const credentials = await authService.createUserWithEmailAndPassword(email,password);
+    CreateDBUtil();
+    return credentials;
 }
 
 export const signOutUtil = async () => {

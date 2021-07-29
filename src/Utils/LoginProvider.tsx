@@ -31,6 +31,7 @@ export default function LoginProvider(){
 
     return (
         // 로그인 되어 있으면 기본 화면
+        // 유저 아이디가 이미 파이어베이스에 있으면 홈페이지, 아니면 처음 설정 화면
         <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
             <Text>Welcome {user!.email}</Text>
             <Button title='Sign Out'onPress={signOutUtil}>Sign Out</Button>
