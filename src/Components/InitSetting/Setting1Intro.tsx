@@ -7,7 +7,15 @@ export default function Setting1Intro() {
     return (
         <View style={styles.container}>
             <Text style={{ color: "white" }}>First Component</Text>
-            <Button title='Sign Out'onPress={signOutUtil}>Sign Out</Button>
+            <Button
+                title="Sign Out"
+                onPress={() => {
+                    signOutUtil();
+                    console.log("Sign Out");
+                }}
+            >
+                Sign Out
+            </Button>
         </View>
     );
 }
