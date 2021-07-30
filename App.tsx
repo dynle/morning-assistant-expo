@@ -7,6 +7,7 @@ import {
     View,
     TouchableWithoutFeedback,
     Keyboard,
+    // Dimensions
 } from "react-native";
 import LoginProvider from "./src/Utils/LoginProvider";
 

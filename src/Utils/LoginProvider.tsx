@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Button} from 'react-native-elements'
-import {authService} from '../fbase'
-import AuthScreen from '../Screens/AuthScreen';
-import {signOutUtil} from './AuthUtil'
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { Button } from "react-native-elements";
+import { authService } from "../fbase";
+import AuthScreen from "../Screens/AuthScreen";
+import InitSettingScreen from "../Screens/InitSettingScreen";
 
-export default function LoginProvider(){
+export default function LoginProvider() {
     // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState<boolean>(true);
     const [user, setUser] = useState<any>(null);
@@ -25,16 +25,18 @@ export default function LoginProvider(){
 
     if (!user) {
         return (
-                <AuthScreen></AuthScreen>
+            <AuthScreen></AuthScreen>
         );
     }
 
     return (
         // 로그인 되어 있으면 기본 화면
-        // 유저 아이디가 이미 파이어베이스에 있으면 홈페이지, 아니면 처음 설정 화면
-        <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
-            <Text>Welcome {user!.email}</Text>
-            <Button title='Sign Out'onPress={signOutUtil}>Sign Out</Button>
+        // 아래 컴포넌트에서 판단하니까 handler 이용해서 위로 끌고와?
+        <View>
+            {/* 첫 로그인이면, firebase에 DB가 없다면 */}
+            <InitSettingScreen />
+
+            {/* 첫 로그인이 아니면, firebase DB가 있다면 */}
         </View>
     );
 }

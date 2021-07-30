@@ -13,7 +13,7 @@ import GoogleLogin from "../Services/GoogleAuthService";
 import { SocialIcon, Input } from "react-native-elements";
 
 var width = Dimensions.get("window").width;
-var height = Dimensions.get("window").height;
+// var height = Dimensions.get("window").height;
 
 export default function AuthScren() {
     const [email, setEmail] = useState("");
@@ -41,7 +41,7 @@ export default function AuthScren() {
             <View style={styles.containerBottom}>
                 <Input
                     placeholder="example@gmail.com"
-                    label='Email'
+                    label="Email"
                     leftIcon={{
                         type: "font-awesome",
                         name: "envelope",
@@ -53,7 +53,7 @@ export default function AuthScren() {
                 ></Input>
                 <Input
                     placeholder="Password"
-                    label='Password'
+                    label="Password"
                     secureTextEntry={true}
                     leftIcon={{
                         type: "font-awesome",
@@ -127,7 +127,7 @@ export default function AuthScren() {
                 )}
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
