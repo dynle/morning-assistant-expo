@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions} from "react-native";
 import PagerView from "react-native-pager-view";
 import Setting1Intro from "../Components/InitSetting/Setting1Intro";
 import Setting2WakeUpTime from "../Components/InitSetting/Setting2WakeUpTime";
+import Setting3 from "../Components/InitSetting/Setting3";
 
 export default function InitSettingScreen() {
     return (
@@ -16,7 +17,7 @@ export default function InitSettingScreen() {
                     <Setting2WakeUpTime />
                 </View>
                 <View style={styles.page} key="3">
-                    <Text>Third page</Text>
+                    <Setting3/>
                 </View>
             </PagerView>
         </View>

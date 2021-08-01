@@ -1,36 +1,32 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
-import { signOutUtil } from "../../Utils/AuthUtil";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-// import DateTimePicker from '@react-native-community/datetimepicker'
+import moment from "moment";
 
 export default function Setting2WakeUpTime() {
     const [date, setDate] = useState(new Date());
-    console.log(date);
 
     const onChange = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
-        console.log("changed time: ",currentDate);
+        console.log("changed time: ", moment(currentDate).format("LT"));
     };
     return (
         <View style={styles.container}>
-            <Text style={{ color: "white" }}>Second Component</Text>
-            <Button title="Sign Out" onPress={signOutUtil}></Button>
-            <View style={{ alignSelf: "stretch" }}>
-                {/* FIXME: timezone이 달라서 인가 시간이 계속 안맞음 */}
+            <View style={styles.containerTop}>
+                <Text style={styles.containerTopText}>당신은 언제 아침을{"\n"}맞이 하나요?</Text>
+            </View>
+            <View style={{ alignSelf: "stretch", flex: 1 }}>
+                <Text style={styles.timeText}>- { moment(date).format("LT") } -</Text>
                 <RNDateTimePicker
-                    // testID="dateTimePicker"
                     value={date}
                     mode={"time"}
                     display="spinner"
-                    timeZoneOffsetInMinutes={9*60} //not working
                     onChange={onChange}
+                    minuteInterval={5}
                 />
             </View>
-            {/* <RNDateTimePicker value={date} mode="time"></RNDateTimePicker> */}
-            {/* <Button title='Time Picker' onPress={DateTimePicker}></Button> */}
         </View>
     );
 }
@@ -43,4 +39,20 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    containerTop: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    containerTopText:{
+        fontSize: 40,
+        color: '#C6BF9F',
+        textAlign: 'center',
+        lineHeight:70
+    },
+    timeText:{
+        fontSize: 40,
+        color: '#C6BF9F',
+        textAlign:'center'
+    }
 });
