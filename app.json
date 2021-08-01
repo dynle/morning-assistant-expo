@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.tsx",
     "name": "MorningAssistant_Expo",
     "slug": "MorningAssistant_Expo",
     "version": "1.0.0",

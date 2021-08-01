@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { Button } from "react-native-elements";
-import { authService } from "../fbase";
+import { authService, dbService } from "../fbase";
 import AuthScreen from "../Screens/AuthScreen";
+import HomeScreen from "../Screens/HomeScreen";
 import InitSettingScreen from "../Screens/InitSettingScreen";
+import checkDBUtil from "./CheckDBUtil";
 
 export default function LoginProvider() {
     // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState<boolean>(true);
     const [user, setUser] = useState<any>(null);
+    const [isNewUser, setIsNewUser] = useState<boolean | null>(null);
+
+    function handlerIsNewUser(state: boolean) {
+        setIsNewUser(state);
+    }
 
     // Handle user state changes
     function onAuthStateChanged(user: any) {
         setUser(user);
+        if (user) {
+            checkDBUtil(user.uid, handlerIsNewUser);
+            console.log("Current User Uid: ", user.uid);
+        }
         if (initializing) setInitializing(false);
     }
 
@@ -24,19 +33,10 @@ export default function LoginProvider() {
     if (initializing) return null;
 
     if (!user) {
+        return <AuthScreen></AuthScreen>;
+    } else {
         return (
-            <AuthScreen></AuthScreen>
+            <>{isNewUser ? <InitSettingScreen /> : <HomeScreen />}</>
         );
     }
-
-    return (
-        // 로그인 되어 있으면 기본 화면
-        // 아래 컴포넌트에서 판단하니까 handler 이용해서 위로 끌고와?
-        <View>
-            {/* 첫 로그인이면, firebase에 DB가 없다면 */}
-            <InitSettingScreen />
-
-            {/* 첫 로그인이 아니면, firebase DB가 있다면 */}
-        </View>
-    );
 }

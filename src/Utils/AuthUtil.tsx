@@ -7,7 +7,6 @@ export const signInUtil = async (email: string,password: string) => {
 
 export const signUpUtil = async (email: string,password: string) => {
     const credentials = await authService.createUserWithEmailAndPassword(email,password);
-    CreateDBUtil();
     return credentials;
 }
 

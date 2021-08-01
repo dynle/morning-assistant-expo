@@ -19,7 +19,7 @@ export default async function GoogleLogin() {
         });
 
         if (result.type === "success") {
-            console.log(result);
+            // console.log(result);
             const credential =
                 firebaseInstance.auth.GoogleAuthProvider.credential(
                     //Set the tokens to Firebase
@@ -31,17 +31,6 @@ export default async function GoogleLogin() {
                 .catch((error) => {
                     console.log(error);
                 });
-            var docData = dbService.collection('users').doc(`${authService.currentUser!.uid}`);
-            docData.get().then((doc)=>{
-              if(!doc.exists){
-                CreateDBUtil();
-                console.log("New User");
-              }else{
-                console.log("DB already existed");
-              }
-            }).catch((error)=>{
-              console.log("Error getting document: ",error);
-            })
         }
     } catch ({ message }) {
         alert("Login Error: " + message);

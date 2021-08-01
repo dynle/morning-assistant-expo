@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
-import { signOutUtil } from "../../Utils/AuthUtil";
+import { signOutUtil } from "../Utils/AuthUtil";
 
 
 export default function Setting2WakeUpTime() {
     return (
         <View style={styles.container}>
-            <Text style={{ color: "white" }}>Second Component</Text>
+            <Text style={{ color: "white" }}>Home Screen</Text>
             <Button title='Sign Out'onPress={signOutUtil}></Button>
         </View>
     );

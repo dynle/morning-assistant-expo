@@ -9,9 +9,10 @@ import {
     Keyboard,
     // Dimensions
 } from "react-native";
-import LoginProvider from "./src/Utils/LoginProvider";
+import { registerRootComponent } from "expo";
+import LoginProvider from "./Utils/LoginProvider";
 
-export default function App() {
+function App() {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>
@@ -30,3 +31,5 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
 });
+
+export default registerRootComponent(App);

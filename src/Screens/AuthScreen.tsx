@@ -8,7 +8,7 @@ import {
     Pressable,
     Dimensions,
 } from "react-native";
-import { signInUtil, signUpUtil, signOutUtil } from "../Utils/AuthUtil";
+import { signInUtil, signUpUtil } from "../Utils/AuthUtil";
 import GoogleLogin from "../Services/GoogleAuthService";
 import { SocialIcon, Input } from "react-native-elements";
 
@@ -18,7 +18,7 @@ var width = Dimensions.get("window").width;
 export default function AuthScren() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [create, setCreate] = useState(false);
+    const [createID, setCreateID] = useState(false);
 
     const signUp = () => {
         signUpUtil(email, password).catch((e) => {
@@ -81,7 +81,7 @@ export default function AuthScren() {
                     secureTextEntry={true}
                     passwordRules="required: upper; required: lower; minlength:6"
                 /> */}
-                {create ? (
+                {createID ? (
                     <>
                         <Pressable
                             style={styles.button}
@@ -94,7 +94,7 @@ export default function AuthScren() {
                         </Pressable>
                         <Text
                             style={styles.text}
-                            onPress={() => setCreate(false)}
+                            onPress={() => setCreateID(false)}
                         >
                             Sign In
                         </Text>
@@ -112,7 +112,7 @@ export default function AuthScren() {
                         </Pressable>
                         <Text
                             style={styles.text}
-                            onPress={() => setCreate(true)}
+                            onPress={() => setCreateID(true)}
                         >
                             Create an account
                         </Text>

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Dimensions} from "react-native";
 import PagerView from "react-native-pager-view";
 import Setting1Intro from "../Components/InitSetting/Setting1Intro";
 import Setting2WakeUpTime from "../Components/InitSetting/Setting2WakeUpTime";
