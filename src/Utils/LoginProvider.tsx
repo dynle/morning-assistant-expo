@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { authService, dbService } from "../fbase";
+import Loading from "../Components/Common/LoadingComponent";
+import { authService, dbService, UserType } from "../fbase";
 import AuthScreen from "../Screens/AuthScreen";
 import HomeScreen from "../Screens/HomeScreen";
 import InitSettingScreen from "../Screens/InitSettingScreen";
-import checkDBUtil from "./CheckDBUtil";
+import CheckDBUtil from "./CheckDBUtil";
 
 export default function LoginProvider() {
     // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState<boolean>(true);
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<UserType | null>(null);
     const [isNewUser, setIsNewUser] = useState<boolean | null>(null);
 
     function handlerIsNewUser(state: boolean) {
@@ -16,10 +17,10 @@ export default function LoginProvider() {
     }
 
     // Handle user state changes
-    function onAuthStateChanged(user: any) {
+    function onAuthStateChanged(user: UserType | null) {
         setUser(user);
         if (user) {
-            checkDBUtil(user.uid, handlerIsNewUser);
+            CheckDBUtil(user, handlerIsNewUser);
             console.log("Current User Uid: ", user.uid);
         }
         if (initializing) setInitializing(false);
@@ -36,7 +37,9 @@ export default function LoginProvider() {
         return <AuthScreen></AuthScreen>;
     } else {
         return (
-            <>{isNewUser ? <InitSettingScreen /> : <HomeScreen />}</>
+            // TODO: useState의 initial value로 render되는 것 고쳐야 함
+            // <>{isNewUser ? <InitSettingScreen /> : <HomeScreen user={user} />}</>
+            <InitSettingScreen/>
         );
     }
 }

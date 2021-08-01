@@ -2,10 +2,12 @@ import firebase from "firebase/app";
 
 // Optionally import the services that you want to use
 import "firebase/auth";
+import {User} from '@firebase/auth-types'
 //import "firebase/database";
 import "firebase/firestore";
 //import "firebase/functions";
 //import "firebase/storage";
+
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -26,5 +28,6 @@ if (!firebase.apps.length) {
 
 export const firebaseInstance = firebase;
 export const authService = firebase.auth();
+export type UserType = User;
 export const dbService = firebase.firestore();
 

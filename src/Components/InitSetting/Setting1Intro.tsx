@@ -6,7 +6,7 @@ import { Icon } from "react-native-elements/dist/icons/Icon";
 
 export default function Setting1Intro() {
     return (
-        // FIXME: fade in effect를 주면 좋음
+        // IDEA: fade in effect를 주면 좋음
         <View style={styles.container}>
             <View style={styles.containerTop}>
                 <TextStroke stroke={1} color={"black"}>
@@ -18,7 +18,7 @@ export default function Setting1Intro() {
                     <Text style={styles.containerText}>당신의 하루를</Text>
                     <Text style={styles.containerText}>이야기 해주세요</Text>
                 </TextStroke>
-                {/* FIXME: 슬라이드 애니메이션 추가하면 좋을 듯 */}
+                {/* IDEA: 슬라이드 아이콘에 애니메이션 추가하면 좋을 듯 */}
                 <View style={styles.swipeIcon}>
                     <Icon
                         type="material-community"

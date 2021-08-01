@@ -1,5 +1,4 @@
 import {authService, dbService} from '../fbase'
-import { CreateDBUtil } from './CreateDBUtil';
 
 export const signInUtil = async (email: string,password: string) => {
     return await authService.signInWithEmailAndPassword(email,password);

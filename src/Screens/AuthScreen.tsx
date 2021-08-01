@@ -33,6 +33,7 @@ export default function AuthScren() {
         });
     };
 
+    // IDEA: fade in effect 추가
     return (
         <View style={styles.container}>
             <View style={styles.containerTop}>

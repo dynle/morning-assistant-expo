@@ -1,7 +1,6 @@
 // import Constants from 'expo-constants'; //So we can read app.json extra
 import * as Google from "expo-google-app-auth"; //google auth libraries
 import { authService, dbService, firebaseInstance } from "../fbase";
-import { CreateDBUtil } from "../Utils/CreateDBUtil";
 // import { Platform } from "react-native";
 
 // export const isAndroid = () => Platform.OS === "android";

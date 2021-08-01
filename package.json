@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "3.5.2",
     "expo": "~42.0.1",
     "expo-google-app-auth": "^8.2.2",
     "expo-google-sign-in": "~9.2.1",
