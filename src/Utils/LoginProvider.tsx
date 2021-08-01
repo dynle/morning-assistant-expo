@@ -38,8 +38,8 @@ export default function LoginProvider() {
     } else {
         return (
             // TODO: useState의 initial value로 render되는 것 고쳐야 함
-            // <>{isNewUser ? <InitSettingScreen /> : <HomeScreen user={user} />}</>
-            <InitSettingScreen/>
+            <>{isNewUser ? <InitSettingScreen /> : <HomeScreen user={user} />}</>
+            // <InitSettingScreen/>
         );
     }
 }

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     StyleSheet,
@@ -11,8 +11,21 @@ import {
 } from "react-native";
 import { registerRootComponent } from "expo";
 import LoginProvider from "./Utils/LoginProvider";
+import * as SplashScreen from "expo-splash-screen";
+
+function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function delay_splash() {
+    await SplashScreen.preventAutoHideAsync();
+    await sleep(3000);
+    await SplashScreen.hideAsync();
+}
 
 function App() {
+    delay_splash();
+    // IDEA: fade out으로 자연스럽게 넘어가도록
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <View style={styles.container}>

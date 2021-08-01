@@ -4,6 +4,7 @@ import { Button } from "react-native-elements";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 
+// TODO: 지정한 시간 값을 백엔드에 임시 저장한 다음 맨 뒤에 설정 완료 버튼 누르면 FB에 저장
 export default function Setting2WakeUpTime() {
     const [date, setDate] = useState(new Date());
 
@@ -15,10 +16,14 @@ export default function Setting2WakeUpTime() {
     return (
         <View style={styles.container}>
             <View style={styles.containerTop}>
-                <Text style={styles.containerTopText}>당신은 언제 아침을{"\n"}맞이 하나요?</Text>
+                <Text style={styles.containerTopText}>
+                    당신은 언제 아침을{"\n"}맞이 하나요?
+                </Text>
             </View>
             <View style={{ alignSelf: "stretch", flex: 1 }}>
-                <Text style={styles.timeText}>- { moment(date).format("LT") } -</Text>
+                <Text style={styles.timeText}>
+                    - {moment(date).format("LT")} -
+                </Text>
                 <RNDateTimePicker
                     value={date}
                     mode={"time"}
@@ -44,15 +49,15 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    containerTopText:{
+    containerTopText: {
         fontSize: 40,
-        color: '#C6BF9F',
-        textAlign: 'center',
-        lineHeight:70
+        color: "#C6BF9F",
+        textAlign: "center",
+        lineHeight: 70,
     },
-    timeText:{
+    timeText: {
         fontSize: 40,
-        color: '#C6BF9F',
-        textAlign:'center'
-    }
+        color: "#C6BF9F",
+        textAlign: "center",
+    },
 });
