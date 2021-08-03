@@ -4,7 +4,7 @@ import { Button } from "react-native-elements";
 import { TextStroke } from "../../Styles/TextStroke";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 
-export default function Setting1Intro() {
+export default function Setting2Intro() {
     return (
         // IDEA: fade in effect를 주면 좋음
         <View style={styles.container}>

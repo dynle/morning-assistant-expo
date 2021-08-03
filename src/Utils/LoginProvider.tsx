@@ -33,13 +33,15 @@ export default function LoginProvider() {
 
     if (initializing) return null;
 
-    if (!user) {
-        return <AuthScreen></AuthScreen>;
-    } else {
-        return (
-            // TODO: useState의 initial value로 render되는 것 고쳐야 함
-            <>{isNewUser ? <InitSettingScreen /> : <HomeScreen user={user} />}</>
-            // <InitSettingScreen/>
-        );
-    }
+    return <InitSettingScreen></InitSettingScreen>
+
+    // if (!user) {
+    //     return <AuthScreen></AuthScreen>;
+    // } else {
+    //     return (
+    //         // TODO: useState의 initial value로 render되는 것 고쳐야 함
+    //         <>{isNewUser ? <InitSettingScreen /> : <HomeScreen user={user} />}</>
+    //         // <InitSettingScreen/>
+    //     );
+    // }
 }
