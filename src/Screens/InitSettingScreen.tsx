@@ -27,16 +27,16 @@ export default function InitSettingScreen() {
                     <Setting3WakeUpTime />
                 </View>
                 <View style={styles.page} key="4">
-                    <Setting4SlideSet/>
+                    <Setting4SlideSet />
                 </View>
                 <View style={styles.page} key="5">
-                    <Setting5Customizing/>
+                    <Setting5Customizing />
                 </View>
                 <View style={styles.page} key="6">
-                    <Setting6AlarmSet/>
+                    <Setting6AlarmSet />
                 </View>
                 <View style={styles.page} key="7">
-                    <Setting7Completion/>
+                    <Setting7Completion />
                 </View>
             </PagerView>
         </View>

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
-import { Button } from "react-native-elements";
-import { signOutUtil } from "../../Utils/AuthUtil";
 
 export default function Setting5Customizing() {
     return (

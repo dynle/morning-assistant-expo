@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Dimensions} from "react-native";
 import { Button } from "react-native-elements";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
@@ -15,25 +15,33 @@ export default function Setting3WakeUpTime() {
     };
     return (
         <View style={styles.container}>
-            <View style={styles.containerTop}>
-                <Text style={styles.containerTopText}>
-                    당신은 언제 아침을{"\n"}맞이 하나요?
-                </Text>
+            <View style={styles.containerTitle}>
+                <View style={styles.containerTop}>
+                    <Text style={styles.containerTopText}>
+                        당신은 언제 아침을{"\n"}맞이 하나요?
+                    </Text>
+                </View>
             </View>
-            <View>
-                <Text style={{ color: "white", fontSize: 50 }}>시계 자리</Text>
-            </View>
-            <View style={{ alignSelf: "stretch", flex: 1 }}>
-                <Text style={styles.timeText}>
-                    - {moment(date).format("LT")} -
-                </Text>
-                <RNDateTimePicker
-                    value={date}
-                    mode={"time"}
-                    display="spinner"
-                    onChange={onChange}
-                    minuteInterval={5}
-                />
+
+            <View style={styles.containerRemainer}>
+                <View style={styles.containerClock}>
+                    <Text style={{ color: "white", fontSize: 50 }}>
+                        시계 자리
+                    </Text>
+                </View>
+                <View style={styles.containerTimePicker}>
+                    <RNDateTimePicker
+                        value={date}
+                        mode={"time"}
+                        display="spinner"
+                        onChange={onChange}
+                        minuteInterval={5}
+                    />
+                    <Text style={styles.timeText}>
+                        - {moment(date).format("LT")} -
+                    </Text>
+                    <Button title="저장"></Button>
+                </View>
             </View>
         </View>
     );
@@ -47,20 +55,35 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    containerTitle: {
+        flex: 1,
+    },
+    containerRemainer: {
+        flex: 2,
+    },
     containerTop: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
     containerTopText: {
-        fontSize: 40,
+        fontSize: 35,
         color: "#C6BF9F",
         textAlign: "center",
         lineHeight: 70,
     },
     timeText: {
-        fontSize: 40,
+        fontSize: 35,
         color: "#C6BF9F",
         textAlign: "center",
+    },
+    containerClock: {
+        flex: 1,
+        justifyContent: "flex-start",
+        // justifyContent:'flex-end',
+    },
+    containerTimePicker: {
+        flex: 1.8,
+        // alignSelf: "stretch",
     },
 });
