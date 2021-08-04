@@ -10,6 +10,7 @@ import {
 import { Button } from "react-native-elements";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
+import Setting3Clock from "./Setting3Clock";
 
 // Dummy data
 const DATA = [
@@ -46,14 +47,20 @@ const DATA = [
 // TODO: 지정한 시간 값을 백엔드에 임시 저장한 다음 맨 뒤에 설정 완료 버튼 누르면 FB에 저장
 export default function Setting3WakeUpTime() {
     const [date, setDate] = useState(new Date());
+    const [hour, setHour] = useState<number>(0);
+    const [minutes, setMinutes] = useState<number>(0);
     const [currDayOfWeek, setCurrDayOfWeek] = useState("");
 
     const width = Dimensions.get("window").width;
+    let clock_height = 200;
+    let clock_width = 200;
 
     const onChange = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
         console.log("changed time: ", moment(currentDate).format("LT"));
+        setHour(Number(moment(currentDate).format("h")));
+        setMinutes(Number(moment(currentDate).format("mm")));
     };
 
     let refContainer = useRef<any>();
@@ -71,21 +78,21 @@ export default function Setting3WakeUpTime() {
                 <View style={styles.containerClock}>
                     <FlatList
                         data={DATA}
-                        // contentContainerStyle={{
-                        //     paddingHorizontal:
-                        //         width / 2 - 100,
-                        // }}
+                        // automaticallyAdjustContentInsets={false}
+                        contentContainerStyle={{
+                            paddingHorizontal: width / 2 - 100,
+                        }}
                         keyExtractor={(item) => item.key.toString()}
                         ref={refContainer}
                         horizontal={true}
                         showsHorizontalScrollIndicator={false}
                         initialScrollIndex={0}
-                        getItemLayout={(data, index) =>
-                            // Max 5 items visibles at once
-                            // {length: Dimensions.get('window').width / 2, offset: Dimensions.get('window').width / 2* index, index}
-                            ({ length: 200, offset: 250 * index, index })
-                        }
-                        snapToAlignment={"center"}
+                        getItemLayout={(data, index) => ({
+                            length: 200,
+                            offset: 250 * index,
+                            index,
+                        })}
+                        snapToAlignment={"start"}
                         // snapToInterval={200 + 50}
                         renderItem={({ item }) => (
                             <TouchableOpacity
@@ -94,23 +101,26 @@ export default function Setting3WakeUpTime() {
                                     refContainer.current!.scrollToIndex({
                                         index: item.key,
                                         animated: true,
-                                        viewPosition: 0.5,
+                                        viewPosition: 0,
                                     });
                                 }}
                             >
                                 <View
                                     style={{
-                                        height: 200,
-                                        width: 200,
+                                        height: clock_height,
+                                        width: clock_width,
                                         backgroundColor: "#C4C4C4",
-                                        borderRadius: 100,
+                                        borderRadius: clock_height / 2,
                                         marginRight: 50,
                                         justifyContent: "center",
                                     }}
                                 >
-                                    <Text style={{ textAlign: "center" }}>
-                                        {item.title}
-                                    </Text>
+                                    <Setting3Clock
+                                        width={clock_width}
+                                        height={clock_width}
+                                        hour={hour}
+                                        minutes={minutes}
+                                    ></Setting3Clock>
                                 </View>
                             </TouchableOpacity>
                         )}
@@ -136,10 +146,12 @@ export default function Setting3WakeUpTime() {
                     <Text style={styles.timeText}>
                         - {moment(date).format("LT")} -
                     </Text>
-                    <Button
-                        title="저장"
-                        style={{ alignItems: "center" }}
-                    ></Button>
+                    {currDayOfWeek == "SUN" && (
+                        <Button
+                            title="저장"
+                            style={{ alignItems: "center" }}
+                        ></Button>
+                    )}
                 </View>
             </View>
         </View>
@@ -179,11 +191,13 @@ const styles = StyleSheet.create({
     },
     containerClock: {
         flex: 1,
-        justifyContent: "flex-start",
+        // justifyContent: "center",
         // alignItems:'center',
     },
     containerTimePicker: {
         flex: 1.6,
         // alignSelf: "stretch",
     },
+    hour_hand: {},
+    min_hand: {},
 });
