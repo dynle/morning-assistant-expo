@@ -33,7 +33,7 @@ export default function Clock(props: { width: number; height: number, hour:numbe
                 angle={_minutes}
                 center={center}
                 radius={radius}
-                stroke="black"
+                stroke="#78BBDB"
                 strokeWidth="5"
                 length={10}
             />

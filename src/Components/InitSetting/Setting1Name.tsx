@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Dimensions, TextInput } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { signOutUtil } from "../../Utils/AuthUtil";
 
-export default function Setting1Name() {
+export default function Setting1Name(props:{pageMoveHandler:(pageNumber:number)=>void}) {
     const [name, setName] = useState("");
     const [hasInput, setHasInput] = useState(false);
     return (
@@ -41,6 +41,7 @@ export default function Setting1Name() {
                             console.log({ name });
                             if (name) {
                                 setHasInput(true);
+                                props.pageMoveHandler(1);
                             } else {
                                 alert("이름을 입력하세요");
                             }
