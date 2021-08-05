@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { Dimensions,ActivityIndicator, StyleSheet, Text, View, Image } from "react-native";
 
 export default function Loading() {
     return (
@@ -7,9 +7,14 @@ export default function Loading() {
             {/* <StatusBar barStyle="dark-content"></StatusBar> */}
             {/* <Text style={styles.text}></Text> */}
             <View>
+                {/* <Image
+                    source={require("../../../assets/adaptive-icon.png")}
+                    style={{width:100,height:100}}
+                ></Image> */}
                 <ActivityIndicator
-                    color="#000"
+                    color="white"
                     size="large"
+                    // style={{position:'absolute'}}
                 ></ActivityIndicator>
             </View>
         </View>
@@ -19,11 +24,13 @@ export default function Loading() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems:'center'
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor:"#222323",
+        width:Dimensions.get("window").width
     },
     // text: {
-    //     color: "#2c2c2c",
+    //     color: "white",
     //     fontSize: 30,
     // },
 });
