@@ -32,7 +32,6 @@ export default function Setting1Name(props:{pageMoveHandler:(pageNumber:number)=
                         )}
                     </Text>
                 </View>
-                {/* TODO: 완료 누르면 자동으로 옆으로 넘어가게 */}
                 <View style={{ flexDirection: "row" }}>
                     <Button
                         title="완료"

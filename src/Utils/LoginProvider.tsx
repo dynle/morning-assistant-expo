@@ -10,7 +10,7 @@ export default function LoginProvider() {
     // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState<boolean>(true);
     const [user, setUser] = useState<UserType | null>(null);
-    const [isNewUser, setIsNewUser] = useState<boolean | null>(null);
+    const [isNewUser, setIsNewUser] = useState<boolean | undefined>(undefined);
 
     function handlerIsNewUser(state: boolean) {
         setIsNewUser(state);
@@ -28,20 +28,25 @@ export default function LoginProvider() {
 
     useEffect(() => {
         const subscriber = authService.onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
+        // setIsNewUser((prev)=>!prev)
+        return subscriber // unsubscribe on unmount
     }, []);
 
     if (initializing) return null;
 
-    return <InitSettingScreen></InitSettingScreen>
+    // return <InitSettingScreen></InitSettingScreen>
 
-    // if (!user) {
-    //     return <AuthScreen></AuthScreen>;
-    // } else {
-    //     return (
-    //         // TODO: useState의 initial value로 render되는 것 고쳐야 함
-    //         <>{isNewUser ? <InitSettingScreen /> : <HomeScreen user={user} />}</>
-    //         // <InitSettingScreen/>
-    //     );
-    // }
+    if (!user) {
+        return <AuthScreen></AuthScreen>;
+    } else {
+        // if (isNewUser == undefined) return <Loading></Loading>;
+        // else if (isNewUser == true)
+        //     return <InitSettingScreen></InitSettingScreen>;
+        // else return <HomeScreen user={user}></HomeScreen>;
+        return (
+            // TODO: useState의 initial value로 render되는 것 고쳐야 함
+            <>{isNewUser ? <InitSettingScreen /> : <HomeScreen user={user} />}</>
+            // <InitSettingScreen/>
+        );
+    }
 }
