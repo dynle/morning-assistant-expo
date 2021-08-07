@@ -15,7 +15,7 @@ export default function Setting2Intro() {
             </View>
             <View style={styles.containerBottom}>
                 <TextStroke stroke={1} color={"black"}>
-                    <Text style={styles.containerText}>당신의 하루를</Text>
+                    <Text style={styles.containerText}>당신의 시작을</Text>
                     <Text style={styles.containerText}>이야기 해주세요</Text>
                 </TextStroke>
                 {/* IDEA: 슬라이드 아이콘에 애니메이션 추가하면 좋을 듯 */}

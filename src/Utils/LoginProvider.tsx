@@ -11,7 +11,7 @@ export default function LoginProvider() {
     const [initializing, setInitializing] = useState<boolean>(true);
     const [user, setUser] = useState<UserType | null>(null);
     const [isNewUser, setIsNewUser] = useState<boolean | null>(null);
-    console.log("isNewUser? ",isNewUser)
+    console.log("isNewUser? ", isNewUser);
 
     function handlerIsNewUser(state: boolean) {
         setIsNewUser(state);
@@ -19,8 +19,8 @@ export default function LoginProvider() {
 
     // Handle user state changes
     function onAuthStateChanged(user: UserType | null) {
-        setUser(user);
         setIsNewUser(null);
+        setUser(user);
         if (user) {
             CheckDBUtil(user, handlerIsNewUser);
             console.log("Current User Uid: ", user.uid);
@@ -30,20 +30,20 @@ export default function LoginProvider() {
 
     useEffect(() => {
         const subscriber = authService.onAuthStateChanged(onAuthStateChanged);
-        return subscriber // unsubscribe on unmount
+        return subscriber; // unsubscribe on unmount
     }, []);
 
     if (initializing) return null;
 
-    // return <InitSettingScreen></InitSettingScreen>
+    return <InitSettingScreen></InitSettingScreen>
 
-    if (!user) {
-        return <AuthScreen></AuthScreen>;
-    } else {
-        // return <Loading></Loading>
-        if (isNewUser == null) return <Loading></Loading>;
-        else if (isNewUser == true)
-            return <InitSettingScreen></InitSettingScreen>;
-        else return <HomeScreen user={user}></HomeScreen>;
-    }
+    // if (!user) {
+    //     return <AuthScreen></AuthScreen>;
+    // } else {
+    //     // return <Loading></Loading>
+    //     if (isNewUser == null) return <Loading></Loading>;
+    //     else if (isNewUser == true)
+    //         return <InitSettingScreen></InitSettingScreen>;
+    //     else return <HomeScreen user={user}></HomeScreen>;
+    // }
 }

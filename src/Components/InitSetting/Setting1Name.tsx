@@ -3,9 +3,12 @@ import { StyleSheet, View, Text, Dimensions, TextInput } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { signOutUtil } from "../../Utils/AuthUtil";
 
-export default function Setting1Name(props:{pageMoveHandler:(pageNumber:number)=>void}) {
+export default function Setting1Name(props: {
+    pageMoveHandler: (pageNumber: number) => void;
+}) {
     const [name, setName] = useState("");
     const [hasInput, setHasInput] = useState(false);
+    const [isUniqueUserName, setIsUniqueUserName] = useState(false);
     return (
         <View style={styles.container}>
             <View style={styles.containerTop}>
@@ -27,7 +30,11 @@ export default function Setting1Name(props:{pageMoveHandler:(pageNumber:number)=
                                 title="중복확인"
                                 type="outline"
                                 // TODO: 중복확인버튼에서 return값이 true면 완료를 누를 수 있게, 아니면 alert
-                                onPress={() => console.log("중복 확인 버튼")}
+                                onPress={() => {
+                                    // FIXME: DB에서 확인하고 true 값으로 바뀌게 처리
+                                    setIsUniqueUserName(true);
+                                    console.log("중복 확인 버튼");
+                                }}
                             ></Button>
                         )}
                     </Text>
@@ -38,11 +45,13 @@ export default function Setting1Name(props:{pageMoveHandler:(pageNumber:number)=
                         // type="outline"
                         onPress={() => {
                             console.log({ name });
-                            if (name) {
+                            if (name && isUniqueUserName) {
                                 setHasInput(true);
                                 props.pageMoveHandler(1);
+                            } else if (name && !isUniqueUserName) {
+                                alert("이름 중복 확인을 눌러주세요.");
                             } else {
-                                alert("이름을 입력하세요");
+                                alert("이름을 입력하세요.");
                             }
                         }}
                     ></Button>
@@ -52,6 +61,7 @@ export default function Setting1Name(props:{pageMoveHandler:(pageNumber:number)=
                         onPress={() => {
                             setName("");
                             setHasInput(false);
+                            setIsUniqueUserName(false);
                         }}
                     ></Button>
                 </View>
