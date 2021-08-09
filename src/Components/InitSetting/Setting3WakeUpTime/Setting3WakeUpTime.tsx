@@ -11,6 +11,7 @@ import { Button, ThemeProvider } from "react-native-elements";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import Setting3Clock from "./Setting3Clock";
+import { Divider } from "react-native-elements/dist/divider/Divider";
 
 // Dummy data
 const DATA = [
@@ -45,7 +46,9 @@ const DATA = [
 ];
 
 // TODO: 지정한 시간 값을 백엔드에 임시 저장한 다음 맨 뒤에 설정 완료 버튼 누르면 FB에 저장
-export default function Setting3WakeUpTime(props:{pageMoveHandler:(pageNumber:number)=>void}) {
+export default function Setting3WakeUpTime(props: {
+    pageMoveHandler: (pageNumber: number) => void;
+}) {
     const [date, setDate] = useState(new Date());
     // TODO: 초반 값을 0으로 설정하고 다음 시계 클릭하면 백엔드에 저장하도록, 마지막은 저장 버튼으로?
     const [hour, setHour] = useState<number>(0);
@@ -111,7 +114,7 @@ export default function Setting3WakeUpTime(props:{pageMoveHandler:(pageNumber:nu
                                     style={{
                                         height: clock_height,
                                         width: clock_width,
-                                        backgroundColor: "#C4C4C4",
+                                        backgroundColor: "#BEBEBE",
                                         borderRadius: clock_height / 2,
                                         marginRight: 50,
                                         justifyContent: "center",
@@ -150,17 +153,53 @@ export default function Setting3WakeUpTime(props:{pageMoveHandler:(pageNumber:nu
                     <Text style={styles.timeText}>
                         - {moment(date).format("LT")} -
                     </Text>
-                    {currDayOfWeek == "SUN" && (
-                        <ThemeProvider theme={{Button:{titleStyle:{color:"black"}}}}>
+
+                    {currDayOfWeek == "SUN" ? (
+                        <ThemeProvider
+                            theme={{
+                                Button: { titleStyle: { color: "black" } },
+                            }}
+                        >
                             <Button
                                 title="저장"
+                                titleStyle={{ color: "black" }}
+                                buttonStyle={{
+                                    minWidth: "25%",
+                                    borderRadius: 20,
+                                    backgroundColor: "#F3EDE1",
+                                }}
                                 style={{ alignItems: "center" }}
-                                buttonStyle={{ backgroundColor: "#C4C4C4" }}
-                                onPress={()=>{
+                                onPress={() => {
                                     props.pageMoveHandler(3);
                                 }}
                             ></Button>
                         </ThemeProvider>
+                    ) : (
+                        <>
+                            <Divider
+                                width={3}
+                                color="#C6BF9F"
+                                style={{
+                                    width: "60%",
+                                    alignSelf: "center",
+                                    marginBottom: 10,
+                                }}
+                            />
+                            <Divider
+                                width={3}
+                                color="#C6BF9F"
+                                style={{
+                                    width: "50%",
+                                    alignSelf: "center",
+                                    marginBottom: 10,
+                                }}
+                            />
+                            <Divider
+                                width={3}
+                                color="#C6BF9F"
+                                style={{ width: "40%", alignSelf: "center" }}
+                            />
+                        </>
                     )}
                 </View>
             </View>
@@ -171,7 +210,7 @@ export default function Setting3WakeUpTime(props:{pageMoveHandler:(pageNumber:nu
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#48473D",
+        backgroundColor: "#49473D",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",
@@ -198,6 +237,7 @@ const styles = StyleSheet.create({
         fontSize: 35,
         color: "#C6BF9F",
         textAlign: "center",
+        marginBottom: 10,
     },
     containerClock: {
         flex: 1,

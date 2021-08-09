@@ -4,7 +4,7 @@ import { Button } from "react-native-elements";
 import HomeScreen from "../../Screens/HomeScreen";
 import { signOutUtil } from "../../Utils/AuthUtil";
 
-export default function Setting7Completion() {
+export default function Setting6Completion() {
     return (
         <View style={styles.container}>
             <View style={styles.containerTop}>
@@ -16,6 +16,12 @@ export default function Setting7Completion() {
                 {/* TODO: 설정들을 FB에 올리는 버튼 */}
                 <Button
                     title="확인"
+                    titleStyle={{ color: "black" }}
+                    buttonStyle={{
+                        minWidth: "25%",
+                        borderRadius: 20,
+                        backgroundColor: "#F3EDE1",
+                    }}
                     onPress={() => {
                         console.log("셋팅 확인");
                         // TODO: User object를 useContext에 저장해서 HomeScreen에 주는 방법
@@ -31,7 +37,7 @@ export default function Setting7Completion() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#DC7E47",
+        backgroundColor: "#FFF4DF",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",

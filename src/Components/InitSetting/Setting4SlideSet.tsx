@@ -47,7 +47,7 @@ export default function Setting4SlideSet() {
 
             <View style={styles.containerTitle}>
                 <View style={styles.containerTop}>
-                    <Text style={styles.containerTopText}>아침 슬라이드</Text>
+                    <Text style={styles.containerTopText}>슬라이드</Text>
                     <Icon
                         type="font-awesome-5"
                         name="question-circle"
@@ -77,7 +77,7 @@ export default function Setting4SlideSet() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#CBCBC5",
+        backgroundColor: "#D4C8BB",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",

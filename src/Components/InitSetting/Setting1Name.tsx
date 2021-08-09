@@ -13,23 +13,30 @@ export default function Setting1Name(props: {
         <View style={styles.container}>
             <View style={styles.containerTop}>
                 <Text style={styles.containerText}>
-                    이름을{"\n"}입력해 주세요
+                    <Text style={{ fontSize: 60, letterSpacing: 2 }}>
+                        반갑습니다!{"\n"}
+                    </Text>
+                    {"\n"}이름(닉네임)을{"\n"}알려주세요
                 </Text>
+            </View>
+
+            <View style={styles.containerMiddle}>
                 <TextInput
-                    placeholder="Name"
+                    placeholder="이름"
                     placeholderTextColor="#C6BF9F"
                     onChangeText={setName}
                     value={name}
                     style={styles.textInput}
                     autoCapitalize="none"
                 />
-                <View style={{ flex: 0.15, justifyContent: "flex-start" }}>
+                <View style={{ minHeight:38 }}>
                     <Text>
                         {name && (
                             <Button
                                 title="중복확인"
+                                titleStyle={{ color: "red" }}
                                 type="outline"
-                                // TODO: 중복확인버튼에서 return값이 true면 완료를 누를 수 있게, 아니면 alert
+                                buttonStyle={{ borderColor: "red" }}
                                 onPress={() => {
                                     // FIXME: DB에서 확인하고 true 값으로 바뀌게 처리
                                     setIsUniqueUserName(true);
@@ -39,10 +46,29 @@ export default function Setting1Name(props: {
                         )}
                     </Text>
                 </View>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row"}}>
                     <Button
-                        title="완료"
-                        // type="outline"
+                        title="삭제"
+                        titleStyle={{ color: "black" }}
+                        buttonStyle={{
+                            minWidth: "25%",
+                            borderRadius: 20,
+                            backgroundColor: "#F3EDE1",
+                        }}
+                        onPress={() => {
+                            setName("");
+                            setHasInput(false);
+                            setIsUniqueUserName(false);
+                        }}
+                    ></Button>
+                    <Button
+                        title="확인"
+                        titleStyle={{ color: "black" }}
+                        buttonStyle={{
+                            minWidth: "25%",
+                            borderRadius: 20,
+                            backgroundColor: "#F3EDE1",
+                        }}
                         onPress={() => {
                             console.log({ name });
                             if (name && isUniqueUserName) {
@@ -53,15 +79,6 @@ export default function Setting1Name(props: {
                             } else {
                                 alert("이름을 입력하세요.");
                             }
-                        }}
-                    ></Button>
-                    <Button
-                        title="삭제"
-                        // type="outline"
-                        onPress={() => {
-                            setName("");
-                            setHasInput(false);
-                            setIsUniqueUserName(false);
                         }}
                     ></Button>
                 </View>
@@ -85,7 +102,7 @@ export default function Setting1Name(props: {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#222323",
+        backgroundColor: "#222222",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",
@@ -95,26 +112,34 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: "center",
     },
+    containerMiddle: {
+        flex: 1,
+        justifyContent: "flex-end",
+        alignItems: "center",
+    },
     containerBottom: {
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        paddingTop: 100,
+        paddingTop: "20%",
     },
     containerText: {
         color: "#C6BF9F",
         fontSize: 40,
         // fontWeight: "bold",
         textAlign: "center",
+        lineHeight: 60,
     },
     textInput: {
-        borderWidth: 1,
-        borderColor: "#C6BF9F",
+        borderBottomWidth: 1,
+        borderBottomColor: "#C6BF9F",
         padding: 10,
         marginTop: 50,
         marginBottom: 30,
         borderRadius: 5,
         color: "#C6BF9F",
         minWidth: "60%",
+        textAlign: "center",
+        fontSize: 30,
     },
 });

@@ -8,9 +8,8 @@ import Setting1Name from "../Components/InitSetting/Setting1Name";
 import Setting2Intro from "../Components/InitSetting/Setting2Intro";
 import Setting3WakeUpTime from "../Components/InitSetting/Setting3WakeUpTime/Setting3WakeUpTime";
 import Setting4SlideSet from "../Components/InitSetting/Setting4SlideSet";
-import Setting5Customizing from "../Components/InitSetting/Setting5Customizing";
-import Setting6AlarmSet from "../Components/InitSetting/Setting6AlarmSet";
-import Setting7Completion from "../Components/InitSetting/Setting7Completion";
+import Setting5ConfirmSlide from "../Components/InitSetting/Setting5ConfirmSlide";
+import Setting6Completion from "../Components/InitSetting/Setting6Completion";
 
 export default function InitSettingScreen() {
     let pagerview = useRef<any>();
@@ -37,13 +36,10 @@ export default function InitSettingScreen() {
                     <Setting4SlideSet />
                 </View>
                 <View style={styles.page} key="5">
-                    <Setting5Customizing />
+                    <Setting5ConfirmSlide />
                 </View>
                 <View style={styles.page} key="6">
-                    <Setting6AlarmSet />
-                </View>
-                <View style={styles.page} key="7">
-                    <Setting7Completion />
+                    <Setting6Completion />
                 </View>
             </PagerView>
         </View>

@@ -36,7 +36,7 @@ export default function Setting2Intro() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#222323",
+        backgroundColor: "#353535",
         width: Dimensions.get("window").width,
         // justifyContent: "center",
         // alignItems: "center",
