@@ -16,7 +16,7 @@ export default function Setting1Name(props: {
                     <Text style={{ fontSize: 60, letterSpacing: 2 }}>
                         반갑습니다!{"\n"}
                     </Text>
-                    {"\n"}이름(닉네임)을{"\n"}알려주세요
+                    {"\n"}닉네임을{"\n"}알려주세요
                 </Text>
             </View>
 
@@ -29,7 +29,7 @@ export default function Setting1Name(props: {
                     style={styles.textInput}
                     autoCapitalize="none"
                 />
-                <View style={{ minHeight:38 }}>
+                {/* <View style={{ minHeight:38 }}>
                     <Text>
                         {name && (
                             <Button
@@ -45,22 +45,9 @@ export default function Setting1Name(props: {
                             ></Button>
                         )}
                     </Text>
-                </View>
+                </View> */}
                 <View style={{ flexDirection: "row"}}>
-                    <Button
-                        title="삭제"
-                        titleStyle={{ color: "black" }}
-                        buttonStyle={{
-                            minWidth: "25%",
-                            borderRadius: 20,
-                            backgroundColor: "#F3EDE1",
-                        }}
-                        onPress={() => {
-                            setName("");
-                            setHasInput(false);
-                            setIsUniqueUserName(false);
-                        }}
-                    ></Button>
+                    {/* TODO: 확인 버튼으로 중복확인까지 할 수 있게 */}
                     <Button
                         title="확인"
                         titleStyle={{ color: "black" }}

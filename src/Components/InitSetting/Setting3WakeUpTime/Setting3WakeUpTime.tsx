@@ -154,7 +154,7 @@ export default function Setting3WakeUpTime(props: {
                         - {moment(date).format("LT")} -
                     </Text>
 
-                    {currDayOfWeek == "SUN" ? (
+                    {currDayOfWeek == "SUN" && (
                         <ThemeProvider
                             theme={{
                                 Button: { titleStyle: { color: "black" } },
@@ -174,32 +174,6 @@ export default function Setting3WakeUpTime(props: {
                                 }}
                             ></Button>
                         </ThemeProvider>
-                    ) : (
-                        <>
-                            <Divider
-                                width={3}
-                                color="#C6BF9F"
-                                style={{
-                                    width: "60%",
-                                    alignSelf: "center",
-                                    marginBottom: 10,
-                                }}
-                            />
-                            <Divider
-                                width={3}
-                                color="#C6BF9F"
-                                style={{
-                                    width: "50%",
-                                    alignSelf: "center",
-                                    marginBottom: 10,
-                                }}
-                            />
-                            <Divider
-                                width={3}
-                                color="#C6BF9F"
-                                style={{ width: "40%", alignSelf: "center" }}
-                            />
-                        </>
                     )}
                 </View>
             </View>

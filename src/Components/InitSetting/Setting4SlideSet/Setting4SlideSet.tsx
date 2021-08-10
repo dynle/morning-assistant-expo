@@ -9,7 +9,8 @@ import {
     TouchableHighlight,
 } from "react-native";
 import { Button, Divider, Icon } from "react-native-elements";
-import { signOutUtil } from "../../Utils/AuthUtil";
+import { signOutUtil } from "../../../Utils/AuthUtil";
+import Chrome from "./Chrome";
 
 export default function Setting4SlideSet() {
     const [modalVisible, setModalVisible] = useState(false);
@@ -56,9 +57,11 @@ export default function Setting4SlideSet() {
                         onPress={() => setModalVisible(!modalVisible)}
                     ></Icon>
                 </View>
+                {/* <Text>클릭 시 추가 설명과 설정 창을 확인 할 수 있습니다.</Text> */}
             </View>
             <View style={styles.containerRemainer}>
-                <View style={styles.containerMiddle}>
+                <Chrome/>
+                {/* <View style={styles.containerMiddle}>
                     <Button title="Sign Out" onPress={signOutUtil}></Button>
                 </View>
                 <View style={styles.containerBottom}>
@@ -68,7 +71,7 @@ export default function Setting4SlideSet() {
                         width={2}
                         color="black"
                     ></Divider>
-                </View>
+                </View> */}
             </View>
         </View>
     );
@@ -86,7 +89,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     containerRemainer: {
-        flex: 2,
+        flex: 3.5,
+        width: Dimensions.get("window").width,
     },
     containerTop: {
         flex: 1,

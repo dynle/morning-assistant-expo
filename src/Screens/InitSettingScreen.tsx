@@ -7,7 +7,7 @@ import PagerView from "react-native-pager-view";
 import Setting1Name from "../Components/InitSetting/Setting1Name";
 import Setting2Intro from "../Components/InitSetting/Setting2Intro";
 import Setting3WakeUpTime from "../Components/InitSetting/Setting3WakeUpTime/Setting3WakeUpTime";
-import Setting4SlideSet from "../Components/InitSetting/Setting4SlideSet";
+import Setting4SlideSet from "../Components/InitSetting/Setting4SlideSet/Setting4SlideSet";
 import Setting5ConfirmSlide from "../Components/InitSetting/Setting5ConfirmSlide";
 import Setting6Completion from "../Components/InitSetting/Setting6Completion";
 
