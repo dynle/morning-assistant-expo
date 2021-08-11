@@ -10,13 +10,18 @@ import {
 } from "react-native";
 import { Button, Divider, Icon } from "react-native-elements";
 import { signOutUtil } from "../../../Utils/AuthUtil";
-import Chrome from "./Chrome";
+import DragAndDrop from "./DragAndDrop";
 
 export default function Setting4SlideSet() {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
-        <View style={[styles.container, modalVisible && {backgroundColor:'#716F6F'}]}>
+        <View
+            style={[
+                styles.container,
+                modalVisible && { backgroundColor: "#716F6F" },
+            ]}
+        >
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -53,25 +58,14 @@ export default function Setting4SlideSet() {
                         type="font-awesome-5"
                         name="question-circle"
                         color="#EC407A"
-                        style={{marginLeft:10}}
+                        style={{ marginLeft: 10 }}
                         onPress={() => setModalVisible(!modalVisible)}
                     ></Icon>
                 </View>
                 {/* <Text>클릭 시 추가 설명과 설정 창을 확인 할 수 있습니다.</Text> */}
             </View>
             <View style={styles.containerRemainer}>
-                <Chrome/>
-                {/* <View style={styles.containerMiddle}>
-                    <Button title="Sign Out" onPress={signOutUtil}></Button>
-                </View>
-                <View style={styles.containerBottom}>
-                    <Text>추가 슬라이드</Text>
-                    <Divider
-                        orientation="horizontal"
-                        width={2}
-                        color="black"
-                    ></Divider>
-                </View> */}
+                <DragAndDrop />
             </View>
         </View>
     );

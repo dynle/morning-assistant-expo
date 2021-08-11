@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.5.2",
+    "@types/react-native-snap-carousel": "^3.8.4",
     "expo": "~42.0.1",
     "expo-google-app-auth": "^8.2.2",
     "expo-google-sign-in": "~9.2.1",
@@ -24,6 +25,7 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-pager-view": "5.0.12",
     "react-native-reanimated": "~2.2.0",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.13.12",
     "remove": "^0.1.5",

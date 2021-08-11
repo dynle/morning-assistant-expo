@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
-import ViewPager from "react-native-pager-view";
 import PagerView from "react-native-pager-view";
 
 import Setting1Name from "../Components/InitSetting/Setting1Name";
