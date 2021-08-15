@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
-import { MARGIN } from "./Config";
+import { MARGIN, Positions } from "./Config";
 import Tile from "./Tile";
 import SortableList from "./SortableList";
 import { Pressable, TouchableOpacity } from "react-native";
@@ -35,7 +35,17 @@ const tiles = [
     },
 ];
 
+const temp: Positions = {
+    "알람": 0,
+    "시간": 1,
+    "인삿말": 2,
+    "날씨": 3,
+    "뉴스": 4,
+    "타인의 어제": 5,
+}
+
 const DragAndDrop = () => {
+    const [data,setData] = useState<Positions>(temp)
     return (
         <SafeAreaProvider>
             <SafeAreaView
@@ -49,14 +59,17 @@ const DragAndDrop = () => {
                 <SortableList
                     editing={true}
                     onDragEnd={(positions) =>
-                        console.log(JSON.stringify(positions, null, 2))
-                        // console.log(Object.values(positions))
+                        {setData(positions);
+                        console.log(positions)
+                        }
+                        // console.log(JSON.stringify(positions, null, 2))
+                        // console.log(positions)
                     }
                 >
                     {[...tiles].map((tile, index) => (
                         <Tile
                             key={index}
-                            idx={index}
+                            idx={data![`${tile.id}`]+1}
                             id={tile.id}
                             onLongPress={() => true}
                         />

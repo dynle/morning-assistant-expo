@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-import { MARGIN, SIZE } from "./Config";
+import { MARGIN, Positions, SIZE } from "./Config";
 
 interface TileProps {
     idx: number;
