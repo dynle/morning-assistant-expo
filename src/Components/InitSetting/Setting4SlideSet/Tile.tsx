@@ -25,6 +25,8 @@ const Tile = (props: TileProps) => {
                     onPress={() => {
                         props.handler(true, props.id);
                     }}
+                    // onLongPress={()=>console.log("long pressed")}
+                    // delayLongPress={1500}
                 >
                     <Text style={styles.title}>{props.id}</Text>
                     <Text style={styles.order}>{props.idx}</Text>

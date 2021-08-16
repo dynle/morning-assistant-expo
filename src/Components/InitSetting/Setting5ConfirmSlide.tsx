@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { StyleSheet, View, Text, Dimensions, SafeAreaView } from "react-native";
 import { Button } from "react-native-elements";
 import HomeScreen from "../../Screens/HomeScreen";
-import { signOutUtil } from "../../Utils/AuthUtil";
 import Carousel from "react-native-snap-carousel";
 import { commonStyle } from "../../Styles/CommonStyles";
 
@@ -32,12 +31,11 @@ const carouselItems = [
 export default function Setting5ConfirmSlide(props: {
     pageMoveHandler: (pageNumber: number) => void;
 }) {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
 
-    // const isCarousel = useRef(null);
-    let _carousel: Carousel<any> | null | object = {};
+    const ref = useRef(null);
 
-    const _renderItem = (props: { item: any; index: number }) => {
+    const _renderItem = useCallback((props: { item: any; index: number }) => {
         return (
             <View
                 style={{
@@ -53,7 +51,7 @@ export default function Setting5ConfirmSlide(props: {
                 <Text>{props.item.text}</Text>
             </View>
         );
-    };
+    },[])
 
     return (
         <View style={styles.container}>
@@ -78,14 +76,12 @@ export default function Setting5ConfirmSlide(props: {
                     >
                         <Carousel
                             layout={"default"}
-                            ref={(c) => {
-                                _carousel = c;
-                            }}
+                            ref={ref}
                             data={carouselItems}
                             sliderWidth={300}
                             itemWidth={300}
                             renderItem={_renderItem}
-                            onSnapToItem={(index) => setActiveIndex(index)}
+                            onSnapToItem={(index:number) => setActiveIndex(index)}
                             useScrollView={true}
                         />
                     </View>
