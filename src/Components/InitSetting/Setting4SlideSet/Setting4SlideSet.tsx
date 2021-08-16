@@ -11,9 +11,39 @@ import {
 import { Button, Divider, Icon } from "react-native-elements";
 import { signOutUtil } from "../../../Utils/AuthUtil";
 import DragAndDrop from "./DragAndDrop";
+import ModalAlarm from "./Setting4Modal/ModalAlarm";
+import ModalGreeting from "./Setting4Modal/ModalGreeting";
+import ModalNews from "./Setting4Modal/ModalNews";
+import ModalTime from "./Setting4Modal/ModalTime";
+import ModalWeather from "./Setting4Modal/ModalWeather";
+import ModalYesterday from "./Setting4Modal/ModalYesterday";
 
-export default function Setting4SlideSet() {
+export default function Setting4SlideSet(props: {
+    pageMoveHandler: (pageNumber: number) => void;
+}) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [infoModalVisible, setInfoModalVisible] = useState([false, ""]);
+
+    function modalHandler(state: boolean, condition: string) {
+        setInfoModalVisible([state, condition]);
+    }
+
+    function renderSwitch(param: boolean | string) {
+        switch (param) {
+            case "알람":
+                return <ModalAlarm handler={modalHandler} />;
+            case "시간":
+                return <ModalTime handler={modalHandler} />;
+            case "인삿말":
+                return <ModalGreeting handler={modalHandler} />;
+            case "날씨":
+                return <ModalWeather handler={modalHandler} />;
+            case "뉴스":
+                return <ModalNews handler={modalHandler} />;
+            case "타인의 어제":
+                return <ModalYesterday handler={modalHandler} />;
+        }
+    }
 
     return (
         <View
@@ -51,21 +81,29 @@ export default function Setting4SlideSet() {
                 </View>
             </Modal>
 
+            {/* Modal 설명창 띄우기 */}
+            {infoModalVisible[0] && renderSwitch(infoModalVisible[1])}
+
             <View style={styles.containerTitle}>
                 <View style={styles.containerTop}>
-                    <Text style={styles.containerTopText}>슬라이드</Text>
-                    <Icon
-                        type="font-awesome-5"
-                        name="question-circle"
-                        color="#EC407A"
-                        style={{ marginLeft: 10 }}
-                        onPress={() => setModalVisible(!modalVisible)}
-                    ></Icon>
+                    <View style={{ flexDirection: "row" }}>
+                        <Text style={styles.containerTopText}>슬라이드</Text>
+                        <Icon
+                            type="font-awesome-5"
+                            name="question-circle"
+                            color="#EC407A"
+                            style={{ marginLeft: 10 }}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        ></Icon>
+                    </View>
+                    <Text style={{ marginTop: "20%", fontSize: 15 }}>
+                        *클릭 시 추가 설명과 설정 창을 확인 할 수 있어요!
+                    </Text>
                 </View>
                 {/* <Text>클릭 시 추가 설명과 설정 창을 확인 할 수 있습니다.</Text> */}
             </View>
             <View style={styles.containerRemainer}>
-                <DragAndDrop />
+                <DragAndDrop handler={modalHandler} pageMoveHandler={props.pageMoveHandler}/>
             </View>
         </View>
     );
@@ -74,7 +112,7 @@ export default function Setting4SlideSet() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#D4C8BB",
+        backgroundColor: "#93969C",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",
@@ -88,9 +126,8 @@ const styles = StyleSheet.create({
     },
     containerTop: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-end",
         alignItems: "center",
-        flexDirection: "row",
     },
     containerTopText: {
         fontSize: 30,

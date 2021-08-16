@@ -19,6 +19,7 @@ export default function InitSettingScreen() {
 
     return (
         // TODO: 걱각의 셋팅을 바로 DB에 넣지말고 백엔드에 저장한 다음 완료 버튼 누르면 다 올라가게 = AsyncStorage
+        // TODO: 각각 화면 셋팅 끝나면 넘어가게
         <View style={styles.container}>
             <PagerView ref={pagerview} style={styles.pagerView} initialPage={0} showPageIndicator={true}>
                 <View style={styles.page} key="1">
@@ -32,10 +33,10 @@ export default function InitSettingScreen() {
                     <Setting3WakeUpTime pageMoveHandler={pageMoveHandler}/>
                 </View>
                 <View style={styles.page} key="4">
-                    <Setting4SlideSet />
+                    <Setting4SlideSet pageMoveHandler={pageMoveHandler}/>
                 </View>
                 <View style={styles.page} key="5">
-                    <Setting5ConfirmSlide />
+                    <Setting5ConfirmSlide pageMoveHandler={pageMoveHandler}/>
                 </View>
                 <View style={styles.page} key="6">
                     <Setting6Completion />

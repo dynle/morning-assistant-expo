@@ -4,7 +4,6 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { MARGIN, Positions } from "./Config";
 import Tile from "./Tile";
 import SortableList from "./SortableList";
-import { Pressable, TouchableOpacity } from "react-native";
 import { Button } from "react-native-elements";
 
 // dummy data
@@ -35,17 +34,20 @@ const tiles = [
     },
 ];
 
-const temp: Positions = {
-    "알람": 0,
-    "시간": 1,
-    "인삿말": 2,
-    "날씨": 3,
-    "뉴스": 4,
+const initial_value: Positions = {
+    알람: 0,
+    시간: 1,
+    인삿말: 2,
+    날씨: 3,
+    뉴스: 4,
     "타인의 어제": 5,
-}
+};
 
-const DragAndDrop = () => {
-    const [data,setData] = useState<Positions>(temp)
+const DragAndDrop = (props: {
+    handler: (state: boolean, condition: string) => void;
+    pageMoveHandler: (pageNumber: number) => void;
+}) => {
+    const [data, setData] = useState<Positions>(initial_value);
     return (
         <SafeAreaProvider>
             <SafeAreaView
@@ -58,9 +60,10 @@ const DragAndDrop = () => {
             >
                 <SortableList
                     editing={true}
-                    onDragEnd={(positions) =>
-                        {setData(positions);
-                        console.log(positions)
+                    onDragEnd={
+                        (positions) => {
+                            setData(positions);
+                            console.log(positions);
                         }
                         // console.log(JSON.stringify(positions, null, 2))
                         // console.log(positions)
@@ -69,9 +72,10 @@ const DragAndDrop = () => {
                     {[...tiles].map((tile, index) => (
                         <Tile
                             key={index}
-                            idx={data![`${tile.id}`]+1}
+                            idx={data![`${tile.id}`] + 1}
                             id={tile.id}
                             onLongPress={() => true}
+                            handler={props.handler}
                         />
                     ))}
                 </SortableList>
@@ -86,6 +90,7 @@ const DragAndDrop = () => {
                     style={{ alignItems: "center" }}
                     onPress={() => {
                         console.log("저장");
+                        props.pageMoveHandler(4)
                     }}
                 ></Button>
             </SafeAreaView>

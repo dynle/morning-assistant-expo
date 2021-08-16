@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import HomeScreen from "../../Screens/HomeScreen";
+import { commonStyle } from "../../Styles/CommonStyles";
 import { signOutUtil } from "../../Utils/AuthUtil";
 
 export default function Setting6Completion() {
@@ -17,11 +18,7 @@ export default function Setting6Completion() {
                 <Button
                     title="확인"
                     titleStyle={{ color: "black" }}
-                    buttonStyle={{
-                        minWidth: "25%",
-                        borderRadius: 20,
-                        backgroundColor: "#F3EDE1",
-                    }}
+                    buttonStyle={commonStyle.buttonStyle}
                     onPress={() => {
                         console.log("셋팅 확인");
                         // TODO: User object를 useContext에 저장해서 HomeScreen에 주는 방법
@@ -37,7 +34,7 @@ export default function Setting6Completion() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FFF4DF",
+        backgroundColor: "#F3ECD0",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",

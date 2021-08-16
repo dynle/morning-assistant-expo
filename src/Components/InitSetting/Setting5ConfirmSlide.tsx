@@ -4,6 +4,7 @@ import { Button } from "react-native-elements";
 import HomeScreen from "../../Screens/HomeScreen";
 import { signOutUtil } from "../../Utils/AuthUtil";
 import Carousel from "react-native-snap-carousel";
+import { commonStyle } from "../../Styles/CommonStyles";
 
 const carouselItems = [
     {
@@ -28,7 +29,9 @@ const carouselItems = [
     },
 ];
 
-export default function Setting5ConfirmSlide() {
+export default function Setting5ConfirmSlide(props: {
+    pageMoveHandler: (pageNumber: number) => void;
+}) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     // const isCarousel = useRef(null);
@@ -57,11 +60,11 @@ export default function Setting5ConfirmSlide() {
             <View style={styles.containerTitle}>
                 <Text style={styles.containerTitleText}>슬라이드 확인</Text>
             </View>
-            <View style={styles.containerRemainer}>
+            <View style={styles.containerMiddle}>
                 <SafeAreaView
                     style={{
                         flex: 1,
-                        backgroundColor: "rebeccapurple",
+                        backgroundColor: "#222222",
                         paddingTop: 50,
                     }}
                 >
@@ -88,6 +91,26 @@ export default function Setting5ConfirmSlide() {
                     </View>
                 </SafeAreaView>
             </View>
+            <View style={styles.containerRemainer}>
+                <Button
+                    title="재설정"
+                    titleStyle={{ color: "black" }}
+                    buttonStyle={commonStyle.buttonStyle}
+                    style={{ alignItems: "center" }}
+                    onPress={() => {
+                        props.pageMoveHandler(3);
+                    }}
+                ></Button>
+                <Button
+                    title="확인"
+                    titleStyle={{ color: "black" }}
+                    buttonStyle={commonStyle.buttonStyle}
+                    style={{ alignItems: "center" }}
+                    onPress={() => {
+                        props.pageMoveHandler(5);
+                    }}
+                ></Button>
+            </View>
         </View>
     );
 }
@@ -95,7 +118,7 @@ export default function Setting5ConfirmSlide() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#F6EBCE",
+        backgroundColor: "#E2D3C1",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",
@@ -104,11 +127,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "row",
+        // flexDirection: "row",
+    },
+    containerMiddle: {
+        flex: 4.5,
+        width: Dimensions.get("window").width,
     },
     containerRemainer: {
-        flex: 3.5,
-        width: Dimensions.get("window").width,
+        flex: 1,
     },
     containerTitleText: {
         fontSize: 30,

@@ -184,7 +184,7 @@ export default function Setting3WakeUpTime(props: {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#49473D",
+        backgroundColor: "#213443",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",
