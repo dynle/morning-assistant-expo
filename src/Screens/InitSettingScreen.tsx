@@ -10,6 +10,8 @@ import Setting4SlideSet from "../Components/InitSetting/Setting4SlideSet/Setting
 import Setting5ConfirmSlide from "../Components/InitSetting/Setting5ConfirmSlide";
 import Setting6Completion from "../Components/InitSetting/Setting6Completion";
 
+import Test from "../Components/InitSetting/test";
+
 export default function InitSettingScreen() {
     let pagerview = useRef<any>();
 
@@ -24,7 +26,6 @@ export default function InitSettingScreen() {
             <PagerView ref={pagerview} style={styles.pagerView} initialPage={0} showPageIndicator={true}>
                 <View style={styles.page} key="1">
                     <Setting1Name pageMoveHandler={pageMoveHandler}/>
-                    {/* <Button title="test"></Button> */}
                 </View>
                 <View style={styles.page} key="2">
                     <Setting2Intro />

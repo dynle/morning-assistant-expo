@@ -1,10 +1,20 @@
-import React, { useCallback, useRef, useState } from "react";
-import { StyleSheet, View, Text, Dimensions, SafeAreaView } from "react-native";
+import React, { useRef, useState } from "react";
+import {
+    StyleSheet,
+    View,
+    Text,
+    Dimensions,
+    SafeAreaView,
+    TouchableWithoutFeedback,
+} from "react-native";
 import { Button } from "react-native-elements";
 import HomeScreen from "../../Screens/HomeScreen";
-import Carousel from "react-native-snap-carousel";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 import { commonStyle } from "../../Styles/CommonStyles";
 
+const ITEM_WIDTH = Dimensions.get("window").width * 0.7;
+
+// Dummy Data
 const carouselItems = [
     {
         title: "Item 1",
@@ -26,32 +36,40 @@ const carouselItems = [
         title: "Item 5",
         text: "Text 5",
     },
+    {
+        title: "Item 6",
+        text: "Text 6",
+    },
 ];
 
-export default function Setting5ConfirmSlide(props: {
+export default function Test(props: {
     pageMoveHandler: (pageNumber: number) => void;
 }) {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const ref = useRef(null);
 
-    const _renderItem = useCallback((props: { item: any; index: number }) => {
+    const _renderItem = (props: { item: any; index: number }) => {
         return (
-            <View
-                style={{
-                    backgroundColor: "#C4C4C4",
-                    borderRadius: 5,
-                    height: "90%",
-                    padding: "10%",
-                    marginLeft: 25,
-                    marginRight: 25,
-                }}
-            >
-                <Text style={{ fontSize: 30 }}>{props.item.title}</Text>
-                <Text>{props.item.text}</Text>
+            <View style={{ width: ITEM_WIDTH }}>
+                <TouchableWithoutFeedback onPress={() => {}}>
+                    <View
+                        style={{
+                            backgroundColor: "#C4C4C4",
+                            borderRadius: 5,
+                            height: "98%",
+                            padding: "10%",
+                            marginLeft: 10,
+                            marginRight: 10,
+                        }}
+                    >
+                        <Text style={{ fontSize: 30 }}>{props.item.title}</Text>
+                        <Text>{props.item.text}</Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         );
-    },[])
+    };
 
     return (
         <View style={styles.container}>
@@ -62,7 +80,7 @@ export default function Setting5ConfirmSlide(props: {
                 <SafeAreaView
                     style={{
                         flex: 1,
-                        backgroundColor: "#222222",
+                        // backgroundColor: "#222222",
                         paddingTop: 50,
                     }}
                 >
@@ -70,19 +88,44 @@ export default function Setting5ConfirmSlide(props: {
                         style={{
                             flex: 1,
                             flexDirection: "row",
-                            justifyContent: "center",
-                            alignItems: "center",
+                            // justifyContent: "center",
+                            // alignItems: "center",
                         }}
                     >
                         <Carousel
                             layout={"default"}
                             ref={ref}
                             data={carouselItems}
-                            sliderWidth={300}
-                            itemWidth={300}
+                            sliderWidth={Dimensions.get("window").width}
+                            itemWidth={ITEM_WIDTH}
                             renderItem={_renderItem}
-                            onSnapToItem={(index:number) => setActiveIndex(index)}
+                            onSnapToItem={(index: number) =>
+                                setActiveIndex(index)
+                            }
                             useScrollView={true}
+                            slideStyle={{ justifyContent: "center" }}
+                        />
+                        
+                    </View>
+                    <View style={{}}>
+                    <Pagination
+                            dotsLength={carouselItems.length}
+                            activeDotIndex={activeIndex}
+                            // containerStyle={{backgroundColor:'green'}}
+                            dotStyle={{
+                                // width: 10,
+                                // height: 10,
+                                borderRadius: 5,
+                                marginHorizontal: 2,
+                                backgroundColor: "black",
+                            }}
+                            inactiveDotStyle={
+                                {
+                                    // Define styles for inactive dots here
+                                }
+                            }
+                            inactiveDotOpacity={0.4}
+                            inactiveDotScale={0.6}
                         />
                     </View>
                 </SafeAreaView>
