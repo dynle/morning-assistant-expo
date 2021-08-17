@@ -84,25 +84,26 @@ export default function Setting4SlideSet(props: {
             {/* Modal 설명창 띄우기 */}
             {infoModalVisible[0] && renderSwitch(infoModalVisible[1])}
 
-            <View style={styles.containerTitle}>
-                <View style={styles.containerTop}>
-                    <View style={{ flexDirection: "row" }}>
-                        <Text style={styles.containerTopText}>슬라이드</Text>
-                        <Icon
-                            type="font-awesome-5"
-                            name="question-circle"
-                            color="#EC407A"
-                            style={{ marginLeft: 10 }}
-                            onPress={() => setModalVisible(!modalVisible)}
-                        ></Icon>
-                    </View>
-                    <Text style={{ marginTop: "20%", fontSize: 15 }}>
-                        *클릭 시 추가 설명과 설정 창을 확인 할 수 있어요!
-                    </Text>
+            <View style={styles.containerTop}>
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.containerTopText}>슬라이드</Text>
+                    <Icon
+                        type="font-awesome-5"
+                        name="question-circle"
+                        color="#EC407A"
+                        style={{ marginLeft: 10 }}
+                        onPress={() => setModalVisible(!modalVisible)}
+                    ></Icon>
                 </View>
+                <Text style={{ marginTop:'2%' ,fontSize: 15 }}>
+                    *클릭 시 추가 설명과 설정 창을 확인 할 수 있어요!
+                </Text>
             </View>
             <View style={styles.containerRemainer}>
-                <DragAndDrop handler={modalHandler} pageMoveHandler={props.pageMoveHandler}/>
+                <DragAndDrop
+                    handler={modalHandler}
+                    pageMoveHandler={props.pageMoveHandler}
+                />
             </View>
         </View>
     );
@@ -116,11 +117,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    containerTitle: {
-        flex: 1,
-    },
     containerRemainer: {
-        flex: 3.5,
+        flex: 6,
         width: Dimensions.get("window").width,
     },
     containerTop: {

@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     containerTop: {
-        flex: 2,
+        flex: 3,
         justifyContent: "flex-end",
         alignItems: "center",
     },

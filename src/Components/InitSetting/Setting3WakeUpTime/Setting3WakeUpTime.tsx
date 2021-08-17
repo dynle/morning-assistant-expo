@@ -17,31 +17,31 @@ import { Divider } from "react-native-elements/dist/divider/Divider";
 const DATA = [
     {
         key: 0,
-        title: "MON",
+        title: "월요일",
     },
     {
         key: 1,
-        title: "TUES",
+        title: "화요일",
     },
     {
         key: 2,
-        title: "WED",
+        title: "수요일",
     },
     {
         key: 3,
-        title: "THURS",
+        title: "목요일",
     },
     {
         key: 4,
-        title: "FRI",
+        title: "금요일",
     },
     {
         key: 5,
-        title: "SAT",
+        title: "토요일",
     },
     {
         key: 6,
-        title: "SUN",
+        title: "일요일",
     },
 ];
 
@@ -144,6 +144,7 @@ export default function Setting3WakeUpTime(props: {
                 </View>
                 <View style={styles.containerTimePicker}>
                     <RNDateTimePicker
+                        style={{maxHeight:'60%'}}
                         value={date}
                         mode={"time"}
                         display="spinner"
@@ -154,7 +155,7 @@ export default function Setting3WakeUpTime(props: {
                         - {moment(date).format("LT")} -
                     </Text>
 
-                    {currDayOfWeek == "SUN" && (
+                    {currDayOfWeek == "일요일" && (
                         <ThemeProvider
                             theme={{
                                 Button: { titleStyle: { color: "black" } },
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     containerTitle: {
-        flex: 1,
+        flex: 0.8,
     },
     containerRemainer: {
         flex: 2.9,
@@ -198,14 +199,14 @@ const styles = StyleSheet.create({
     },
     containerTop: {
         flex: 1,
-        justifyContent: "flex-end",
+        justifyContent: "center",
         alignItems: "center",
     },
     containerTopText: {
         fontSize: 35,
         color: "#C6BF9F",
         textAlign: "center",
-        lineHeight: 70,
+        // lineHeight: 70,
     },
     timeText: {
         fontSize: 35,
@@ -214,13 +215,13 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     containerClock: {
-        flex: 1,
+        flex: 1.2,
         // justifyContent: "center",
         // alignItems:'center',
     },
     containerTimePicker: {
-        flex: 1.6,
-        // alignSelf: "stretch",
+        flex: 1.3,
+        // justifyContent:'flex-start'
     },
     hour_hand: {},
     min_hand: {},

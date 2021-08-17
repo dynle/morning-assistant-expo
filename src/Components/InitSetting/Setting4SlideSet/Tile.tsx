@@ -20,36 +20,29 @@ interface TileProps {
 
 const Tile = (props: TileProps) => {
     const [unselected, setUnselected] = useState(false);
+    var icon;
+    if (unselected){
+        icon="plus-circle"
+    }else{
+        icon="minus-circle"
+    }
 
     return (
         <View style={styles.container}>
             <View
                 style={[styles.tile, unselected && styles.tileColorUnselected]}
             >
-                {unselected ? (
-                    <Icon
-                        style={{ position: "absolute" }}
-                        size={33}
-                        type="font-awesome"
-                        name="plus-circle"
-                        onPress={() => {
-                            setUnselected((prev) => !prev);
-                        }}
-                        containerStyle={styles.iconContainerStyle}
-                    ></Icon>
-                ) : (
-                    <Icon
-                        style={{ position: "absolute" }}
-                        size={33}
-                        type="font-awesome"
-                        name="minus-circle"
-                        onPress={() => {
-                            setUnselected((prev) => !prev);
-                        }}
-                        containerStyle={styles.iconContainerStyle}
-                    ></Icon>
-                )}
-
+                <Icon
+                    style={{ position: "absolute" }}
+                    size={33}
+                    type="font-awesome"
+                    name={`${icon}`}
+                    onPress={() => {
+                        // TODO: 해당 타일이 맨 뒤로 넘어가고 index가 바뀌는 처리
+                        setUnselected((prev) => !prev);
+                    }}
+                    containerStyle={styles.iconContainerStyle}
+                ></Icon>
                 <TouchableOpacity
                     // style={{zIndex:1}}
                     onPress={() => {
@@ -75,8 +68,8 @@ const styles = StyleSheet.create({
     },
     tile: {
         backgroundColor: "#F3EDE1",
-        borderColor:'#DDDCC3',
-        borderWidth:5,
+        borderColor: "#DDDCC3",
+        borderWidth: 5,
         flex: 1,
         margin: MARGIN * 2,
         borderRadius: MARGIN + 20,

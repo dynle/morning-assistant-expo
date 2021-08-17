@@ -38,7 +38,7 @@ const SortableList = ({ children, editing, onDragEnd }: ListProps) => {
             }}
             showsVerticalScrollIndicator={false}
             bounces={false}
-            scrollEventThrottle={16}
+            // scrollEventThrottle={16}
         >
             {children.map((child) => {
                 return (

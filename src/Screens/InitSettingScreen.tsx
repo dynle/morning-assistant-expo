@@ -23,7 +23,7 @@ export default function InitSettingScreen() {
         // TODO: 걱각의 셋팅을 바로 DB에 넣지말고 백엔드에 저장한 다음 완료 버튼 누르면 다 올라가게 = AsyncStorage
         // TODO: 각각 화면 셋팅 끝나면 넘어가게
         <View style={styles.container}>
-            <PagerView ref={pagerview} style={styles.pagerView} initialPage={0} showPageIndicator={true}>
+            <PagerView ref={pagerview} style={styles.pagerView} initialPage={0}>
                 <View style={styles.page} key="1">
                     <Setting1Name pageMoveHandler={pageMoveHandler}/>
                 </View>
