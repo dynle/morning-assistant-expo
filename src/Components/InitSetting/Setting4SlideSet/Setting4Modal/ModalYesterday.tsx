@@ -25,8 +25,8 @@ export default function ModalYesterday(props: {
                     Alert.alert("Modal has been closed.");
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
+                <View style={modalStyle.centeredView}>
+                    <View style={modalStyle.modalView}>
                         <View style={modalStyle.modalTop}>
                             <Text style={modalStyle.modalTopText}>
                                 터인의 어제
@@ -87,30 +87,6 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Dimensions.get("window").width,
         maxWidth: "80%",
-    },
-
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
-    },
-    modalView: {
-        width: "90%",
-        height: "90%",
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     openButton: {
         backgroundColor: "#F194FF",

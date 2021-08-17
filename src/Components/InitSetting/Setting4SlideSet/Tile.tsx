@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Pressable,
 } from "react-native";
+import { Icon } from "react-native-elements";
 
 import { MARGIN, Positions, SIZE } from "./Config";
 
@@ -18,10 +19,39 @@ interface TileProps {
 }
 
 const Tile = (props: TileProps) => {
+    const [unselected, setUnselected] = useState(false);
+
     return (
         <View style={styles.container}>
-            <View style={styles.tile}>
+            <View
+                style={[styles.tile, unselected && styles.tileColorUnselected]}
+            >
+                {unselected ? (
+                    <Icon
+                        style={{ position: "absolute" }}
+                        size={33}
+                        type="font-awesome"
+                        name="plus-circle"
+                        onPress={() => {
+                            setUnselected((prev) => !prev);
+                        }}
+                        containerStyle={styles.iconContainerStyle}
+                    ></Icon>
+                ) : (
+                    <Icon
+                        style={{ position: "absolute" }}
+                        size={33}
+                        type="font-awesome"
+                        name="minus-circle"
+                        onPress={() => {
+                            setUnselected((prev) => !prev);
+                        }}
+                        containerStyle={styles.iconContainerStyle}
+                    ></Icon>
+                )}
+
                 <TouchableOpacity
+                    // style={{zIndex:1}}
                     onPress={() => {
                         props.handler(true, props.id);
                     }}
@@ -45,18 +75,33 @@ const styles = StyleSheet.create({
     },
     tile: {
         backgroundColor: "#F3EDE1",
-        // justifyContent: "center",
+        borderColor:'#DDDCC3',
+        borderWidth:5,
         flex: 1,
         margin: MARGIN * 2,
         borderRadius: MARGIN + 20,
-        paddingLeft: "7%",
+        paddingLeft: "5%",
+        position: "relative",
+    },
+    tileColorUnselected: {
+        opacity: 0.5,
     },
     title: {
-        fontSize: 33,
-        paddingTop: "10%",
+        fontSize: 30,
+        marginTop: "-5%",
     },
     order: {
         fontSize: 30,
         paddingTop: "45%",
+    },
+    iconContainerStyle: {
+        width: 28,
+        height: 28,
+        marginLeft: "90%",
+        marginTop: "-7%",
+        backgroundColor: "white",
+        borderRadius: 28 / 2,
+        justifyContent: "center",
+        alignItems: "center",
     },
 });

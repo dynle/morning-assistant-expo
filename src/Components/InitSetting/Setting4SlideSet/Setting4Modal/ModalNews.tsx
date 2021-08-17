@@ -25,14 +25,14 @@ export default function ModalNews(props: {
                     Alert.alert("Modal has been closed.");
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
+                <View style={modalStyle.centeredView}>
+                    <View style={modalStyle.modalView}>
                         <View style={modalStyle.modalTop}>
                             <Text style={modalStyle.modalTopText}>뉴스</Text>
                         </View>
                         <View style={modalStyle.modalBottom}>
                             <Text style={modalStyle.modalBottomText}>
-                                그날의 헤드라인 뉴스를{"\n"}모아서 보여드립니다.
+                                헤드라인 뉴스를{"\n"}모아서 보여드립니다.
                                 {"\n"}간편한 세상 읽기를 해보세요.
                             </Text>
                         </View>
@@ -85,30 +85,6 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Dimensions.get("window").width,
         maxWidth: "80%",
-    },
-
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
-    },
-    modalView: {
-        width: "90%",
-        height: "90%",
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     openButton: {
         backgroundColor: "#F194FF",

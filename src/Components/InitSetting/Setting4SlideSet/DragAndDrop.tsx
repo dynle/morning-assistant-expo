@@ -4,7 +4,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { MARGIN, Positions } from "./Config";
 import Tile from "./Tile";
 import SortableList from "./SortableList";
-import { Button } from "react-native-elements";
+import { Button,} from "react-native-elements";
 
 // dummy data
 const tiles = [
@@ -72,7 +72,7 @@ const DragAndDrop = (props: {
                     {[...tiles].map((tile, index) => (
                         <Tile
                             key={index}
-                            idx={data![`${tile.id}`] + 1}
+                            idx={data[`${tile.id}`] + 1}
                             id={tile.id}
                             onLongPress={() => true}
                             handler={props.handler}

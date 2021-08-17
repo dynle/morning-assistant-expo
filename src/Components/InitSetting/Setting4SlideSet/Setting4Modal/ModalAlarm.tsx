@@ -28,8 +28,8 @@ export default function ModalAlarm(props: {
                     Alert.alert("Modal has been closed.");
                 }}
             >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
+                <View style={modalStyle.centeredView}>
+                    <View style={modalStyle.modalView}>
                         <View style={modalStyle.modalTop}>
                             <Text style={modalStyle.modalTopText}>알람</Text>
                         </View>
@@ -38,12 +38,14 @@ export default function ModalAlarm(props: {
                                 <Text style={{ fontSize: 30 }}>
                                     뮤직 스트리밍 앱 연동
                                 </Text>
+                                <Text style={{ fontSize: 20 }}>
+                                    좋아하는 음악으로 설정
+                                </Text>
                             </View>
                             <View style={{ flex: 1 }}>
                                 <View
                                     style={{
                                         flex: 1,
-                                        backgroundColor: "orange",
                                     }}
                                 >
                                     <View
@@ -57,20 +59,23 @@ export default function ModalAlarm(props: {
                                         >
                                             알람 커스터마이즈
                                         </Text>
-                                        <Switch
-                                            trackColor={{
-                                                false: "#767577",
-                                                true: "#81b0ff",
-                                            }}
-                                            thumbColor={
-                                                isEnabled
-                                                    ? "#f4f3f4"
-                                                    : "#f4f3f4"
-                                            }
-                                            ios_backgroundColor="#3e3e3e"
-                                            onValueChange={toggleSwitch}
-                                            value={isEnabled}
-                                        />
+                                        <View style={{ marginLeft: "auto" }}>
+                                            <Switch
+                                                style={{ marginRight: "5%" }}
+                                                trackColor={{
+                                                    false: "#767577",
+                                                    true: "#5AA7AA",
+                                                }}
+                                                thumbColor={
+                                                    isEnabled
+                                                        ? "#f4f3f4"
+                                                        : "#f4f3f4"
+                                                }
+                                                ios_backgroundColor="#3e3e3e"
+                                                onValueChange={toggleSwitch}
+                                                value={isEnabled}
+                                            />
+                                        </View>
                                     </View>
                                     <Text style={{ fontSize: 20 }}>
                                         부드럽게 음악 시작
@@ -79,7 +84,6 @@ export default function ModalAlarm(props: {
                                 <View
                                     style={{
                                         flex: 1,
-                                        backgroundColor: "orange",
                                     }}
                                 >
                                     <View
@@ -93,20 +97,23 @@ export default function ModalAlarm(props: {
                                         >
                                             음악 정보 표시
                                         </Text>
-                                        <Switch
-                                            trackColor={{
-                                                false: "#767577",
-                                                true: "#81b0ff",
-                                            }}
-                                            thumbColor={
-                                                isEnabled
-                                                    ? "#f4f3f4"
-                                                    : "#f4f3f4"
-                                            }
-                                            ios_backgroundColor="#3e3e3e"
-                                            onValueChange={toggleSwitch}
-                                            value={isEnabled}
-                                        />
+                                        <View style={{ marginLeft: "auto" }}>
+                                            <Switch
+                                                style={{ marginRight: "5%" }}
+                                                trackColor={{
+                                                    false: "#767577",
+                                                    true: "#5AA7AA",
+                                                }}
+                                                thumbColor={
+                                                    isEnabled
+                                                        ? "#f4f3f4"
+                                                        : "#f4f3f4"
+                                                }
+                                                ios_backgroundColor="#3e3e3e"
+                                                onValueChange={toggleSwitch}
+                                                value={isEnabled}
+                                            />
+                                        </View>
                                     </View>
                                 </View>
                             </View>
@@ -160,30 +167,6 @@ const styles = StyleSheet.create({
         flex: 1,
         width: Dimensions.get("window").width,
         maxWidth: "80%",
-    },
-
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
-    },
-    modalView: {
-        width: "90%",
-        height: "90%",
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     openButton: {
         backgroundColor: "#F194FF",

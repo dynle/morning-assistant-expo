@@ -100,7 +100,6 @@ export default function Setting4SlideSet(props: {
                         *클릭 시 추가 설명과 설정 창을 확인 할 수 있어요!
                     </Text>
                 </View>
-                {/* <Text>클릭 시 추가 설명과 설정 창을 확인 할 수 있습니다.</Text> */}
             </View>
             <View style={styles.containerRemainer}>
                 <DragAndDrop handler={modalHandler} pageMoveHandler={props.pageMoveHandler}/>
