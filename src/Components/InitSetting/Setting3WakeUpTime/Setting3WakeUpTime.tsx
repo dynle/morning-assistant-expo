@@ -150,6 +150,7 @@ export default function Setting3WakeUpTime(props: {
                         display="spinner"
                         onChange={onChange}
                         minuteInterval={5}
+                        textColor="white"
                     />
                     <Text style={styles.timeText}>
                         - {moment(date).format("LT")} -

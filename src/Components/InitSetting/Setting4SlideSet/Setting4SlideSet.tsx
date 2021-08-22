@@ -12,7 +12,7 @@ import { Button, Divider, Icon } from "react-native-elements";
 import { signOutUtil } from "../../../Utils/AuthUtil";
 import DragAndDrop from "./DragAndDrop";
 import ModalAlarm from "./Setting4Modal/ModalAlarm";
-import ModalGreeting from "./Setting4Modal/ModalGreeting";
+import ModalTodo from "./Setting4Modal/ModalTodo";
 import ModalNews from "./Setting4Modal/ModalNews";
 import ModalTime from "./Setting4Modal/ModalTime";
 import ModalWeather from "./Setting4Modal/ModalWeather";
@@ -34,8 +34,8 @@ export default function Setting4SlideSet(props: {
                 return <ModalAlarm handler={modalHandler} />;
             case "시간":
                 return <ModalTime handler={modalHandler} />;
-            case "인삿말":
-                return <ModalGreeting handler={modalHandler} />;
+            case "일정":
+                return <ModalTodo handler={modalHandler} />;
             case "날씨":
                 return <ModalWeather handler={modalHandler} />;
             case "뉴스":

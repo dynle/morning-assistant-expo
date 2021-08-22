@@ -7,10 +7,18 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.5.2",
+    "@types/react-native-global-props": "^1.1.0",
     "@types/react-native-snap-carousel": "^3.8.4",
     "expo": "~42.0.1",
+    "expo-app-loading": "^1.1.2",
+    "expo-font": "~9.2.1",
     "expo-google-app-auth": "^8.2.2",
     "expo-google-sign-in": "~9.2.1",
     "expo-splash-screen": "~0.11.2",
@@ -23,6 +31,7 @@
     "react-native-dotenv": "^3.1.1",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-global-props": "^1.1.5",
     "react-native-pager-view": "5.0.12",
     "react-native-reanimated": "~2.2.0",
     "react-native-snap-carousel": "^3.9.1",

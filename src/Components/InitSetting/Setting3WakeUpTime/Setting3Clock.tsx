@@ -15,12 +15,12 @@ export default function Clock(props: { width: number; height: number, hour:numbe
 
     return (
         <Svg height={props.width} width={props.width}>
-            <Setting3ClockMarkings
+            {/* <Setting3ClockMarkings
                 minutes={minuteStickCount}
                 hours={hourStickCount}
                 radius={radius}
                 center={center}
-            />
+            /> */}
             <Setting3Hand
                 angle={_hours}
                 center={center}
@@ -33,7 +33,7 @@ export default function Clock(props: { width: number; height: number, hour:numbe
                 angle={_minutes}
                 center={center}
                 radius={radius}
-                stroke="#78BBDB"
+                stroke="black"
                 strokeWidth="5"
                 length={10}
             />

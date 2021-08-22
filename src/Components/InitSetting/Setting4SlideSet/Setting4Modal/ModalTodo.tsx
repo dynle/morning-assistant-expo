@@ -12,7 +12,7 @@ import { Button, Divider, Icon } from "react-native-elements";
 import { commonStyle } from "../../../../Styles/CommonStyles";
 import { modalStyle } from "../../../../Styles/ModalStyle";
 
-export default function ModalGreeting(props: {
+export default function ModalTodo(props: {
     handler: (state: boolean, condition: string) => void;
 }) {
     return (
@@ -28,12 +28,13 @@ export default function ModalGreeting(props: {
                 <View style={modalStyle.centeredView}>
                     <View style={modalStyle.modalView}>
                         <View style={modalStyle.modalTop}>
-                            <Text style={modalStyle.modalTopText}>인삿말</Text>
+                            <Text style={modalStyle.modalTopText}>일정</Text>
                         </View>
                         <View style={modalStyle.modalBottom}>
                             <Text style={modalStyle.modalBottomText}>
-                                당신의 밝은 아침을{"\n"}응원하기 위해{"\n"}매일
-                                아침 인사를 전합니다.
+                                그날의 일정을{"\n"}알려드립니다.{"\n\n"}
+                                일정은 앱을 통해{"\n"}
+                                언제든지 입력하실 수 있습니다.
                             </Text>
                         </View>
                         <Button

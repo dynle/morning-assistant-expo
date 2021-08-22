@@ -18,7 +18,7 @@ const tiles = [
     },
     {
         key: 2,
-        id: "인삿말",
+        id: "일정",
     },
     {
         key: 3,
@@ -37,7 +37,7 @@ const tiles = [
 const initial_value: Positions = {
     알람: 0,
     시간: 1,
-    인삿말: 2,
+    일정: 2,
     날씨: 3,
     뉴스: 4,
     "타인의 어제": 5,

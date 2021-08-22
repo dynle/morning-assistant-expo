@@ -12,6 +12,15 @@ import {
 import { registerRootComponent } from "expo";
 import LoginProvider from "./Utils/LoginProvider";
 import * as SplashScreen from "expo-splash-screen";
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import {setCustomText,setCustomTextInput} from 'react-native-global-props'
+
+const customTextProps = {
+    style:{
+        fontFamily: 'Cafe24Simplehae'
+    }
+}
 
 function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -23,17 +32,29 @@ async function delay_splash() {
     await SplashScreen.hideAsync();
 }
 
+
 function App() {
+    let [fontsLoaded] = Font.useFonts({
+        'Cafe24Simplehae':require('../assets/fonts/Cafe24Simplehae.ttf'),
+    })
+
     delay_splash();
     // IDEA: fade out으로 자연스럽게 넘어가도록
-    return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <View style={styles.container}>
-                <StatusBar style="light" />
-                <LoginProvider></LoginProvider>
-            </View>
-        </TouchableWithoutFeedback>
-    );
+    if (!fontsLoaded){
+        return <AppLoading/>
+    }else{
+        setCustomText(customTextProps);
+        setCustomTextInput(customTextProps);
+        return (
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <View style={styles.container}>
+                    <StatusBar style="light" />
+                    <LoginProvider></LoginProvider>
+                </View>
+            </TouchableWithoutFeedback>
+        );
+    }
+    
 }
 
 const styles = StyleSheet.create({
