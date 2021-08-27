@@ -41,6 +41,11 @@ const SortableList = ({ children, editing, onDragEnd }: ListProps) => {
             // scrollEventThrottle={16}
         >
             {children.map((child) => {
+                if (child.props.id=="알람"){
+                    editing=false
+                }else{
+                    editing=true
+                }
                 return (
                     <Item
                         key={child.props.id}

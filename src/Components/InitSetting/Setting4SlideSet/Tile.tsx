@@ -14,17 +14,19 @@ import { MARGIN, Positions, SIZE } from "./Config";
 interface TileProps {
     idx: number;
     id: string;
+    show: boolean;
     onLongPress: () => void;
     handler: (tate: boolean, condition: string) => void;
+    pushHandler:(id:string,show:boolean)=>void
 }
 
 const Tile = (props: TileProps) => {
     const [unselected, setUnselected] = useState(false);
     var icon;
-    if (unselected){
-        icon="plus-circle"
-    }else{
-        icon="minus-circle"
+    if (unselected) {
+        icon = "plus-circle";
+    } else {
+        icon = "minus-circle";
     }
 
     return (
@@ -32,19 +34,21 @@ const Tile = (props: TileProps) => {
             <View
                 style={[styles.tile, unselected && styles.tileColorUnselected]}
             >
-                <Icon
-                    style={{ position: "absolute" }}
-                    size={33}
-                    type="font-awesome"
-                    name={`${icon}`}
-                    onPress={() => {
-                        // TODO: 해당 타일이 맨 뒤로 넘어가고 index가 바뀌는 처리
-                        setUnselected((prev) => !prev);
-                    }}
-                    containerStyle={styles.iconContainerStyle}
-                ></Icon>
+                {props.id != "알람" && (
+                    <Icon
+                        style={{ position: "absolute"}}
+                        size={33}
+                        type="font-awesome"
+                        name={`${icon}`}
+                        onPress={() => {
+                            // TODO: 해당 타일이 맨 뒤로 넘어가고 index가 바뀌는 처리
+                            setUnselected((prev) => !prev);
+                            props.pushHandler(props.id,props.show)
+                        }}
+                        containerStyle={styles.iconContainerStyle}
+                    ></Icon>
+                )}
                 <TouchableOpacity
-                    // style={{zIndex:1}}
                     onPress={() => {
                         props.handler(true, props.id);
                     }}
@@ -52,7 +56,7 @@ const Tile = (props: TileProps) => {
                     // delayLongPress={1500}
                 >
                     <Text style={styles.title}>{props.id}</Text>
-                    <Text style={styles.order}>{props.idx}</Text>
+                    {!unselected && <Text style={styles.order}>{props.idx}</Text>}
                 </TouchableOpacity>
             </View>
         </View>
@@ -74,27 +78,36 @@ const styles = StyleSheet.create({
         margin: MARGIN * 2,
         borderRadius: MARGIN + 20,
         paddingLeft: "5%",
-        position: "relative",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+
+        // position: "absolute",
     },
     tileColorUnselected: {
         opacity: 0.5,
     },
     title: {
         fontSize: 30,
-        marginTop: "-5%",
+        marginTop: "10%",
+        // position:'relative'
     },
     order: {
         fontSize: 30,
         paddingTop: "45%",
     },
     iconContainerStyle: {
+        left: "90%",
+        top: "-7%",
         width: 28,
         height: 28,
-        marginLeft: "90%",
-        marginTop: "-7%",
+        // marginLeft: "40%",
         backgroundColor: "white",
         borderRadius: 28 / 2,
         justifyContent: "center",
         alignItems: "center",
+        position: "absolute",
+        zIndex: 2,
     },
 });

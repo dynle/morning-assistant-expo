@@ -29,7 +29,7 @@ export const modalStyle = StyleSheet.create({
     },
     modalBottom: {
         flex: 5,
-        width:Dimensions.get('window').width*0.85
+        width:Dimensions.get('window').width*0.85,
     },
     modalTopText: {
         fontSize: 50,

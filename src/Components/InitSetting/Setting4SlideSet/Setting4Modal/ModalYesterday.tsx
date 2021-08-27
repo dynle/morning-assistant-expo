@@ -32,11 +32,34 @@ export default function ModalYesterday(props: {
                                 터인의 어제
                             </Text>
                         </View>
-                        <View style={modalStyle.modalBottom}>
+                        <View
+                            style={[
+                                modalStyle.modalBottom,
+                                { alignItems: "center" },
+                            ]}
+                        >
                             <Text style={modalStyle.modalBottomText}>
-                                공유된 타인의{"\n"}어제의 하루를{"\n"}살펴볼 수
-                                있습니다.
+                                오늘의 아침에서{"\n"}
+                                타인의 어제를{"\n"}
+                                만나보세요
                             </Text>
+                            <View style={styles.modalBottomBox}>
+                                <Text
+                                    style={{
+                                        textAlign: "center",
+                                        fontSize: 20,
+                                        margin: "7%",
+                                        lineHeight: 35,
+                                    }}
+                                >
+                                    오늘 하루의 생각과 찍은 사진을{"\n"}
+                                    내일 타인의 영감이 되도록{"\n"}
+                                    공유해 보세요.{"\n"}
+                                    하루하루 무작위로 선정됩니다.{"\n"}
+                                    좋아요 버튼으로 감사의 표시를{"\n"}
+                                    표현하세요!
+                                </Text>
+                            </View>
                         </View>
 
                         <Button
@@ -98,5 +121,14 @@ const styles = StyleSheet.create({
         color: "white",
         fontWeight: "bold",
         textAlign: "center",
+    },
+    modalBottomBox: {
+        backgroundColor: "#D4CEC2",
+        minHeight: "45%",
+        minWidth: "80%",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 40,
+        marginTop:"7%"
     },
 });

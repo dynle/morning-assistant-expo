@@ -35,15 +35,15 @@ export default function LoginProvider() {
 
     if (initializing) return null;
 
-    return <InitSettingScreen></InitSettingScreen>
+    // return <InitSettingScreen></InitSettingScreen>
 
-    // if (!user) {
-    //     return <AuthScreen></AuthScreen>;
-    // } else {
-    //     // return <Loading></Loading>
-    //     if (isNewUser == null) return <Loading></Loading>;
-    //     else if (isNewUser == true)
-    //         return <InitSettingScreen></InitSettingScreen>;
-    //     else return <HomeScreen user={user}></HomeScreen>;
-    // }
+    if (!user) {
+        return <AuthScreen></AuthScreen>;
+    } else {
+        // return <Loading></Loading>
+        if (isNewUser == null) return <Loading></Loading>;
+        else if (isNewUser == true)
+            return <InitSettingScreen></InitSettingScreen>;
+        else return <HomeScreen user={user}></HomeScreen>;
+    }
 }

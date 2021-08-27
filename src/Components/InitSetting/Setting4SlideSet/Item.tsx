@@ -61,6 +61,7 @@ const Item = ({
                 const pos = getPosition(newOrder);
                 translateX.value = withTiming(pos.x, animationConfig);
                 translateY.value = withTiming(pos.y, animationConfig);
+                // console.log("moved: ",translateX.value,translateY.value)
             }
         }
     );
@@ -80,6 +81,8 @@ const Item = ({
         onActive: ({ translationX, translationY }, ctx) => {
             // dont allow drag if we're done editing
             if (editing) {
+                // console.log("translateX: ",translateX.value)
+                // console.log("translateY: ",translateY.value)
                 translateX.value = ctx.x + translationX;
                 translateY.value = ctx.y + translationY;
                 // 1. We calculate where the tile should be
@@ -95,7 +98,7 @@ const Item = ({
                     const idToSwap = Object.keys(positions.value).find(
                         (key) => positions.value[key] === newOrder
                     );
-                    if (idToSwap) {
+                    if (idToSwap && idToSwap!="알람") {
                         // Spread operator is not supported in worklets
                         // And Object.assign doesn't seem to be working on alpha.6
                         const newPositions = JSON.parse(

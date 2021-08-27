@@ -21,6 +21,7 @@ import ModalYesterday from "./Setting4Modal/ModalYesterday";
 export default function Setting4SlideSet(props: {
     pageMoveHandler: (pageNumber: number) => void;
 }) {
+    // FIXME: 둘 중 하나 없어도 될듯?
     const [modalVisible, setModalVisible] = useState(false);
     const [infoModalVisible, setInfoModalVisible] = useState([false, ""]);
 
@@ -101,7 +102,7 @@ export default function Setting4SlideSet(props: {
             </View>
             <View style={styles.containerRemainer}>
                 <DragAndDrop
-                    handler={modalHandler}
+                    modalHandler={modalHandler}
                     pageMoveHandler={props.pageMoveHandler}
                 />
             </View>
@@ -112,7 +113,7 @@ export default function Setting4SlideSet(props: {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#93969C",
+        backgroundColor: "#E1D3AD",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",

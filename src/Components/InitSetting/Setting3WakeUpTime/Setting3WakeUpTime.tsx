@@ -51,6 +51,7 @@ export default function Setting3WakeUpTime(props: {
 }) {
     const [date, setDate] = useState(new Date());
     // TODO: 초반 값을 0으로 설정하고 다음 시계 클릭하면 백엔드에 저장하도록, 마지막은 저장 버튼으로?
+    const [meridiem, setMeridiem] = useState<string>("");
     const [hour, setHour] = useState<number>(0);
     const [minutes, setMinutes] = useState<number>(0);
     const [currDayOfWeek, setCurrDayOfWeek] = useState("");
@@ -63,6 +64,7 @@ export default function Setting3WakeUpTime(props: {
     const onChange = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
+        setMeridiem(moment(currentDate).format("a"));
         setHour(Number(moment(currentDate).format("h")));
         setMinutes(Number(moment(currentDate).format("mm")));
     };
@@ -86,6 +88,7 @@ export default function Setting3WakeUpTime(props: {
                         contentContainerStyle={{
                             paddingHorizontal: width / 2 - 100,
                         }}
+                        style={{paddingTop:'10%'}}
                         keyExtractor={(item) => item.key.toString()}
                         ref={refContainer}
                         horizontal={true}
@@ -111,14 +114,22 @@ export default function Setting3WakeUpTime(props: {
                                 }}
                             >
                                 <View
-                                    style={{
-                                        height: clock_height,
-                                        width: clock_width,
-                                        backgroundColor: "#BEBEBE",
-                                        borderRadius: clock_height / 2,
-                                        marginRight: 50,
-                                        justifyContent: "center",
-                                    }}
+                                    style={[
+                                        {
+                                            height: clock_height,
+                                            width: clock_width,
+                                            borderRadius: clock_height / 2,
+                                            marginRight: 50,
+                                            justifyContent: "center",
+                                        },
+                                        (meridiem == "am" &&
+                                            hour >= 7 &&
+                                            hour < 12) ||
+                                        (meridiem == "pm" &&
+                                            (hour <= 5 || hour == 12))
+                                            ? { backgroundColor: "#FFEEC0",shadowColor:"#E3BF7C",shadowOpacity:10,shadowRadius:15 }
+                                            : { backgroundColor: "#BEBEBE",shadowColor:"#5E6574",shadowOpacity:10,shadowRadius:15 },
+                                    ]}
                                 >
                                     {index == isSelected && (
                                         <Setting3Clock
@@ -144,7 +155,7 @@ export default function Setting3WakeUpTime(props: {
                 </View>
                 <View style={styles.containerTimePicker}>
                     <RNDateTimePicker
-                        style={{maxHeight:'60%'}}
+                        style={{ maxHeight: "60%" }}
                         value={date}
                         mode={"time"}
                         display="spinner"
@@ -200,14 +211,14 @@ const styles = StyleSheet.create({
     },
     containerTop: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "flex-end",
         alignItems: "center",
     },
     containerTopText: {
         fontSize: 35,
         color: "#C6BF9F",
         textAlign: "center",
-        // lineHeight: 70,
+        lineHeight: 50,
     },
     timeText: {
         fontSize: 35,
@@ -217,6 +228,7 @@ const styles = StyleSheet.create({
     },
     containerClock: {
         flex: 1.2,
+        // backgroundColor:'black'
         // justifyContent: "center",
         // alignItems:'center',
     },
