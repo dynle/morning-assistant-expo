@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { MARGIN, Positions } from "./Config";
 import Tile from "./Tile";
@@ -58,32 +58,56 @@ const initial_value: Positions = {
     "타인의 어제": 5,
 };
 
+const funcs=["알람","시간","일정","날씨","뉴스","타인의 어제"]
+
 const DragAndDrop = (props: {
     modalHandler: (state: boolean, condition: string) => void;
     pageMoveHandler: (pageNumber: number) => void;
 }) => {
-    const [data, setData] = useState(initial_value);
+    const [data, setData] = useState<Positions>(initial_value);
+    const [tilesData,setTilesData] = useState(tiles)
 
     const pushBackHandler = (id: string,show:boolean) => {
-        // console.log(tiles)
         console.log(data[id]);
-        console.log(...tiles)
-        // setData((prevData)=>({
-        //     ...prevData,
-        //     [id]
-        // }))
-        // if (data[id] == -1) {
-        //     setData((prevData) => ({
-        //         ...prevData,
-        //         [id]: data[id],
-        //     }));
-        // } else {
-        //     setData((prevData) => ({
-        //         ...prevData,
-        //         [id]: -1,
-        //     }));
-        // }
+        console.log(show);
+        //TODO: menu를 돌려서 해당 인덱스 보다 숫자가 높으면 -1해주고 해당 인덱스는 5로 맞춰주기
+        var temp=data
+        if (show==false){
+            for (var i=1;i<6;i++){
+                if (temp[id]<temp[funcs[i]]){
+                    temp[funcs[i]]-=1
+                    // console.log("changed");
+                }
+            }
+            temp[id]=5;
+            // console.log("updated: ",Object.keys(temp)[0])
+            // for (var i=1;i<6;i++){
+            //     tiles[i].id=Object.keys(temp)[i]
+            //     tiles[i].key=Object.values(temp)[i]
+            // }
+            // console.log("tiles:",tiles)
+            setData({...temp});
+            // console.log("temp: ",data);
+        }
+
+
+
+        var tempTilesData=[]
+        for (var i=0;i<6;i++){
+            tempTilesData.push({key: temp[funcs[i]], id: funcs[i], show:show})
+        }
+        setTilesData([...tempTilesData])
+
+
+
+        // console.log("current data: ",data)
     };
+
+    useEffect(()=>{
+        console.log("useEffect DATA:",data)
+        console.log("useEffect TILES: ",tilesData)
+    },[data,tilesData])
+
     return (
         <SafeAreaProvider>
             <SafeAreaView
@@ -99,18 +123,28 @@ const DragAndDrop = (props: {
                     onDragEnd={
                         (positions) => {
                             setData(positions);
-                            console.log(positions);
+                            // console.log("draged: ",positions);
                         }
                         // console.log(JSON.stringify(positions, null, 2))
                         // console.log(positions)
                     }
                 >
-                    {[...tiles].map((tile, index) => (
+                    {/* {[...funcs].map((tile, index) => (
+                        <Tile
+                            key={index}
+                            idx={data[tile] + 1}
+                            id={tile}
+                            show={tiles[index].show}
+                            onLongPress={() => true}
+                            handler={props.modalHandler}
+                            pushHandler={pushBackHandler}
+                        />
+                    ))} */}
+                    {[...tilesData].map((tile, index) => (
                         <Tile
                             key={index}
                             idx={data[`${tile.id}`] + 1}
                             id={tile.id}
-                            show={tile.show}
                             onLongPress={() => true}
                             handler={props.modalHandler}
                             pushHandler={pushBackHandler}

@@ -14,7 +14,6 @@ import { MARGIN, Positions, SIZE } from "./Config";
 interface TileProps {
     idx: number;
     id: string;
-    show: boolean;
     onLongPress: () => void;
     handler: (tate: boolean, condition: string) => void;
     pushHandler:(id:string,show:boolean)=>void
@@ -43,7 +42,7 @@ const Tile = (props: TileProps) => {
                         onPress={() => {
                             // TODO: 해당 타일이 맨 뒤로 넘어가고 index가 바뀌는 처리
                             setUnselected((prev) => !prev);
-                            props.pushHandler(props.id,props.show)
+                            props.pushHandler(props.id,unselected)
                         }}
                         containerStyle={styles.iconContainerStyle}
                     ></Icon>
