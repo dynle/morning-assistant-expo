@@ -10,7 +10,7 @@ import Setting4SlideSet from "../Components/InitSetting/Setting4SlideSet/Setting
 import Setting5ConfirmSlide from "../Components/InitSetting/Setting5ConfirmSlide";
 import Setting6Completion from "../Components/InitSetting/Setting6Completion";
 
-import Test from "../Components/InitSetting/test";
+// import Test from "../Components/InitSetting/test";
 
 export default function InitSettingScreen() {
     let pagerview = useRef<any>();
@@ -24,7 +24,7 @@ export default function InitSettingScreen() {
         // TODO: 각각 화면 셋팅 끝나면 넘어가게
         <View style={styles.container}>
             <PagerView ref={pagerview} style={styles.pagerView} initialPage={0}>
-                {/* <View style={styles.page} key="1">
+                <View style={styles.page} key="1">
                     <Setting1Name pageMoveHandler={pageMoveHandler}/>
                 </View>
                 <View style={styles.page} key="2">
@@ -32,16 +32,16 @@ export default function InitSettingScreen() {
                 </View>
                 <View style={styles.page} key="3">
                     <Setting3WakeUpTime pageMoveHandler={pageMoveHandler}/>
-                </View> */}
+                </View>
                 <View style={styles.page} key="4">
                     <Setting4SlideSet pageMoveHandler={pageMoveHandler}/>
                 </View>
-                {/* <View style={styles.page} key="5">
+                <View style={styles.page} key="5">
                     <Setting5ConfirmSlide pageMoveHandler={pageMoveHandler}/>
                 </View>
                 <View style={styles.page} key="6">
                     <Setting6Completion />
-                </View> */}
+                </View>
             </PagerView>
         </View>
     );

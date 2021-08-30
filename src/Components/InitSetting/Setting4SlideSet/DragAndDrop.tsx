@@ -9,34 +9,28 @@ import { commonStyle } from "../../../Styles/CommonStyles";
 // dummy data
 var tiles = [
     {
-        key: 0,
         id: "알람",
-        show:true
+        show: true,
     },
     {
-        key: 1,
         id: "시간",
-        show:true
+        show: true,
     },
     {
-        key: 2,
         id: "일정",
-        show:true
+        show: true,
     },
     {
-        key: 3,
         id: "날씨",
-        show:true
+        show: true,
     },
     {
-        key: 4,
         id: "뉴스",
-        show:true
+        show: true,
     },
     {
-        key: 5,
         id: "타인의 어제",
-        show:true
+        show: true,
     },
 ];
 
@@ -50,63 +44,45 @@ var tiles = [
 // }
 
 const initial_value: Positions = {
-    "알람": 0,
-    "시간": 1,
-    "일정": 2,
-    "날씨": 3,
-    "뉴스": 4,
+    알람: 0,
+    시간: 1,
+    일정: 2,
+    날씨: 3,
+    뉴스: 4,
     "타인의 어제": 5,
 };
 
-const funcs=["알람","시간","일정","날씨","뉴스","타인의 어제"]
+const menu = ["알람", "시간", "일정", "날씨", "뉴스", "타인의 어제"];
 
 const DragAndDrop = (props: {
     modalHandler: (state: boolean, condition: string) => void;
     pageMoveHandler: (pageNumber: number) => void;
 }) => {
     const [data, setData] = useState<Positions>(initial_value);
-    const [tilesData,setTilesData] = useState(tiles)
+    const [tilesData, setTilesData] = useState(tiles);
 
-    const pushBackHandler = (id: string,show:boolean) => {
-        console.log(data[id]);
-        console.log(show);
-        //TODO: menu를 돌려서 해당 인덱스 보다 숫자가 높으면 -1해주고 해당 인덱스는 5로 맞춰주기
-        var temp=data
-        if (show==false){
-            for (var i=1;i<6;i++){
-                if (temp[id]<temp[funcs[i]]){
-                    temp[funcs[i]]-=1
+    const pushBackHandler = (id: string, show: boolean) => {
+        // console.log(data[id]);
+        // console.log(show);
+        //menu를 돌려서 해당 인덱스 보다 숫자가 높으면 -1해주고 해당 인덱스는 5로 맞춰주기
+        var temp = data;
+        if (show == false) {
+            for (var i = 1; i < 6; i++) {
+                if (temp[id] < temp[menu[i]]) {
+                    temp[menu[i]] -= 1;
                     // console.log("changed");
                 }
             }
-            temp[id]=5;
-            // console.log("updated: ",Object.keys(temp)[0])
-            // for (var i=1;i<6;i++){
-            //     tiles[i].id=Object.keys(temp)[i]
-            //     tiles[i].key=Object.values(temp)[i]
-            // }
-            // console.log("tiles:",tiles)
-            setData({...temp});
-            // console.log("temp: ",data);
+            temp[id] = 5;
+            setData({ ...temp });
         }
-
-
-
-        var tempTilesData=[]
-        for (var i=0;i<6;i++){
-            tempTilesData.push({key: temp[funcs[i]], id: funcs[i], show:show})
-        }
-        setTilesData([...tempTilesData])
-
-
-
-        // console.log("current data: ",data)
+        // TODO: tileData를 업데이트해서 맨 뒤로 보내기
     };
 
-    useEffect(()=>{
-        console.log("useEffect DATA:",data)
-        console.log("useEffect TILES: ",tilesData)
-    },[data,tilesData])
+    useEffect(() => {
+        // console.log("useEffect DATA:",data)
+        // console.log("useEffect TILES: ",tilesData)
+    }, [data, tilesData]);
 
     return (
         <SafeAreaProvider>
@@ -129,27 +105,21 @@ const DragAndDrop = (props: {
                         // console.log(positions)
                     }
                 >
-                    {/* {[...funcs].map((tile, index) => (
-                        <Tile
-                            key={index}
-                            idx={data[tile] + 1}
-                            id={tile}
-                            show={tiles[index].show}
-                            onLongPress={() => true}
-                            handler={props.modalHandler}
-                            pushHandler={pushBackHandler}
-                        />
-                    ))} */}
-                    {[...tilesData].map((tile, index) => (
-                        <Tile
-                            key={index}
-                            idx={data[`${tile.id}`] + 1}
-                            id={tile.id}
-                            onLongPress={() => true}
-                            handler={props.modalHandler}
-                            pushHandler={pushBackHandler}
-                        />
-                    ))}
+                    {[...tilesData].map(
+                        (tile, index) => (
+                            // console.log("mapping"),
+                            (
+                                <Tile
+                                    key={index}
+                                    idx={data[`${tile.id}`] + 1}
+                                    id={tile.id}
+                                    onLongPress={() => true}
+                                    handler={props.modalHandler}
+                                    pushHandler={pushBackHandler}
+                                />
+                            )
+                        )
+                    )}
                 </SortableList>
                 <Button
                     title="저장"

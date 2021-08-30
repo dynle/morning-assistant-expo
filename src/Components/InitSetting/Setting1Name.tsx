@@ -8,7 +8,7 @@ export default function Setting1Name(props: {
 }) {
     const [name, setName] = useState("");
     const [hasInput, setHasInput] = useState(false);
-    const [isUniqueUserName, setIsUniqueUserName] = useState(false);
+    // const [isUniqueUserName, setIsUniqueUserName] = useState(false);
     return (
         <View style={styles.container}>
             <View style={styles.containerTop}>
@@ -58,12 +58,14 @@ export default function Setting1Name(props: {
                         }}
                         onPress={() => {
                             console.log({ name });
-                            if (name && isUniqueUserName) {
+                            if (name) {
                                 setHasInput(true);
                                 props.pageMoveHandler(1);
-                            } else if (name && !isUniqueUserName) {
-                                alert("이름 중복 확인을 눌러주세요.");
-                            } else {
+                            }
+                            // else if (name && !isUniqueUserName) {
+                            //     alert("이름 중복 확인을 눌러주세요.");
+                            // }
+                            else {
                                 alert("이름을 입력하세요.");
                             }
                         }}
@@ -72,15 +74,6 @@ export default function Setting1Name(props: {
             </View>
 
             <View style={styles.containerBottom}>
-                {hasInput && (
-                    <Icon
-                        type="material-community"
-                        name="gesture-swipe-left"
-                        size={100}
-                        color="#C6BF9F"
-                        style={{}}
-                    ></Icon>
-                )}
             </View>
         </View>
     );

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -18,42 +18,60 @@ const DATA = [
     {
         key: 0,
         title: "월요일",
+        meridiem: "",
+        hour: 0,
+        minutes: 0,
     },
     {
         key: 1,
         title: "화요일",
+        meridiem: "",
+        hour: 0,
+        minutes: 0,
     },
     {
         key: 2,
         title: "수요일",
+        meridiem: "",
+        hour: 0,
+        minutes: 0,
     },
     {
         key: 3,
         title: "목요일",
+        meridiem: "",
+        hour: 0,
+        minutes: 0,
     },
     {
         key: 4,
         title: "금요일",
+        meridiem: "",
+        hour: 0,
+        minutes: 0,
     },
     {
         key: 5,
         title: "토요일",
+        meridiem: "",
+        hour: 0,
+        minutes: 0,
     },
     {
         key: 6,
         title: "일요일",
+        meridiem: "",
+        hour: 0,
+        minutes: 0,
     },
 ];
 
-// TODO: 지정한 시간 값을 백엔드에 임시 저장한 다음 맨 뒤에 설정 완료 버튼 누르면 FB에 저장
 export default function Setting3WakeUpTime(props: {
     pageMoveHandler: (pageNumber: number) => void;
 }) {
-    const [date, setDate] = useState(new Date());
     // TODO: 초반 값을 0으로 설정하고 다음 시계 클릭하면 백엔드에 저장하도록, 마지막은 저장 버튼으로?
-    const [meridiem, setMeridiem] = useState<string>("");
-    const [hour, setHour] = useState<number>(0);
-    const [minutes, setMinutes] = useState<number>(0);
+    const [item, setItem] = useState(DATA[0]);
+    const [date, setDate] = useState(new Date());
     const [currDayOfWeek, setCurrDayOfWeek] = useState("");
     const [isSelected, setIsSelected] = useState(0);
 
@@ -64,9 +82,9 @@ export default function Setting3WakeUpTime(props: {
     const onChange = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
-        setMeridiem(moment(currentDate).format("a"));
-        setHour(Number(moment(currentDate).format("h")));
-        setMinutes(Number(moment(currentDate).format("mm")));
+        item.meridiem = moment(currentDate).format("a").toUpperCase();
+        item.hour = Number(moment(currentDate).format("h"));
+        item.minutes = Number(moment(currentDate).format("mm"));
     };
 
     let refContainer = useRef<any>();
@@ -76,6 +94,9 @@ export default function Setting3WakeUpTime(props: {
                 <View style={styles.containerTop}>
                     <Text style={styles.containerTopText}>
                         당신은 언제 아침을{"\n"}맞이 하나요?
+                    </Text>
+                    <Text style={{ color: "white", fontSize: 20 }}>
+                        스와이프해서 요일별로 설정하세요!
                     </Text>
                 </View>
             </View>
@@ -88,7 +109,7 @@ export default function Setting3WakeUpTime(props: {
                         contentContainerStyle={{
                             paddingHorizontal: width / 2 - 100,
                         }}
-                        style={{paddingTop:'10%'}}
+                        style={{ paddingTop: "10%" }}
                         keyExtractor={(item) => item.key.toString()}
                         ref={refContainer}
                         horizontal={true}
@@ -106,6 +127,7 @@ export default function Setting3WakeUpTime(props: {
                                 onPress={() => {
                                     setCurrDayOfWeek(item.title);
                                     setIsSelected(index);
+                                    setItem(DATA[index]);
                                     refContainer.current!.scrollToIndex({
                                         index: item.key,
                                         animated: true,
@@ -122,21 +144,31 @@ export default function Setting3WakeUpTime(props: {
                                             marginRight: 50,
                                             justifyContent: "center",
                                         },
-                                        (meridiem == "am" &&
-                                            hour >= 7 &&
-                                            hour < 12) ||
-                                        (meridiem == "pm" &&
-                                            (hour <= 5 || hour == 12))
-                                            ? { backgroundColor: "#FFEEC0",shadowColor:"#E3BF7C",shadowOpacity:10,shadowRadius:15 }
-                                            : { backgroundColor: "#BEBEBE",shadowColor:"#5E6574",shadowOpacity:10,shadowRadius:15 },
+                                        (item.meridiem == "AM" &&
+                                            item.hour >= 7 &&
+                                            item.hour < 12) ||
+                                        (item.meridiem == "PM" &&
+                                            (item.hour <= 5 || item.hour == 12))
+                                            ? {
+                                                backgroundColor: "#FFEEC0",
+                                                shadowColor: "#E3BF7C",
+                                                shadowOpacity: 10,
+                                                shadowRadius: 15,
+                                            }
+                                            : {
+                                                backgroundColor: "#BEBEBE",
+                                                shadowColor: "#5E6574",
+                                                shadowOpacity: 10,
+                                                shadowRadius: 15,
+                                            },
                                     ]}
                                 >
                                     {index == isSelected && (
                                         <Setting3Clock
                                             width={clock_width}
                                             height={clock_width}
-                                            hour={hour}
-                                            minutes={minutes}
+                                            hour={item.hour}
+                                            minutes={item.minutes}
                                         ></Setting3Clock>
                                     )}
                                 </View>
@@ -164,7 +196,16 @@ export default function Setting3WakeUpTime(props: {
                         textColor="white"
                     />
                     <Text style={styles.timeText}>
-                        - {moment(date).format("LT")} -
+                        {"- " +
+                            item.hour +
+                            ":" +
+                            item.minutes.toLocaleString("en-US", {
+                                minimumIntegerDigits: 2,
+                                useGrouping: false,
+                            }) +
+                            " " +
+                            item.meridiem +
+                            " -"}
                     </Text>
 
                     {currDayOfWeek == "일요일" && (
@@ -184,6 +225,7 @@ export default function Setting3WakeUpTime(props: {
                                 style={{ alignItems: "center" }}
                                 onPress={() => {
                                     props.pageMoveHandler(3);
+                                    console.log(DATA)
                                 }}
                             ></Button>
                         </ThemeProvider>
