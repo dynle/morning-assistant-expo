@@ -7,7 +7,7 @@ import { Button } from "react-native-elements";
 import { commonStyle } from "../../../Styles/CommonStyles";
 
 // dummy data
-var tiles = [
+var initial_tiles = [
     {
         id: "알람",
         show: true,
@@ -52,14 +52,15 @@ const initial_value: Positions = {
     "타인의 어제": 5,
 };
 
-const menu = ["알람", "시간", "일정", "날씨", "뉴스", "타인의 어제"];
+var menu = ["알람", "시간", "일정", "날씨", "뉴스", "타인의 어제"];
 
 const DragAndDrop = (props: {
     modalHandler: (state: boolean, condition: string) => void;
     pageMoveHandler: (pageNumber: number) => void;
+    scrollEnabledHandler: (enabled: boolean) => void;
 }) => {
     const [data, setData] = useState<Positions>(initial_value);
-    const [tilesData, setTilesData] = useState(tiles);
+    const [tilesData, setTilesData] = useState(initial_tiles);
 
     const pushBackHandler = (id: string, show: boolean) => {
         // console.log(data[id]);
@@ -67,6 +68,7 @@ const DragAndDrop = (props: {
         //menu를 돌려서 해당 인덱스 보다 숫자가 높으면 -1해주고 해당 인덱스는 5로 맞춰주기
         var temp = data;
         if (show == false) {
+            // move an element to the end of an array
             for (var i = 1; i < 6; i++) {
                 if (temp[id] < temp[menu[i]]) {
                     temp[menu[i]] -= 1;
@@ -74,14 +76,27 @@ const DragAndDrop = (props: {
                 }
             }
             temp[id] = 5;
+            menu.push(menu.splice(menu.indexOf(id), 1)[0]);
             setData({ ...temp });
         }
-        // TODO: tileData를 업데이트해서 맨 뒤로 보내기
+
+        // TODO: tileData를 업데이트해서 맨 뒤로 보내기 / 리스트를 업데이트 하면 X한 목록이 다시 살아남
+        var target: number = 0;
+        var tempTilesData = tilesData;
+        for (var i = 1; i < 6; i++) {
+            if (tempTilesData[i].id == id) {
+                target = i;
+            }
+        }
+        tempTilesData[target].show = !tempTilesData[target].show;
+        // tempTilesData.push(tempTilesData.splice(target,1)[0])
+        setTilesData([...tempTilesData]);
     };
 
     useEffect(() => {
         // console.log("useEffect DATA:",data)
-        // console.log("useEffect TILES: ",tilesData)
+        console.log("useEffect TILES: ", tilesData);
+        // console.log(menu)
     }, [data, tilesData]);
 
     return (
@@ -105,21 +120,17 @@ const DragAndDrop = (props: {
                         // console.log(positions)
                     }
                 >
-                    {[...tilesData].map(
-                        (tile, index) => (
-                            // console.log("mapping"),
-                            (
-                                <Tile
-                                    key={index}
-                                    idx={data[`${tile.id}`] + 1}
-                                    id={tile.id}
-                                    onLongPress={() => true}
-                                    handler={props.modalHandler}
-                                    pushHandler={pushBackHandler}
-                                />
-                            )
-                        )
-                    )}
+                    {[...tilesData].map((tile, index) => (
+                        // console.log("mapping"),
+                        <Tile
+                            key={index}
+                            idx={data[`${tile.id}`] + 1}
+                            id={tile.id}
+                            onLongPress={() => true}
+                            handler={props.modalHandler}
+                            pushHandler={pushBackHandler}
+                        />
+                    ))}
                 </SortableList>
                 <Button
                     title="저장"
@@ -128,6 +139,8 @@ const DragAndDrop = (props: {
                     style={{ alignItems: "center" }}
                     onPress={() => {
                         console.log("저장");
+                        console.log(tilesData);
+                        props.scrollEnabledHandler(true);
                         props.pageMoveHandler(4);
                     }}
                 ></Button>

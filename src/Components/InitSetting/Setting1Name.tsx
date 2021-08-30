@@ -5,6 +5,7 @@ import { signOutUtil } from "../../Utils/AuthUtil";
 
 export default function Setting1Name(props: {
     pageMoveHandler: (pageNumber: number) => void;
+    scrollEnabledHandler: (enabled: boolean) => void;
 }) {
     const [name, setName] = useState("");
     const [hasInput, setHasInput] = useState(false);
@@ -46,7 +47,7 @@ export default function Setting1Name(props: {
                         )}
                     </Text>
                 </View> */}
-                <View style={{ flexDirection: "row"}}>
+                <View style={{ flexDirection: "row" }}>
                     {/* TODO: 확인 버튼으로 중복확인까지 할 수 있게 */}
                     <Button
                         title="확인"
@@ -60,6 +61,7 @@ export default function Setting1Name(props: {
                             console.log({ name });
                             if (name) {
                                 setHasInput(true);
+                                props.scrollEnabledHandler(true);
                                 props.pageMoveHandler(1);
                             }
                             // else if (name && !isUniqueUserName) {
@@ -73,8 +75,7 @@ export default function Setting1Name(props: {
                 </View>
             </View>
 
-            <View style={styles.containerBottom}>
-            </View>
+            <View style={styles.containerBottom}></View>
         </View>
     );
 }

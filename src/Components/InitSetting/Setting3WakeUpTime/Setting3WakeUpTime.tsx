@@ -68,6 +68,7 @@ const DATA = [
 
 export default function Setting3WakeUpTime(props: {
     pageMoveHandler: (pageNumber: number) => void;
+    scrollEnabledHandler: (enabled: boolean) => void;
 }) {
     // TODO: 초반 값을 0으로 설정하고 다음 시계 클릭하면 백엔드에 저장하도록, 마지막은 저장 버튼으로?
     const [item, setItem] = useState(DATA[0]);
@@ -150,17 +151,17 @@ export default function Setting3WakeUpTime(props: {
                                         (item.meridiem == "PM" &&
                                             (item.hour <= 5 || item.hour == 12))
                                             ? {
-                                                backgroundColor: "#FFEEC0",
-                                                shadowColor: "#E3BF7C",
-                                                shadowOpacity: 10,
-                                                shadowRadius: 15,
-                                            }
+                                                  backgroundColor: "#FFEEC0",
+                                                  shadowColor: "#E3BF7C",
+                                                  shadowOpacity: 10,
+                                                  shadowRadius: 15,
+                                              }
                                             : {
-                                                backgroundColor: "#BEBEBE",
-                                                shadowColor: "#5E6574",
-                                                shadowOpacity: 10,
-                                                shadowRadius: 15,
-                                            },
+                                                  backgroundColor: "#BEBEBE",
+                                                  shadowColor: "#5E6574",
+                                                  shadowOpacity: 10,
+                                                  shadowRadius: 15,
+                                              },
                                     ]}
                                 >
                                     {index == isSelected && (
@@ -224,8 +225,9 @@ export default function Setting3WakeUpTime(props: {
                                 }}
                                 style={{ alignItems: "center" }}
                                 onPress={() => {
+                                    props.scrollEnabledHandler(true);
                                     props.pageMoveHandler(3);
-                                    console.log(DATA)
+                                    console.log(DATA);
                                 }}
                             ></Button>
                         </ThemeProvider>

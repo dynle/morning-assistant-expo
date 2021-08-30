@@ -12,6 +12,7 @@ export default function Setting6Completion() {
                 <Text style={styles.containerTopText}>
                     당신의 아침이 {"\n"} 준비 되었습니다
                 </Text>
+                <Text style={{fontSize:20,paddingTop:'20%',lineHeight:30}}>설정을 변경하고 싶으면{"\n"}스와이프해서 돌아가요!</Text>
             </View>
             <View style={styles.containerBottom}>
                 {/* TODO: 설정들을 FB에 올리는 버튼 */}

@@ -44,6 +44,7 @@ const carouselItems = [
 
 export default function Test(props: {
     pageMoveHandler: (pageNumber: number) => void;
+    scrollEnabledHandler: (enabled: boolean) => void;
 }) {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -105,10 +106,9 @@ export default function Test(props: {
                             useScrollView={true}
                             slideStyle={{ justifyContent: "center" }}
                         />
-                        
                     </View>
                     <View style={{}}>
-                    <Pagination
+                        <Pagination
                             dotsLength={carouselItems.length}
                             activeDotIndex={activeIndex}
                             // containerStyle={{backgroundColor:'green'}}
@@ -146,6 +146,7 @@ export default function Test(props: {
                     buttonStyle={commonStyle.buttonStyle}
                     style={{ alignItems: "center" }}
                     onPress={() => {
+                        props.scrollEnabledHandler(true);
                         props.pageMoveHandler(5);
                     }}
                 ></Button>

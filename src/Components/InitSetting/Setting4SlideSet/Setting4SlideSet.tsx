@@ -20,6 +20,7 @@ import ModalYesterday from "./Setting4Modal/ModalYesterday";
 
 export default function Setting4SlideSet(props: {
     pageMoveHandler: (pageNumber: number) => void;
+    scrollEnabledHandler: (enabled: boolean) => void;
 }) {
     // FIXME: 둘 중 하나 없어도 될듯?
     const [modalVisible, setModalVisible] = useState(false);
@@ -96,7 +97,7 @@ export default function Setting4SlideSet(props: {
                         onPress={() => setModalVisible(!modalVisible)}
                     ></Icon>
                 </View>
-                <Text style={{ marginTop:'2%' ,fontSize: 15 }}>
+                <Text style={{ marginTop: "2%", fontSize: 15 }}>
                     *클릭 시 추가 설명과 설정 창을 확인 할 수 있어요!
                 </Text>
             </View>
@@ -104,6 +105,7 @@ export default function Setting4SlideSet(props: {
                 <DragAndDrop
                     modalHandler={modalHandler}
                     pageMoveHandler={props.pageMoveHandler}
+                    scrollEnabledHandler={props.scrollEnabledHandler}
                 />
             </View>
         </View>
