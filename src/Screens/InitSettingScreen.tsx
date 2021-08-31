@@ -57,34 +57,34 @@ export default function InitSettingScreen() {
                     }
                 }}
             >
-                <View style={styles.page} key="1">
+                <View style={styles.page} key="0">
                     <Setting1Name
                         pageMoveHandler={pageMoveHandler}
                         scrollEnabledHandler={scrollEnabledHandler}
                     />
                 </View>
-                <View style={styles.page} key="2">
+                <View style={styles.page} key="1">
                     <Setting2Intro />
                 </View>
-                <View style={styles.page} key="3">
+                <View style={styles.page} key="2">
                     <Setting3WakeUpTime
                         pageMoveHandler={pageMoveHandler}
                         scrollEnabledHandler={scrollEnabledHandler}
                     />
                 </View>
-                <View style={styles.page} key="4">
+                <View style={styles.page} key="3">
                     <Setting4SlideSet
                         pageMoveHandler={pageMoveHandler}
                         scrollEnabledHandler={scrollEnabledHandler}
                     />
                 </View>
-                <View style={styles.page} key="5">
+                <View style={styles.page} key="4">
                     <Setting5ConfirmSlide
                         pageMoveHandler={pageMoveHandler}
                         scrollEnabledHandler={scrollEnabledHandler}
                     />
                 </View>
-                <View style={styles.page} key="6">
+                <View style={styles.page} key="5">
                     <Setting6Completion />
                 </View>
             </PagerView>

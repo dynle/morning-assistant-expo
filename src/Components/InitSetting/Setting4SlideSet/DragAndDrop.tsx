@@ -7,7 +7,7 @@ import { Button } from "react-native-elements";
 import { commonStyle } from "../../../Styles/CommonStyles";
 
 // dummy data
-var initial_tiles = [
+var tiles = [
     {
         id: "알람",
         show: true,
@@ -60,7 +60,7 @@ const DragAndDrop = (props: {
     scrollEnabledHandler: (enabled: boolean) => void;
 }) => {
     const [data, setData] = useState<Positions>(initial_value);
-    const [tilesData, setTilesData] = useState(initial_tiles);
+    const [tilesData, setTilesData] = useState(tiles);
 
     const pushBackHandler = (id: string, show: boolean) => {
         // console.log(data[id]);
