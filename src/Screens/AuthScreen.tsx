@@ -53,6 +53,7 @@ export default function AuthScren() {
                     onChangeText={setEmail}
                 ></Input>
                 <Input
+                    textContentType="password"
                     placeholder="Password"
                     label="Password"
                     secureTextEntry={true}

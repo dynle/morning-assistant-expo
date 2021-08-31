@@ -22,7 +22,7 @@ export default function Setting6Completion() {
                     buttonStyle={commonStyle.buttonStyle}
                     onPress={() => {
                         console.log("셋팅 확인");
-                        // TODO: User object를 useContext에 저장해서 HomeScreen에 주는 방법
+                        // TODO: User object를 redux에 저장해서 HomeScreen에 주는 방법
                         // <HomeScreen></HomeScreen>
                     }}
                 ></Button>
