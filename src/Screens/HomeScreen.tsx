@@ -6,8 +6,10 @@ import {
     Dimensions,
     FlatList,
     TouchableOpacity,
+    Button,
 } from "react-native";
 import { UserType } from "../fbase";
+import { signOutUtil } from "../Utils/AuthUtil";
 
 const menu = [
     {
@@ -97,6 +99,7 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
                     renderItem={_renderItem}
                     keyExtractor={(item) => item.key}
                 ></FlatList>
+                <Button title="Sign Out" onPress={signOutUtil}></Button>
             </View>
         </View>
     );
