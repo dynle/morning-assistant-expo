@@ -158,7 +158,7 @@ export default function Test(props: {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#E2D3C1",
+        backgroundColor: "#F5E6DD",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",

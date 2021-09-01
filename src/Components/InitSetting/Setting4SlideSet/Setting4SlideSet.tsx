@@ -115,7 +115,7 @@ export default function Setting4SlideSet(props: {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#E1D3AD",
+        backgroundColor: "#CCC0B8",
         width: Dimensions.get("window").width,
         justifyContent: "center",
         alignItems: "center",

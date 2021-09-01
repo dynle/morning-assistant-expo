@@ -9,10 +9,14 @@ import Setting3WakeUpTime from "../Components/InitSetting/Setting3WakeUpTime/Set
 import Setting4SlideSet from "../Components/InitSetting/Setting4SlideSet/Setting4SlideSet";
 import Setting5ConfirmSlide from "../Components/InitSetting/Setting5ConfirmSlide";
 import Setting6Completion from "../Components/InitSetting/Setting6Completion";
+import { UserType } from "../fbase";
 
 // import Test from "../Components/InitSetting/test";
 
-export default function InitSettingScreen() {
+export default function InitSettingScreen(props: {
+    handlerIsNewUser: (state: boolean) => void;
+    user: UserType;
+}) {
     const [isScrollEnabled, setIsScrollEnabled] = useState(false);
     const [visited2, setVisited2] = useState(false);
     const [visited3, setVisited3] = useState(false);
@@ -85,7 +89,10 @@ export default function InitSettingScreen() {
                     />
                 </View>
                 <View style={styles.page} key="5">
-                    <Setting6Completion />
+                    <Setting6Completion
+                        handlerIsNewUser={props.handlerIsNewUser}
+                        user={props.user}
+                    />
                 </View>
             </PagerView>
         </View>

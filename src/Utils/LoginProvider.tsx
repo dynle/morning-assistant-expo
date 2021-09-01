@@ -3,13 +3,9 @@ import Loading from "../Components/Common/LoadingComponent";
 import { authService, dbService, UserType } from "../fbase";
 import HomeRouter from "../Routes/HomeRouter";
 import AuthScreen from "../Screens/AuthScreen";
-import HomeScreen from "../Screens/HomeScreen";
 import InitSettingScreen from "../Screens/InitSettingScreen";
 import CheckDBUtil from "./CheckDBUtil";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 
 export default function LoginProvider() {
     // Set an initializing state whilst Firebase connects
@@ -40,57 +36,22 @@ export default function LoginProvider() {
 
     if (initializing) return null;
 
-    return <InitSettingScreen></InitSettingScreen>
+    // return <InitSettingScreen></InitSettingScreen>
     // return <HomeScreen></HomeScreen>
 
-    // if (!user) {
-    //     return <AuthScreen></AuthScreen>;
-    // } else {
-    //     // return <Loading></Loading>
-    //     if (isNewUser == null) return <Loading></Loading>;
-    //     else if (isNewUser == true)
-    //         return <InitSettingScreen></InitSettingScreen>;
-    //     else return <HomeScreen user={user}></HomeScreen>;
-    //     // else return <HomeRouter user={user}></HomeRouter>;
-    // }
-
-    // TODO: router를 써서 
-    // const Stack=createNativeStackNavigator();
-    // if (!user) {
-    //     return <AuthScreen></AuthScreen>;
-    // } else {
-    //     if (isNewUser == null) return <Loading></Loading>;
-    //     else if (isNewUser == true)
-    //         return <InitSettingScreen></InitSettingScreen>;
-    //     else return(
-    //         <NavigationContainer>
-    //             <Stack.Navigator initialRouteName="Home">
-    //                 <Stack.Screen name="Home" component={HomeScreen}/>
-    //             </Stack.Navigator>
-    //         </NavigationContainer>
-    //     ) ;
-    // }
-
-
-    // const Stack = createNativeStackNavigator();
-    // return (
-    //     <NavigationContainer>
-    //         {!user ? (
-    //             <AuthScreen></AuthScreen>
-    //         ) : (isNewUser==null ? (
-    //             <Loading></Loading>
-    //         ) : (
-    //             <Stack.Navigator>
-    //                 {isNewUser ? (
-    //                     <Stack.Screen
-    //                         name="InitSettingScreen"
-    //                         component={InitSettingScreen}
-    //                     />
-    //                 ) : (
-    //                     <Stack.Screen name="Home" component={HomeScreen} />
-    //                 )}
-    //             </Stack.Navigator>
-    //         ))}
-    //     </NavigationContainer>
-    // );
+    if (!user) {
+        return <AuthScreen></AuthScreen>;
+    } else {
+        if (isNewUser == null) return <Loading></Loading>;
+        else if (isNewUser == true)
+            return (
+                <View style={{ alignItems: "center" }}>
+                    <InitSettingScreen
+                        handlerIsNewUser={handlerIsNewUser}
+                        user={user}
+                    />
+                </View>
+            );
+        else return <HomeRouter user={user} />;
+    }
 }
