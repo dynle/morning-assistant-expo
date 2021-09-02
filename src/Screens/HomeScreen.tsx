@@ -6,46 +6,53 @@ import {
     Dimensions,
     FlatList,
     TouchableOpacity,
-    Button,
+    Image,
 } from "react-native";
+import { Button } from "react-native-elements";
 import { UserType } from "../fbase";
 import { signOutUtil } from "../Utils/AuthUtil";
+import Todo from "../../assets/homescreen/Todo.png";
+import Share from "../../assets/homescreen/Share.png";
+import Alarm from "../../assets/homescreen/Alarm.png";
+import Slide from "../../assets/homescreen/Slide.png";
+import Setting from "../../assets/homescreen/Setting.png";
+import { homescreenStyle, BackgroundCircle } from "../Styles/HomeScreenStyle";
 
 const menu = [
     {
         key: "1",
         color: "#2C838B",
-        image: "",
+        image: Todo,
         title: "일정 추가",
-        navigate: "",
+        navigate: "Todo",
     },
     {
         key: "2",
         color: "#74ADAE",
-        image: "",
+        image: Share,
         title: "타인의 어제 공유",
-        navigate: "",
+        navigate: "Share",
     },
     {
         key: "3",
         color: "#F5BCA2",
-        image: "",
+        image: Alarm,
         title: "알람 시간 변경",
-        navigate: "",
+        navigate: "Alarm",
     },
     {
         key: "4",
         color: "#F19569",
-        image: "",
+        image: Slide,
         title: "슬라이드 변경",
-        navigate: "",
+        navigate: "Slide",
     },
     {
         key: "5",
         color: "#ED8049",
-        image: "",
+        image: Setting,
         title: "설정",
-        navigate: "",
+        navigate: "Setting",
     },
 ];
 
@@ -55,10 +62,9 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
         return (
             <TouchableOpacity
                 style={styles.containerButton}
-                activeOpacity={0.7}
+                activeOpacity={0.8}
                 onPress={() => {
-                    console.log("hi");
-                    props.navigation.navigate("Todo");
+                    props.navigation.navigate(_props.item.navigate);
                 }}
             >
                 <View style={styles.buttonContent}>
@@ -69,7 +75,12 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
                                 backgroundColor: `${_props.item.color}`,
                             },
                         ]}
-                    ></View>
+                    >
+                        <Image
+                            source={_props.item.image}
+                            style={styles.iconSize}
+                        ></Image>
+                    </View>
                     <Text style={styles.buttonText}>{_props.item.title}</Text>
                 </View>
             </TouchableOpacity>
@@ -77,23 +88,12 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
     };
 
     return (
-        <View style={styles.container}>
-            {/* IDEA: SVG or LinearGradient를 이용해서 gradient 사용? */}
-            <View
-                style={{
-                    position: "absolute",
-                    height: "50%",
-                    width: "110%",
-                    backgroundColor: "#9E9884",
-                    top: "-20%",
-                    borderRadius: 1000,
-                    opacity: 0.7,
-                }}
-            ></View>
-            <View style={styles.containerTop}>
-                <Text style={styles.containerTopText}>오늘의 아침</Text>
+        <View style={homescreenStyle.container}>
+            <BackgroundCircle/>
+            <View style={homescreenStyle.containerTop}>
+                <Text style={homescreenStyle.containerTopText}>오늘의 아침</Text>
             </View>
-            <View style={styles.containerBottom}>
+            <View style={homescreenStyle.containerBottom}>
                 <FlatList
                     data={menu}
                     renderItem={_renderItem}
@@ -106,29 +106,6 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#222221",
-        width: Dimensions.get("window").width,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    containerTop: {
-        flex: 1,
-        justifyContent: "flex-end",
-    },
-    containerTopText: {
-        color: "#DFCA96",
-        fontSize: 50,
-        textAlign: "center",
-        lineHeight: 60,
-        marginBottom: "6%",
-        // fontWeight:"bold"
-    },
-    containerBottom: {
-        flex: 4,
-        justifyContent: "center",
-    },
     containerButton: {
         justifyContent: "center",
         width: Dimensions.get("window").width * 0.8,
@@ -146,12 +123,17 @@ const styles = StyleSheet.create({
     buttonText: {
         color: "white",
         fontSize: 28,
-        marginLeft: "4%",
+        // marginLeft: "4%",
+        textAlign: "center",
+        width: "78%",
     },
     iconStyle: {
         height: "70%",
         width: "22%",
         marginLeft: "3%",
         borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
     },
+    iconSize: { width: "65%", height: "65%" },
 });

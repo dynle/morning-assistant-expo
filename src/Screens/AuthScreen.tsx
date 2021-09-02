@@ -23,13 +23,13 @@ export default function AuthScren() {
     const signUp = () => {
         signUpUtil(email, password).catch((e) => {
             console.log(e);
-            alert("Something went wrong");
+            alert(e);
         });
     };
     const signIn = () => {
         signInUtil(email, password).catch((e) => {
             console.log(e);
-            alert("Email/password is wrong");
+            alert(e);
         });
     };
 
