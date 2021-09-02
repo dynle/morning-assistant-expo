@@ -21,12 +21,11 @@ export default function HomeRouter(props: { user: UserType }) {
                 screenOptions={{ headerShown: false }}
             >
                 <Stack.Screen
-                    // options={{ headerShown: false }}
                     name="Home"
                     component={HomeScreen}
                     // initialParams={{ user: props.user }}
                 />
-                <Stack.Screen name="Todo" component={MenuTodo} />
+                <Stack.Screen name="Todo" component={MenuTodo} options={{headerBackVisible:true}} />
                 <Stack.Screen name="Share" component={MenuShare} />
                 <Stack.Screen name="Alarm" component={MenuAlarm} />
                 <Stack.Screen name="Slide" component={MenuSlide} />

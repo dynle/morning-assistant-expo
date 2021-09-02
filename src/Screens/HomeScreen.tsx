@@ -8,9 +8,7 @@ import {
     TouchableOpacity,
     Image,
 } from "react-native";
-import { Button } from "react-native-elements";
 import { UserType } from "../fbase";
-import { signOutUtil } from "../Utils/AuthUtil";
 import Todo from "../../assets/homescreen/Todo.png";
 import Share from "../../assets/homescreen/Share.png";
 import Alarm from "../../assets/homescreen/Alarm.png";
@@ -99,7 +97,6 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
                     renderItem={_renderItem}
                     keyExtractor={(item) => item.key}
                 ></FlatList>
-                <Button title="Sign Out" onPress={signOutUtil}></Button>
             </View>
         </View>
     );
