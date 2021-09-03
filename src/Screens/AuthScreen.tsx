@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     View,
@@ -13,7 +13,7 @@ import GoogleLogin from "../Services/GoogleAuthService";
 import { SocialIcon, Input } from "react-native-elements";
 
 var width = Dimensions.get("window").width;
-// var height = Dimensions.get("window").height;
+var height = Dimensions.get("window").height;
 
 export default function AuthScren() {
     const [email, setEmail] = useState("");
@@ -53,10 +53,9 @@ export default function AuthScren() {
                     onChangeText={setEmail}
                 ></Input>
                 <Input
-                    textContentType="password"
+                    textContentType="newPassword"
                     placeholder="Password"
                     label="Password"
-                    secureTextEntry={true}
                     leftIcon={{
                         type: "font-awesome",
                         name: "lock",
@@ -64,7 +63,9 @@ export default function AuthScren() {
                     }}
                     style={{ color: "#C6BF9F" }}
                     onChangeText={setPassword}
-                    passwordRules="required: upper; required: lower; minlength:6"
+                    secureTextEntry={true}
+                    autoCorrect={false}
+                    passwordRules="minlength: 8; required: upper; required: lower;"
                 ></Input>
                 {/* <TextInput
                     placeholder="Email"
@@ -137,8 +138,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#222323",
         justifyContent: "center",
-        padding: 20,
+        padding: "5%",
         width: width,
+        height:height
     },
     containerTop: {
         flex: 2,
@@ -149,9 +151,8 @@ const styles = StyleSheet.create({
         flex: 3,
     },
     title: {
-        //font 정해야함
         color: "#F2F2F2",
-        fontSize: 50,
+        fontSize: 65,
         fontWeight: "bold",
         textShadowColor: "#E3C65C",
         // textShadowOffset: {width: 5, height: 5},
@@ -172,8 +173,7 @@ const styles = StyleSheet.create({
     button: {
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 12,
-        paddingHorizontal: 32,
+        paddingVertical: "4%",
         borderRadius: 4,
         elevation: 3,
         backgroundColor: "black",

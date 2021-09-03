@@ -79,6 +79,9 @@ export default function Setting3WakeUpTime(props: {
     const width = Dimensions.get("window").width;
     let clock_height = 200;
     let clock_width = 200;
+    
+    // let clock_height = width*0.6;
+    // let clock_width = width*0.6;
 
     const onChange = (event: any, selectedDate: any) => {
         const currentDate = selectedDate || date;
@@ -151,17 +154,17 @@ export default function Setting3WakeUpTime(props: {
                                         (item.meridiem == "PM" &&
                                             (item.hour <= 5 || item.hour == 12))
                                             ? {
-                                                  backgroundColor: "#FFEEC0",
-                                                  shadowColor: "#E3BF7C",
-                                                  shadowOpacity: 10,
-                                                  shadowRadius: 15,
-                                              }
+                                                backgroundColor: "#FFEEC0",
+                                                shadowColor: "#E3BF7C",
+                                                shadowOpacity: 10,
+                                                shadowRadius: 15,
+                                            }
                                             : {
-                                                  backgroundColor: "#BEBEBE",
-                                                  shadowColor: "#5E6574",
-                                                  shadowOpacity: 10,
-                                                  shadowRadius: 15,
-                                              },
+                                                backgroundColor: "#BEBEBE",
+                                                shadowColor: "#5E6574",
+                                                shadowOpacity: 10,
+                                                shadowRadius: 15,
+                                            },
                                     ]}
                                 >
                                     {index == isSelected && (
@@ -176,6 +179,8 @@ export default function Setting3WakeUpTime(props: {
                             </TouchableOpacity>
                         )}
                     ></FlatList>
+                </View>
+                <View style={{}}>
                     <Text
                         style={{
                             color: "#C6BF9F",

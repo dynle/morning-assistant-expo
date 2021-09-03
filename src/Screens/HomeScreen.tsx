@@ -7,6 +7,7 @@ import {
     FlatList,
     TouchableOpacity,
     Image,
+    ScrollView,
 } from "react-native";
 import { UserType } from "../fbase";
 import Todo from "../../assets/homescreen/Todo.png";
@@ -96,6 +97,7 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
                     data={menu}
                     renderItem={_renderItem}
                     keyExtractor={(item) => item.key}
+                    scrollEnabled={false}
                 ></FlatList>
             </View>
         </View>
@@ -106,11 +108,11 @@ const styles = StyleSheet.create({
     containerButton: {
         justifyContent: "center",
         width: Dimensions.get("window").width * 0.8,
+        height: Dimensions.get("window").height * 0.13,
         alignItems: "flex-start",
         backgroundColor: "#535351",
         borderRadius: 10,
-        height: "80%",
-        marginBottom: "1%",
+        marginBottom: "6%",
     },
     buttonContent: {
         flexDirection: "row",

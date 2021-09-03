@@ -40,4 +40,13 @@ export const modalStyle = StyleSheet.create({
         letterSpacing: 5,
         lineHeight: 50,
     },
+    modalButton: {
+        minWidth: "65%",
+        borderRadius: 20,
+        backgroundColor: "#F3EDE1",
+        // shadowColor:"#000",
+        // shadowOffset:{width:0,height:4},
+        // shadowOpacity:4,
+        // shadowRadius:3
+    },
 });

@@ -65,7 +65,7 @@ export default function ModalYesterday(props: {
                         <Button
                             title="확인"
                             titleStyle={{ color: "black" }}
-                            buttonStyle={commonStyle.buttonStyle}
+                            buttonStyle={modalStyle.modalButton}
                             style={{ alignItems: "center" }}
                             onPress={() => {
                                 props.handler(false, "");

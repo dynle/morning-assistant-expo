@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from "react-native"
 import { LinearGradient } from "expo-linear-gradient";
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export const homescreenStyle = StyleSheet.create({
     container: {
@@ -22,12 +23,25 @@ export const homescreenStyle = StyleSheet.create({
         marginBottom: "6%",
     },
     containerTopTextS:{
-        fontSize:40
+        fontSize: RFPercentage(5)
     },
     containerBottom: {
         flex: 4,
         justifyContent: "center",
     },
+    containerBottomFig:{
+        flex:2,
+        // justifyContent:'center',
+        alignItems:'center'
+    },
+    containerBottomMid:{
+        flex:3,
+        // justifyContent:'center',
+        alignItems:'center'
+    },
+    containerBottomButton:{
+        flex:1,
+    }
 })
 
 export function BackgroundCircle(){

@@ -12,7 +12,7 @@ import HomeScreen from "../../Screens/HomeScreen";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { commonStyle } from "../../Styles/CommonStyles";
 
-const ITEM_WIDTH = Dimensions.get("window").width * 0.7;
+const ITEM_WIDTH = Dimensions.get("window").width * 0.6;
 
 // Dummy Data
 const carouselItems = [
@@ -60,8 +60,8 @@ export default function Test(props: {
                             borderRadius: 5,
                             height: "98%",
                             padding: "10%",
-                            marginLeft: 10,
-                            marginRight: 10,
+                            marginLeft: "3%",
+                            marginRight: "3%",
                         }}
                     >
                         <Text style={{ fontSize: 30 }}>{props.item.title}</Text>
