@@ -3,11 +3,13 @@ import { Dimensions, StyleSheet } from "react-native"
 import { LinearGradient } from "expo-linear-gradient";
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
+const width=Dimensions.get("window").width
+
 export const homescreenStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#222221",
-        width: Dimensions.get("window").width,
+        width: width,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -28,11 +30,12 @@ export const homescreenStyle = StyleSheet.create({
     containerBottom: {
         flex: 4,
         justifyContent: "center",
+        backgroundColor:'brown'
     },
     containerBottomFig:{
         flex:2,
-        // justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        backgroundColor:'blue',
     },
     containerBottomMid:{
         flex:3,
@@ -41,6 +44,9 @@ export const homescreenStyle = StyleSheet.create({
     },
     containerBottomButton:{
         flex:1,
+        // width:"100%",
+        alignItems:'center',
+        justifyContent:'center'
     }
 })
 

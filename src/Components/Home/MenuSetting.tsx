@@ -20,7 +20,7 @@ function MenuStyle(menuName: string, func?: () => void) {
         <TouchableOpacity
             onPress={func}
             activeOpacity={0.5}
-            style={styles.buttonStyle}
+            style={[styles.buttonStyle]}
         >
             <Text style={{ color: "white", fontSize: RFPercentage(2.5) }}>
                 {menuName}

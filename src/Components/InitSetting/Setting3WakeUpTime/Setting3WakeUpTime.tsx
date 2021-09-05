@@ -12,6 +12,7 @@ import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import Setting3Clock from "./Setting3Clock";
 import { Divider } from "react-native-elements/dist/divider/Divider";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 // Dummy data
 const DATA = [
@@ -73,7 +74,7 @@ export default function Setting3WakeUpTime(props: {
     // TODO: 초반 값을 0으로 설정하고 다음 시계 클릭하면 백엔드에 저장하도록, 마지막은 저장 버튼으로?
     const [item, setItem] = useState(DATA[0]);
     const [date, setDate] = useState(new Date());
-    const [currDayOfWeek, setCurrDayOfWeek] = useState("");
+    const [currDayOfWeek, setCurrDayOfWeek] = useState("월요일");
     const [isSelected, setIsSelected] = useState(0);
 
     const width = Dimensions.get("window").width;
@@ -148,10 +149,10 @@ export default function Setting3WakeUpTime(props: {
                                             marginRight: 50,
                                             justifyContent: "center",
                                         },
-                                        (item.meridiem == "AM" &&
+                                        (item.meridiem == "오전" &&
                                             item.hour >= 7 &&
                                             item.hour < 12) ||
-                                        (item.meridiem == "PM" &&
+                                        (item.meridiem == "오후" &&
                                             (item.hour <= 5 || item.hour == 12))
                                             ? {
                                                 backgroundColor: "#FFEEC0",
@@ -184,7 +185,7 @@ export default function Setting3WakeUpTime(props: {
                     <Text
                         style={{
                             color: "#C6BF9F",
-                            fontSize: 20,
+                            fontSize: RFPercentage(3),
                             textAlign: "center",
                         }}
                     >
@@ -203,6 +204,8 @@ export default function Setting3WakeUpTime(props: {
                     />
                     <Text style={styles.timeText}>
                         {"- " +
+                            item.meridiem +
+                            " " +
                             item.hour +
                             ":" +
                             item.minutes.toLocaleString("en-US", {
@@ -210,7 +213,6 @@ export default function Setting3WakeUpTime(props: {
                                 useGrouping: false,
                             }) +
                             " " +
-                            item.meridiem +
                             " -"}
                     </Text>
 
