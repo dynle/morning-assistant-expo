@@ -42,20 +42,20 @@ export default function MenuShare(props: { navigation: any }) {
         }
     };
 
-    // useEffect(() => {
-    //     (async () => {
-    //         if (Platform.OS !== "web") {
-    //             const { status } =
-    //                 await ImagePicker.requestMediaLibraryPermissionsAsync();
-    //             console.log(status);
-    //             if (status !== "granted") {
-    //                 alert(
-    //                     "Sorry, we need camera roll permissions to make this work!"
-    //                 );
-    //             }
-    //         }
-    //     })();
-    // }, []);
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== "web") {
+                const { status } =
+                    await ImagePicker.requestMediaLibraryPermissionsAsync();
+                console.log(status);
+                if (status !== "granted") {
+                    alert(
+                        "Sorry, we need camera roll permissions to make this work!"
+                    );
+                }
+            }
+        })();
+    }, []);
     return (
         <View style={homescreenStyle.container}>
             <BackgroundCircle />

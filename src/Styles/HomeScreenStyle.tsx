@@ -30,17 +30,15 @@ export const homescreenStyle = StyleSheet.create({
     containerBottom: {
         flex: 4,
         justifyContent: "center",
-        backgroundColor:'brown'
     },
     containerBottomFig:{
         flex:2,
         alignItems:'center',
-        backgroundColor:'blue',
     },
     containerBottomMid:{
         flex:3,
         // justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
     containerBottomButton:{
         flex:1,

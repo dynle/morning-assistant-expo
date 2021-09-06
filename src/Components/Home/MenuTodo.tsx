@@ -1,6 +1,13 @@
 import moment from "moment";
 import React from "react";
-import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet,
+    FlatList,
+    Dimensions,
+    TouchableOpacity,
+} from "react-native";
 import { Button } from "react-native-elements";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -42,23 +49,42 @@ var todoData = [
 ];
 
 export default function MenuTodo(props: { navigation: any }) {
-
     const _renderItem = (_props: { item: any }) => {
         return (
-                <View
+            <TouchableOpacity
+                activeOpacity={0.8}
+                style={{
+                    backgroundColor: "#535351",
+                    width: width * 0.8,
+                    height: height * 0.12,
+                    borderRadius: RFPercentage(2),
+                    // justifyContent: "flex-start",
+                    alignItems: "center",
+                    marginBottom: 5,
+                    flexDirection: "row",
+                }}
+            >
+                <Text
+                    numberOfLines={1}
                     style={{
-                        backgroundColor: "#535351",
-                        width: width * 0.8,
-                        height: height * 0.12,
-                        borderRadius:RFPercentage(2),
-                        justifyContent:'center',
-                        alignItems:'center',
-                        marginBottom: 5,
+                        color: "white",
+                        fontSize: RFPercentage(4),
+                        marginLeft: RFPercentage(2),
                     }}
                 >
-                    <Text>{_props.item.title}</Text>
-                    <Text>{_props.item.time}</Text>
-                </View>
+                    {_props.item.title}
+                </Text>
+                <Text
+                    style={{
+                        color: "white",
+                        fontSize: RFPercentage(3),
+                        marginLeft: "auto",
+                        marginRight: RFPercentage(2),
+                    }}
+                >
+                    {_props.item.time} PM
+                </Text>
+            </TouchableOpacity>
         );
     };
 
@@ -83,13 +109,28 @@ export default function MenuTodo(props: { navigation: any }) {
                     </Text>
                 </View>
                 <View style={homescreenStyle.containerBottomMid}>
-                    <FlatList
-                        data={todoData}
-                        renderItem={_renderItem}
-                        keyExtractor={(item) => item.key.toString()}
-                        scrollEnabled={true}
-                        contentContainerStyle={{backgroundColor:'white'}}
-                    ></FlatList>
+                    <View style={{ flex: 2 }}>
+                        <FlatList
+                            data={todoData}
+                            renderItem={_renderItem}
+                            keyExtractor={(item) => item.key.toString()}
+                            scrollEnabled={true}
+                            showsVerticalScrollIndicator={false}
+                        ></FlatList>
+                    </View>
+                    <View style={{ flex: 0.5, justifyContent: "center" }}>
+                        <Button
+                            icon={{ name: "add", size: RFPercentage(5) }}
+                            buttonStyle={{
+                                width: width * 0.17,
+                                height: height * 0.075,
+                                borderRadius: RFPercentage(3),
+                                backgroundColor: "#F2EDE1",
+                                marginTop: RFPercentage(3),
+                            }}
+                            onPress={() => console.log("opening a modal")}
+                        ></Button>
+                    </View>
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
                     <Button

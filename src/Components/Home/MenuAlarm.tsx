@@ -81,6 +81,8 @@ export default function MenuAlarm(props: { navigation: any }) {
     const width = Dimensions.get("window").width;
     let clock_height = 200;
     let clock_width = 200;
+    // let clock_height = RFPercentage(30);
+    // let clock_width = RFPercentage(30);
     let refContainer = useRef<any>();
 
     const onChange = (event: any, selectedDate: any) => {
@@ -108,15 +110,14 @@ export default function MenuAlarm(props: { navigation: any }) {
                 </Text>
             </View>
             <View style={homescreenStyle.containerBottom}>
-                <View style={[homescreenStyle.containerBottomFig, { flex: 4 }]}>
+                <View style={[homescreenStyle.containerBottomFig, { flex: 3.5 }]}>
                     <View style={styles.containerClock}>
                         <FlatList
                             data={DATA}
                             contentContainerStyle={{
                                 paddingHorizontal: width / 2 - 100,
-                                backgroundColor:'orange',
                             }}
-                            style={{ paddingTop: "10%" }}
+                            // style={{ paddingTop: "10%" }}
                             keyExtractor={(item) => item.key.toString()}
                             ref={refContainer}
                             horizontal={true}
