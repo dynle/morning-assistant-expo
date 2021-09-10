@@ -1,5 +1,6 @@
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -7,8 +8,11 @@ import {
     FlatList,
     Dimensions,
     TouchableOpacity,
+    Modal,
+    TouchableHighlight,
+    Alert,
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Icon, Input } from "react-native-elements";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { commonStyle } from "../../Styles/CommonStyles";
@@ -16,6 +20,13 @@ import {
     homescreenStyle,
     BackgroundCircle,
 } from "../../Styles/HomeScreenStyle";
+import { modalStyle } from "../../Styles/ModalStyle";
+
+interface TodoDataType {
+    title: string;
+    time: any;
+    color: string;
+}
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -25,36 +36,64 @@ let clock_height = RFPercentage(20);
 let clock_width = RFPercentage(20);
 
 // dummy data
-var todoData = [
-    {
-        key: 1,
-        title: "Exercise",
-        time: 9,
-    },
-    {
-        key: 2,
-        title: "Study",
-        time: 9,
-    },
-    {
-        key: 3,
-        title: "Study",
-        time: 9,
-    },
-    {
-        key: 4,
-        title: "Study",
-        time: 9,
-    },
+var todoData: TodoDataType[] = [
+    // {
+    //     title: "Exercise",
+    //     time: undefined,
+    //     color: "skyblue",
+    // },
+    // {
+    //     key: 2,
+    //     title: "Study",
+    //     time: 9,
+    // },
 ];
 
+const colors1 = ["#6C95D6", "#5AA7AA", "#D66B6B", "#D6D16B"];
+const colors2 = ["#D66BAC", "#88C778", "#A06BD6", "#D59E6B"];
+
 export default function MenuTodo(props: { navigation: any }) {
+    const [todoList, setTodoList] = useState<TodoDataType[]>(todoData);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [newTodoTitle, setNewTodoTitle] = useState<string>("");
+    const [newTodoTime, setNewTodoTime] = useState<any>(
+        0
+    );
+    const [todoColor, setTodoColor] = useState<string>("#6C95D6");
+    const [time, setTime] = useState(new Date());
+
+    const AsyncAlert = async (message: string) =>
+        new Promise((resolve) => {
+            Alert.alert(
+                message,
+                "",
+                [
+                    {
+                        text: "확인",
+                        onPress: () => {
+                            resolve("YES");
+                        },
+                    },
+                ],
+                { cancelable: false }
+            );
+        });
+
+    const onTimeChange = (event: any, selectedTime: Date | undefined) => {
+        const currTime = selectedTime || time;
+        // TODO: save time data into firebase
+        setTime(currTime);
+        setNewTodoTime(moment(currTime));
+    };
+
+    // TODO: 시간 순으로 sort해서 렌더하기, title이 길어기면 ... 추가하기
     const _renderItem = (_props: { item: any }) => {
+        var time = _props.item.time.format("ah:mm")
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={{
-                    backgroundColor: "#535351",
+                    backgroundColor: _props.item.color,
                     width: width * 0.8,
                     height: height * 0.12,
                     borderRadius: RFPercentage(2),
@@ -63,6 +102,7 @@ export default function MenuTodo(props: { navigation: any }) {
                     marginBottom: 5,
                     flexDirection: "row",
                 }}
+                onPress={() => deleteElement(_props.item)}
             >
                 <Text
                     numberOfLines={1}
@@ -82,15 +122,158 @@ export default function MenuTodo(props: { navigation: any }) {
                         marginRight: RFPercentage(2),
                     }}
                 >
-                    {_props.item.time} PM
+                    {time}
                 </Text>
             </TouchableOpacity>
         );
     };
 
+    const addElement = (
+        title: string,
+        time: Date | string | undefined,
+        color: string
+    ) => {
+        var newList = [...todoList, { title: title, time: time, color: color }];
+        setTodoList(newList);
+    };
+
+    const deleteElement = (item: any) => {
+        Alert.alert("일정 삭제", "일정을 삭제하시겠습니까?", [
+            { text: "취소", style: "cancel" },
+            { text: "삭제", onPress: () => deleteElementDetailed(item) },
+        ]);
+    };
+
+    const deleteElementDetailed = (item: any) => {
+        var newList = todoList.filter(function (it) {
+            return it !== item;
+        });
+        setTodoList(newList);
+    };
+
     return (
         <View style={homescreenStyle.container}>
             <BackgroundCircle />
+
+            {/* Modal */}
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={modalStyle.centeredView}>
+                    <View style={modalStyle.modalView}>
+                        <Icon
+                            type="material-community"
+                            name="close"
+                            size={RFPercentage(5)}
+                            containerStyle={styles.iconContainer}
+                            onPress={() => setModalVisible(!modalVisible)}
+                        ></Icon>
+                        <Text
+                            style={{
+                                marginBottom: RFPercentage(3),
+                                fontSize: RFPercentage(6),
+                            }}
+                        >
+                            일정 추가
+                        </Text>
+                        <Input
+                            placeholder="일정을 입력하세요."
+                            placeholderTextColor={"white"}
+                            style={{
+                                color: "white",
+                                backgroundColor: todoColor,
+                                padding: RFPercentage(3),
+                            }}
+                            autoCapitalize="none"
+                            onChangeText={setNewTodoTitle}
+                        ></Input>
+                        <View
+                            style={{
+                                backgroundColor: "#DDDDDD",
+                                width: RFPercentage(40),
+                                height: RFPercentage(35),
+                                borderRadius: RFPercentage(4),
+                                justifyContent: "center",
+                                marginBottom:RFPercentage(1)
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    textAlign: "center",
+                                    fontSize: RFPercentage(4),
+                                }}
+                            >
+                                시간 입력
+                            </Text>
+                            <RNDateTimePicker
+                                textColor="black"
+                                value={time}
+                                display="spinner"
+                                mode="time"
+                                minuteInterval={5}
+                                onChange={onTimeChange}
+                                style={{height:RFPercentage(30)}}
+                            />
+                        </View>
+                        <View style={styles.colorPaletteContainer}>
+                            {colors1.map((value, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    style={[
+                                        styles.colorContainer,
+                                        { backgroundColor: value },
+                                    ]}
+                                    onPress={() => setTodoColor(value)}
+                                ></TouchableOpacity>
+                            ))}
+                        </View>
+                        <View style={styles.colorPaletteContainer}>
+                            {colors2.map((value, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    style={[
+                                        styles.colorContainer,
+                                        { backgroundColor: value },
+                                    ]}
+                                    onPress={() => setTodoColor(value)}
+                                ></TouchableOpacity>
+                            ))}
+                        </View>
+                        <TouchableHighlight
+                            style={[modalStyle.modalButton,{marginTop:RFPercentage(1)}]}
+                            onPress={async () => {
+                                if (
+                                    newTodoTitle.length == 0 ||
+                                    newTodoTime == undefined
+                                ) {
+                                    await AsyncAlert("일정 및 시간을 입력해 주세요.");
+                                } else {
+                                    addElement(
+                                        newTodoTitle,
+                                        newTodoTime,
+                                        todoColor
+                                    );
+                                    await AsyncAlert("일정이 저장되었습니다.");
+                                    setModalVisible(!modalVisible);
+                                    setNewTodoTitle("");
+                                    setNewTodoTime(0);
+                                    setTodoColor("#6C95D6");
+                                }
+                            }}
+                        >
+                            <Text style={{ fontSize: RFPercentage(3) }}>
+                                저장
+                            </Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+            </Modal>
+
             <View style={homescreenStyle.containerTop}>
                 <Text
                     style={[
@@ -110,13 +293,26 @@ export default function MenuTodo(props: { navigation: any }) {
                 </View>
                 <View style={homescreenStyle.containerBottomMid}>
                     <View style={{ flex: 2 }}>
-                        <FlatList
-                            data={todoData}
-                            renderItem={_renderItem}
-                            keyExtractor={(item) => item.key.toString()}
-                            scrollEnabled={true}
-                            showsVerticalScrollIndicator={false}
-                        ></FlatList>
+                        {Object.keys(todoList).length > 0 ? (
+                            <FlatList
+                                data={todoList.sort((a,b)=>a.time-b.time)}
+                                renderItem={_renderItem}
+                                keyExtractor={(item, index) => index.toString()}
+                                scrollEnabled={true}
+                                showsVerticalScrollIndicator={false}
+                            ></FlatList>
+                        ) : (
+                            <View>
+                                <Text
+                                    style={{
+                                        color: "white",
+                                        fontSize: RFPercentage(3),
+                                    }}
+                                >
+                                    일정이 없습니다.
+                                </Text>
+                            </View>
+                        )}
                     </View>
                     <View style={{ flex: 0.5, justifyContent: "center" }}>
                         <Button
@@ -128,7 +324,10 @@ export default function MenuTodo(props: { navigation: any }) {
                                 backgroundColor: "#F2EDE1",
                                 marginTop: RFPercentage(3),
                             }}
-                            onPress={() => console.log("opening a modal")}
+                            // onPress={addElement}
+                            onPress={() => {
+                                setModalVisible(true);
+                            }}
                         ></Button>
                     </View>
                 </View>
@@ -162,5 +361,29 @@ const styles = StyleSheet.create({
         color: "#DFCA96",
         fontSize: RFPercentage(4),
         marginTop: "5%",
+    },
+    iconContainer: {
+        width: 40,
+        height: 40,
+        position: "absolute",
+        backgroundColor: "#F3EDE1",
+        borderRadius: RFPercentage(10),
+        justifyContent: "center",
+        alignItems: "center",
+        right: "-1%",
+        top: "-1%",
+    },
+    colorPaletteContainer: {
+        width: "100%",
+        height: "10%",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        margin: RFPercentage(0.3),
+    },
+    colorContainer: {
+        width: RFPercentage(8),
+        height: RFPercentage(8),
+        borderRadius: RFPercentage(100),
     },
 });

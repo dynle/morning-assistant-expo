@@ -6,6 +6,7 @@ export const modalStyle = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22,
+        backgroundColor: "rgba(255,255,255,0.5)",
     },
     modalView: {
         width: "92%",
@@ -41,9 +42,11 @@ export const modalStyle = StyleSheet.create({
         lineHeight: 50,
     },
     modalButton: {
-        minWidth: "65%",
+        minWidth: "45%",
         borderRadius: 20,
         backgroundColor: "#F3EDE1",
+        justifyContent:'center',
+        alignItems:'center'
         // shadowColor:"#000",
         // shadowOffset:{width:0,height:4},
         // shadowOpacity:4,

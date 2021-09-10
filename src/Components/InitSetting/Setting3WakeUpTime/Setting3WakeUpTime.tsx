@@ -84,7 +84,7 @@ export default function Setting3WakeUpTime(props: {
     // let clock_height = width*0.6;
     // let clock_width = width*0.6;
 
-    const onChange = (event: any, selectedDate: any) => {
+    const onChange = (event: any, selectedDate: Date | undefined) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
         item.meridiem = moment(currentDate).format("a").toUpperCase();
