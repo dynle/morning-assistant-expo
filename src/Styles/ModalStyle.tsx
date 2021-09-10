@@ -1,11 +1,12 @@
 import { Dimensions, StyleSheet } from "react-native";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 export const modalStyle = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22,
+        marginTop: RFPercentage(5),
         backgroundColor: "rgba(255,255,255,0.5)",
     },
     modalView: {
@@ -14,7 +15,7 @@ export const modalStyle = StyleSheet.create({
         margin: 20,
         backgroundColor: "#C4C4C4",
         borderRadius: 20,
-        padding: 35,
+        padding: RFPercentage(3),
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -37,12 +38,12 @@ export const modalStyle = StyleSheet.create({
     },
     modalBottomText: {
         textAlign: "center",
-        fontSize: 30,
-        letterSpacing: 5,
-        lineHeight: 50,
+        fontSize: RFPercentage(5),
+        letterSpacing: RFPercentage(1),
+        lineHeight: RFPercentage(7),
     },
     modalButton: {
-        minWidth: "45%",
+        minWidth: "65%",
         borderRadius: 20,
         backgroundColor: "#F3EDE1",
         justifyContent:'center',

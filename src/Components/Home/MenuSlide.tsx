@@ -1,16 +1,48 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import { commonStyle } from "../../Styles/CommonStyles";
 import {
     BackgroundCircle,
     homescreenStyle,
 } from "../../Styles/HomeScreenStyle";
+import DragAndDrop from "../InitSetting/Setting4SlideSet/DragAndDrop";
+import ModalAlarm from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalAlarm";
+import ModalNews from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalNews";
+import ModalTime from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalTime";
+import ModalTodo from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalTodo";
+import ModalWeather from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalWeather";
+import ModalYesterday from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalYesterday";
 
 export default function MenuSlide(props: { navigation: any }) {
+    const [infoModalVisible, setInfoModalVisible] = useState([false, ""]);
+
+    const modalHandler = (state: boolean, condition: string) => {
+        setInfoModalVisible([state, condition]);
+    };
+
+    const renderSwitch = (param: boolean | string) => {
+        switch (param) {
+            case "알람":
+                return <ModalAlarm handler={modalHandler} />;
+            case "시간":
+                return <ModalTime handler={modalHandler} />;
+            case "일정":
+                return <ModalTodo handler={modalHandler} />;
+            case "날씨":
+                return <ModalWeather handler={modalHandler} />;
+            case "뉴스":
+                return <ModalNews handler={modalHandler} />;
+            case "타인의 어제":
+                return <ModalYesterday handler={modalHandler} />;
+        }
+    };
     return (
         <View style={homescreenStyle.container}>
             <BackgroundCircle />
+
+            {infoModalVisible[0] && renderSwitch(infoModalVisible[1])}
+
             <View style={homescreenStyle.containerTop}>
                 <Text
                     style={[
@@ -22,11 +54,14 @@ export default function MenuSlide(props: { navigation: any }) {
                 </Text>
             </View>
             <View style={homescreenStyle.containerBottom}>
-                <View style={homescreenStyle.containerBottomFig}></View>
-                <View style={homescreenStyle.containerBottomMid}></View>
+                <View
+                    style={{ flex: 5, width: Dimensions.get("window").width }}
+                >
+                    <DragAndDrop modalHandler={modalHandler} />
+                </View>
                 <View style={homescreenStyle.containerBottomButton}>
                     <Button
-                        title="확인"
+                        title="저장"
                         titleStyle={{ color: "black" }}
                         buttonStyle={commonStyle.buttonStyle}
                         onPress={() => props.navigation.goBack()}

@@ -15,7 +15,7 @@ interface TileProps {
     idx: number;
     id: string;
     onLongPress: () => void;
-    handler: (tate: boolean, condition: string) => void;
+    handler?: (tate: boolean, condition: string) => void;
     pushHandler:(id:string,show:boolean)=>void
 }
 
@@ -49,7 +49,9 @@ const Tile = (props: TileProps) => {
                 )}
                 <TouchableOpacity
                     onPress={() => {
-                        props.handler(true, props.id);
+                        if(props.handler){
+                            props.handler(true, props.id);
+                        }
                     }}
                     // onLongPress={()=>console.log("long pressed")}
                     // delayLongPress={1500}

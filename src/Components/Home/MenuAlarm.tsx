@@ -223,7 +223,7 @@ export default function MenuAlarm(props: { navigation: any }) {
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
                     <Button
-                        title="확인"
+                        title="저장"
                         titleStyle={{ color: "black" }}
                         buttonStyle={commonStyle.buttonStyle}
                         onPress={() => props.navigation.goBack()}

@@ -56,8 +56,8 @@ var menu = ["알람", "시간", "일정", "날씨", "뉴스", "타인의 어제"
 
 const DragAndDrop = (props: {
     modalHandler: (state: boolean, condition: string) => void;
-    pageMoveHandler: (pageNumber: number) => void;
-    scrollEnabledHandler: (enabled: boolean) => void;
+    pageMoveHandler?: (pageNumber: number) => void;
+    scrollEnabledHandler?: (enabled: boolean) => void;
 }) => {
     const [data, setData] = useState<Positions>(initial_value);
     const [tilesData, setTilesData] = useState(tiles);
@@ -94,9 +94,6 @@ const DragAndDrop = (props: {
     };
 
     useEffect(() => {
-        // console.log("useEffect DATA:",data)
-        console.log("useEffect TILES: ", tilesData);
-        // console.log(menu)
     }, [data, tilesData]);
 
     return (
@@ -132,18 +129,28 @@ const DragAndDrop = (props: {
                         />
                     ))}
                 </SortableList>
-                <Button
-                    title="저장"
-                    titleStyle={{ color: "black" }}
-                    buttonStyle={[commonStyle.buttonStyle, { minWidth: "25%" }]}
-                    style={{ alignItems: "center" }}
-                    onPress={() => {
-                        console.log("저장");
-                        console.log(tilesData);
-                        props.scrollEnabledHandler(true);
-                        props.pageMoveHandler(4);
-                    }}
-                ></Button>
+                {props.scrollEnabledHandler && props.pageMoveHandler && (
+                    <Button
+                        title="저장"
+                        titleStyle={{ color: "black" }}
+                        buttonStyle={[
+                            commonStyle.buttonStyle,
+                            { minWidth: "25%" },
+                        ]}
+                        style={{ alignItems: "center" }}
+                        onPress={() => {
+                            console.log("저장");
+                            console.log(tilesData);
+                            if (
+                                props.scrollEnabledHandler &&
+                                props.pageMoveHandler
+                            ) {
+                                props.scrollEnabledHandler(true);
+                                props.pageMoveHandler(4);
+                            }
+                        }}
+                    ></Button>
+                )}
             </SafeAreaView>
         </SafeAreaProvider>
     );

@@ -60,7 +60,7 @@ export default function MenuTodo(props: { navigation: any }) {
         0
     );
     const [todoColor, setTodoColor] = useState<string>("#6C95D6");
-    const [time, setTime] = useState(new Date());
+    const [spinnerTime, setSpinnerTime] = useState(new Date());
 
     const AsyncAlert = async (message: string) =>
         new Promise((resolve) => {
@@ -80,15 +80,15 @@ export default function MenuTodo(props: { navigation: any }) {
         });
 
     const onTimeChange = (event: any, selectedTime: Date | undefined) => {
-        const currTime = selectedTime || time;
-        // TODO: save time data into firebase
-        setTime(currTime);
-        setNewTodoTime(moment(currTime));
+        const currTime = selectedTime || spinnerTime;
+        // TODO: firebase에 저장할때는 9시간 더해서 저장해야함
+        setSpinnerTime(currTime);
+        var convertedTime = moment(currTime).add(1,'days');
+        setNewTodoTime(convertedTime);
     };
 
-    // TODO: 시간 순으로 sort해서 렌더하기, title이 길어기면 ... 추가하기
     const _renderItem = (_props: { item: any }) => {
-        var time = _props.item.time.format("ah:mm")
+        var _time = _props.item.time.format("ah:mm")
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
@@ -112,6 +112,7 @@ export default function MenuTodo(props: { navigation: any }) {
                         marginLeft: RFPercentage(2),
                     }}
                 >
+                    {/* TODO: title이 길어기면 ... 추가하기 or 2번째 라인으로 바꾸기*/}
                     {_props.item.title}
                 </Text>
                 <Text
@@ -122,7 +123,7 @@ export default function MenuTodo(props: { navigation: any }) {
                         marginRight: RFPercentage(2),
                     }}
                 >
-                    {time}
+                    {_time}
                 </Text>
             </TouchableOpacity>
         );
@@ -130,7 +131,7 @@ export default function MenuTodo(props: { navigation: any }) {
 
     const addElement = (
         title: string,
-        time: Date | string | undefined,
+        time: any,
         color: string
     ) => {
         var newList = [...todoList, { title: title, time: time, color: color }];
@@ -212,7 +213,7 @@ export default function MenuTodo(props: { navigation: any }) {
                             </Text>
                             <RNDateTimePicker
                                 textColor="black"
-                                value={time}
+                                value={spinnerTime}
                                 display="spinner"
                                 mode="time"
                                 minuteInterval={5}
@@ -249,7 +250,7 @@ export default function MenuTodo(props: { navigation: any }) {
                             onPress={async () => {
                                 if (
                                     newTodoTitle.length == 0 ||
-                                    newTodoTime == undefined
+                                    newTodoTime == 0
                                 ) {
                                     await AsyncAlert("일정 및 시간을 입력해 주세요.");
                                 } else {
@@ -307,6 +308,7 @@ export default function MenuTodo(props: { navigation: any }) {
                                     style={{
                                         color: "white",
                                         fontSize: RFPercentage(3),
+                                        top:RFPercentage(10)
                                     }}
                                 >
                                     일정이 없습니다.

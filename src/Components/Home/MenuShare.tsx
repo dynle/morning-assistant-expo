@@ -7,8 +7,10 @@ import {
     Platform,
     TextInput,
     Dimensions,
+    KeyboardAvoidingView,
+    Modal,
 } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { commonStyle } from "../../Styles/CommonStyles";
 import {
     BackgroundCircle,
@@ -19,11 +21,13 @@ import "moment/locale/ko";
 import Letter from "../../../assets/homescreen/Letter.png";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import * as ImagePicker from "expo-image-picker";
+import { modalStyle } from "../../Styles/ModalStyle";
 
 const clock_height = RFPercentage(20);
 const clock_width = RFPercentage(20);
 
 export default function MenuShare(props: { navigation: any }) {
+    const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState<string | null>(null);
     const [text, setText] = useState<string>("");
 
@@ -49,25 +53,95 @@ export default function MenuShare(props: { navigation: any }) {
                     await ImagePicker.requestMediaLibraryPermissionsAsync();
                 console.log(status);
                 if (status !== "granted") {
-                    alert(
-                        "Sorry, we need camera roll permissions to make this work!"
-                    );
+                    alert("사진 업로드를 위해서는 권한이 필요합니다.");
                 }
             }
         })();
     }, []);
     return (
-        <View style={homescreenStyle.container}>
+        <KeyboardAvoidingView
+            style={homescreenStyle.container}
+            behavior="padding"
+            enabled
+        >
             <BackgroundCircle />
+
+            {/* Modal */}
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}
+            >
+                <View style={modalStyle.centeredView}>
+                    <View style={modalStyle.modalView}>
+                        <View style={modalStyle.modalTop}>
+                            <Text style={modalStyle.modalTopText}>
+                                터인의 어제
+                            </Text>
+                        </View>
+                        <View
+                            style={[
+                                modalStyle.modalBottom,
+                                { alignItems: "center" },
+                            ]}
+                        >
+                            <Text style={modalStyle.modalBottomText}>
+                                오늘의 아침에서{"\n"}
+                                타인의 어제를{"\n"}
+                                만나보세요
+                            </Text>
+                            <View style={styles.modalBottomBox}>
+                                <Text
+                                    style={{
+                                        textAlign: "center",
+                                        fontSize: RFPercentage(3),
+                                        margin: RFPercentage(3),
+                                        lineHeight: RFPercentage(5),
+                                    }}
+                                >
+                                    오늘 하루의 생각과 찍은 사진을{"\n"}
+                                    내일 타인의 영감이 되도록{"\n"}
+                                    공유해 보세요.{"\n"}
+                                    하루하루 무작위로 선정됩니다.{"\n"}
+                                    좋아요 버튼으로 감사의 표시를{"\n"}
+                                    표현하세요!
+                                </Text>
+                            </View>
+                        </View>
+                        <Button
+                            title="확인"
+                            titleStyle={{ color: "black" }}
+                            buttonStyle={modalStyle.modalButton}
+                            style={{ alignItems: "center" }}
+                            onPress={() => {
+                                setModalVisible(!modalVisible);
+                            }}
+                        ></Button>
+                    </View>
+                </View>
+            </Modal>
+
             <View style={homescreenStyle.containerTop}>
-                <Text
-                    style={[
-                        homescreenStyle.containerTopText,
-                        homescreenStyle.containerTopTextS,
-                    ]}
-                >
-                    타인의 어제
-                </Text>
+                <View style={{ flexDirection: "row" }}>
+                    <Text
+                        style={[
+                            homescreenStyle.containerTopText,
+                            homescreenStyle.containerTopTextS,
+                        ]}
+                    >
+                        타인의 어제
+                    </Text>
+                    <Icon
+                        type="font-awesome-5"
+                        name="question-circle"
+                        color="#EC407A"
+                        containerStyle={styles.iconContainer}
+                        onPress={() => setModalVisible(!modalVisible)}
+                    />
+                </View>
             </View>
             <View style={homescreenStyle.containerBottom}>
                 <View style={homescreenStyle.containerBottomFig}>
@@ -122,7 +196,11 @@ export default function MenuShare(props: { navigation: any }) {
                         autoCorrect={false}
                         textAlignVertical={"center"}
                     ></TextInput>
-                    <Button title="보내기"></Button>
+                    <Button
+                        title="보내기"
+                        titleStyle={{color:"black"}}
+                        buttonStyle={commonStyle.buttonStyle}
+                    ></Button>
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
                     <Button
@@ -133,7 +211,7 @@ export default function MenuShare(props: { navigation: any }) {
                     ></Button>
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -179,5 +257,20 @@ const styles = StyleSheet.create({
         marginTop: "2%",
         // paddingTop:0,
         // paddingBottom:0
+    },
+    iconContainer: {
+        height: 25,
+        width: 25,
+        position: "absolute",
+        right: "-20%",
+    },
+    modalBottomBox: {
+        backgroundColor: "#D4CEC2",
+        minHeight: "45%",
+        minWidth: "80%",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 40,
+        marginTop: RFPercentage(2),
     },
 });
