@@ -35,7 +35,6 @@ export default function Setting6Completion(props: {
                         // TODO: User object를 redux에 저장해서 HomeScreen에 주는 방법
                     }}
                 ></Button>
-                <Button title="Sign Out" onPress={signOutUtil}></Button>
             </View>
         </View>
     );
