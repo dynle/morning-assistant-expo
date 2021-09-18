@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { UserType } from "../../fbase";
 import { commonStyle } from "../../Styles/CommonStyles";
 import { signOutUtil } from "../../Utils/AuthUtil";
@@ -25,14 +26,13 @@ export default function Setting6Completion(props: {
             <View style={styles.containerBottom}>
                 {/* TODO: 설정들을 FB에 올리는 버튼 */}
                 <Button
-                    title="확인"
+                    title="홈 화면으로 가기"
                     titleStyle={{ color: "black" }}
                     buttonStyle={commonStyle.buttonStyle}
                     onPress={async () => {
                         console.log("셋팅 확인");
                         await CreateDBUtil(props.user);
                         props.handlerIsNewUser(false);
-                        // TODO: User object를 redux에 저장해서 HomeScreen에 주는 방법
                     }}
                 ></Button>
             </View>
@@ -61,5 +61,7 @@ const styles = StyleSheet.create({
     },
     containerBottom: {
         flex: 1,
+        justifyContent:'flex-end',
+        bottom:RFPercentage(25)
     },
 });

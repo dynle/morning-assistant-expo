@@ -11,6 +11,7 @@ import { Button } from "react-native-elements";
 import HomeScreen from "../../Screens/HomeScreen";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import { commonStyle } from "../../Styles/CommonStyles";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const ITEM_WIDTH = Dimensions.get("window").width * 0.6;
 
@@ -58,10 +59,10 @@ export default function Test(props: {
                         style={{
                             backgroundColor: "#C4C4C4",
                             borderRadius: 5,
-                            height: "98%",
+                            height: RFPercentage(58),
                             padding: "10%",
-                            marginLeft: "3%",
-                            marginRight: "3%",
+                            marginLeft: RFPercentage(1),
+                            marginRight: RFPercentage(1),
                         }}
                     >
                         <Text style={{ fontSize: 30 }}>{props.item.title}</Text>
@@ -111,10 +112,7 @@ export default function Test(props: {
                         <Pagination
                             dotsLength={carouselItems.length}
                             activeDotIndex={activeIndex}
-                            // containerStyle={{backgroundColor:'green'}}
                             dotStyle={{
-                                // width: 10,
-                                // height: 10,
                                 borderRadius: 5,
                                 marginHorizontal: 2,
                                 backgroundColor: "black",

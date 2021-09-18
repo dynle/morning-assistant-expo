@@ -110,11 +110,10 @@ export default function Setting3WakeUpTime(props: {
                 <View style={styles.containerClock}>
                     <FlatList
                         data={DATA}
-                        // automaticallyAdjustContentInsets={false}
                         contentContainerStyle={{
                             paddingHorizontal: width / 2 - 100,
                         }}
-                        style={{ paddingTop: "10%" }}
+                        style={{ paddingTop: RFPercentage(6) }}
                         keyExtractor={(item) => item.key.toString()}
                         ref={refContainer}
                         horizontal={true}
@@ -126,7 +125,6 @@ export default function Setting3WakeUpTime(props: {
                             index,
                         })}
                         snapToAlignment={"start"}
-                        // snapToInterval={200 + 50}
                         renderItem={({ item, index }) => (
                             <TouchableOpacity
                                 onPress={() => {
@@ -158,13 +156,13 @@ export default function Setting3WakeUpTime(props: {
                                                 backgroundColor: "#FFEEC0",
                                                 shadowColor: "#E3BF7C",
                                                 shadowOpacity: 10,
-                                                shadowRadius: 15,
+                                                shadowRadius: RFPercentage(2),
                                             }
                                             : {
                                                 backgroundColor: "#BEBEBE",
                                                 shadowColor: "#5E6574",
                                                 shadowOpacity: 10,
-                                                shadowRadius: 15,
+                                                shadowRadius: RFPercentage(2),
                                             },
                                     ]}
                                 >
@@ -180,12 +178,10 @@ export default function Setting3WakeUpTime(props: {
                             </TouchableOpacity>
                         )}
                     ></FlatList>
-                </View>
-                <View style={{}}>
                     <Text
                         style={{
                             color: "#C6BF9F",
-                            fontSize: RFPercentage(3),
+                            fontSize: RFPercentage(4),
                             textAlign: "center",
                         }}
                     >
@@ -278,8 +274,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     containerClock: {
-        flex: 1.2,
-        // backgroundColor:'black'
+        flex: 1.5,
+        // backgroundColor:'orange'
         // justifyContent: "center",
         // alignItems:'center',
     },

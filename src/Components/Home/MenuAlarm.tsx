@@ -110,14 +110,14 @@ export default function MenuAlarm(props: { navigation: any }) {
                 </Text>
             </View>
             <View style={homescreenStyle.containerBottom}>
-                <View style={[homescreenStyle.containerBottomFig, { flex: 3.5 }]}>
+                <View style={[homescreenStyle.containerBottomFig, { flex: 4 }]}>
                     <View style={styles.containerClock}>
                         <FlatList
                             data={DATA}
                             contentContainerStyle={{
                                 paddingHorizontal: width / 2 - 100,
                             }}
-                            // style={{ paddingTop: "10%" }}
+                            style={{ paddingTop: RFPercentage(3.8) }}
                             keyExtractor={(item) => item.key.toString()}
                             ref={refContainer}
                             horizontal={true}
@@ -162,13 +162,13 @@ export default function MenuAlarm(props: { navigation: any }) {
                                                     backgroundColor:"#FFEEC0",
                                                     shadowColor: "#E3BF7C",
                                                     shadowOpacity: 10,
-                                                    shadowRadius: 15,
+                                                    shadowRadius: RFPercentage(2),
                                                 }
                                                 : {
                                                     backgroundColor:"#BEBEBE",
                                                     shadowColor: "#5E6574",
                                                     shadowOpacity: 10,
-                                                    shadowRadius: 15,
+                                                    shadowRadius: RFPercentage(2),
                                                 },
                                         ]}
                                     >
@@ -236,7 +236,8 @@ export default function MenuAlarm(props: { navigation: any }) {
 
 const styles = StyleSheet.create({
     containerClock: {
-        flex: 1.2,
+        // flex: 1.2,
+        // backgroundColor:'orange'
     },
     containerTimePicker: {
         flex: 1.3,

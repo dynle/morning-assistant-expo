@@ -9,6 +9,7 @@ import {
     Dimensions,
     KeyboardAvoidingView,
     Modal,
+    Alert,
 } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { commonStyle } from "../../Styles/CommonStyles";
@@ -23,6 +24,8 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import * as ImagePicker from "expo-image-picker";
 import { modalStyle } from "../../Styles/ModalStyle";
 
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 const clock_height = RFPercentage(20);
 const clock_width = RFPercentage(20);
 
@@ -30,6 +33,8 @@ export default function MenuShare(props: { navigation: any }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState<string | null>(null);
     const [text, setText] = useState<string>("");
+    // first check whether one sends letter and then put initial boolean value
+    const [IsButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -167,40 +172,83 @@ export default function MenuShare(props: { navigation: any }) {
                         },
                     ]}
                 >
-                    <View>
-                        {image && (
-                            <Image
-                                source={{ uri: image }}
-                                style={{ width: 100, height: 100 }}
-                            />
-                        )}
+                    <View style={styles.picNletterContainer}>
+                        <View style={styles.picContainer}>
+                            {image ? (
+                                <View>
+                                    <Image
+                                        source={{ uri: image }}
+                                        style={{
+                                            width: width * 0.3,
+                                            height: height * 0.2,
+                                        }}
+                                    />
+                                    <Button
+                                        icon={{
+                                            name: "highlight-off",
+                                            size: RFPercentage(4),
+                                            color: "black",
+                                        }}
+                                        onPress={() => setImage(null)}
+                                        buttonStyle={styles.removeButtonStyle}
+                                        containerStyle={
+                                            styles.removeButtonContainer
+                                        }
+                                    />
+                                </View>
+                            ) : (
+                                <View style={{ alignItems: "center" }}>
+                                    <Text style={styles.uploadButtonText}>
+                                        사진 업로드 하기
+                                    </Text>
+                                    <Button
+                                        icon={{
+                                            name: "add",
+                                            size: RFPercentage(4),
+                                            color: "black",
+                                        }}
+                                        onPress={pickImage}
+                                        buttonStyle={{
+                                            backgroundColor: "#F2EDE1",
+                                            borderRadius: RFPercentage(2),
+                                        }}
+                                        containerStyle={{
+                                            width: RFPercentage(8),
+                                        }}
+                                    />
+                                </View>
+                            )}
+                        </View>
+                        <TextInput
+                            style={styles.textInput}
+                            onChangeText={setText}
+                            value={text}
+                            maxLength={80}
+                            multiline
+                            placeholder="오늘 하루에 대해서 이야기 해 보세요."
+                            placeholderTextColor="white"
+                            autoCorrect={false}
+                            textAlignVertical={"center"}
+                        />
                     </View>
                     <Button
-                        icon={{
-                            name: "add",
-                            size: RFPercentage(3),
-                            color: "white",
-                        }}
-                        title="사진 업로드 하기"
-                        onPress={pickImage}
-                        buttonStyle={{ backgroundColor: "#535351" }}
-                    />
-                    <TextInput
-                        style={styles.textInput}
-                        onChangeText={setText}
-                        value={text}
-                        maxLength={80}
-                        multiline
-                        placeholder="오늘 하루에 대해서 이야기 해 보세요."
-                        placeholderTextColor="#858583"
-                        autoCorrect={false}
-                        textAlignVertical={"center"}
-                    ></TextInput>
-                    <Button
                         title="보내기"
-                        titleStyle={{color:"black"}}
+                        titleStyle={{ color: "black" }}
+                        disabled={IsButtonDisabled}
                         buttonStyle={commonStyle.buttonStyle}
-                    ></Button>
+                        disabledStyle={[
+                            commonStyle.buttonStyle,
+                            { opacity: 0.3 },
+                        ]}
+                        onPress={() => {
+                            if (text) {
+                                console.log("sent");
+                                setIsButtonDisabled(true);
+                            } else {
+                                Alert.alert("텍스트를 입력하세요.");
+                            }
+                        }}
+                    />
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
                     <Button
@@ -245,12 +293,12 @@ const styles = StyleSheet.create({
         marginTop: "3%",
     },
     textInput: {
-        height: "50%",
-        width: Dimensions.get("window").width * 0.9,
+        height: height * 0.2,
+        width: width * 0.55,
         color: "white",
         borderRadius: RFPercentage(2),
         fontSize: RFPercentage(3),
-        backgroundColor: "#535351",
+        backgroundColor: "#747473",
         textAlign: "center",
         padding: RFPercentage(3),
         lineHeight: RFPercentage(4),
@@ -272,5 +320,42 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 40,
         marginTop: RFPercentage(2),
+    },
+    picNletterContainer: {
+        flexDirection: "row",
+        backgroundColor: "#535351",
+        width: width * 0.9,
+        height: height * 0.3,
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        marginTop: RFPercentage(5),
+    },
+    picContainer: {
+        backgroundColor: "#747473",
+        width: width * 0.3,
+        height: height * 0.2,
+        marginTop: "2%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    removeButtonStyle: {
+        backgroundColor: "#F2EDE1",
+        borderRadius: RFPercentage(10),
+        width: RFPercentage(6),
+        height: RFPercentage(6),
+        padding: 0,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    removeButtonContainer: {
+        width: RFPercentage(6),
+        height: RFPercentage(6),
+        position: "absolute",
+        right: -RFPercentage(1),
+        top: -RFPercentage(1),
+    },
+    uploadButtonText: {
+        color: "white",
+        marginBottom: RFPercentage(3),
     },
 });
