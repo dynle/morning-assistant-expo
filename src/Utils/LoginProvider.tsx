@@ -36,9 +36,6 @@ export default function LoginProvider() {
 
     if (initializing) return null;
 
-    // return <InitSettingScreen></InitSettingScreen>
-    // return <HomeScreen></HomeScreen>
-
     if (!user) {
         return <AuthScreen></AuthScreen>;
     } else {

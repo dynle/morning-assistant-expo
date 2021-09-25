@@ -185,9 +185,10 @@ export default function MenuShare(props: { navigation: any }) {
                                     />
                                     <Button
                                         icon={{
-                                            name: "highlight-off",
-                                            size: RFPercentage(4),
+                                            name: "remove",
+                                            size: 20,
                                             color: "black",
+                                            style:{left:-RFPercentage(0.2)}
                                         }}
                                         onPress={() => setImage(null)}
                                         buttonStyle={styles.removeButtonStyle}
@@ -341,15 +342,11 @@ const styles = StyleSheet.create({
     removeButtonStyle: {
         backgroundColor: "#F2EDE1",
         borderRadius: RFPercentage(10),
-        width: RFPercentage(6),
-        height: RFPercentage(6),
+        width: 25,
+        height: 25,
         padding: 0,
-        justifyContent: "center",
-        alignItems: "center",
     },
     removeButtonContainer: {
-        width: RFPercentage(6),
-        height: RFPercentage(6),
         position: "absolute",
         right: -RFPercentage(1),
         top: -RFPercentage(1),

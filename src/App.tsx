@@ -15,6 +15,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import {setCustomText,setCustomTextInput} from 'react-native-global-props'
+import Test from "./Components/Main/test";
 
 const customTextProps = {
     style:{
@@ -46,12 +47,16 @@ function App() {
         setCustomText(customTextProps);
         setCustomTextInput(customTextProps);
         return (
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <View style={styles.container}>
-                    <StatusBar style="light" />
-                    <LoginProvider></LoginProvider>
-                </View>
-            </TouchableWithoutFeedback>
+            // test expo notification
+            <Test></Test>
+
+            // originial code
+            // <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            //     <View style={styles.container}>
+            //         <StatusBar style="light" />
+            //         <LoginProvider></LoginProvider>
+            //     </View>
+            // </TouchableWithoutFeedback>
         );
     }
     
