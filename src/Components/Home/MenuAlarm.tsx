@@ -222,6 +222,7 @@ export default function MenuAlarm(props: { navigation: any }) {
                     </View>
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
+                    {/* TODO: 저장된 Noti를 지우고 다시 설정 */}
                     <Button
                         title="저장"
                         titleStyle={{ color: "black" }}

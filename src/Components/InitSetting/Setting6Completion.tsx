@@ -24,7 +24,7 @@ export default function Setting6Completion(props: {
                 </Text>
             </View>
             <View style={styles.containerBottom}>
-                {/* TODO: 설정들을 FB에 올리는 버튼 */}
+                {/* TODO: 설정들을 FB에 올리는 버튼 / setting3에서 설정한 Noti 저장 */}
                 <Button
                     title="홈 화면으로 가기"
                     titleStyle={{ color: "black" }}

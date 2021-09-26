@@ -37,6 +37,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins":[
+      [
+        "expo-notifications",
+        {
+          "icon":"./assets/icon.png",
+          "color:":"red",
+          "sounds":["./assets/mixkit-store-door-bell-ring.wav"]
+        }
+      ]
+    ]
   }
 }
