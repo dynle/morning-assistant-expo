@@ -49,13 +49,13 @@ function App() {
     const [isNoti,setIsNoti] = useState(false);
     const notificationListener = useRef();
     const responseListener = useRef();
-    NotificationUtil();
     const notiHandler = (state:boolean) => {
         setIsNoti(state)
     }
     useEffect(() => {
+        NotificationUtil();
         Notifications.addNotificationResponseReceivedListener((response) => {
-            console.log("triggered");
+            console.log("user tapped the noti");
             setIsNoti(true);
         });
         return () => {
@@ -80,7 +80,7 @@ function App() {
                 <MainScreen handler={notiHandler}/>
             );
         }else{
-            return <Test></Test>
+            return <Test/>
             // return (
             //     // originial code
             //     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

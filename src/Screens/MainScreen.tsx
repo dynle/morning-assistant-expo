@@ -17,8 +17,14 @@ import WeatherInfo from "../Components/Main/WeatherInfo";
 import NewsInfo from "../Components/Main/NewsInfo";
 import OthersYesterdayInfo from "../Components/Main/OthersYesterdayInfo";
 import CloseMainScreen from "../Components/Main/CloseMainScreen";
+import Greeting from "../Components/Main/Greeting";
+// import { delay_splash } from "../App";
 
-export default function MainScreen(props:{handler:(state:boolean)=>void}) {
+const width = Dimensions.get("window").width;
+
+export default function MainScreen(props: {
+    handler: (state: boolean) => void;
+}) {
     let pagerview = useRef<any>();
     return (
         <View style={styles.container}>
@@ -29,8 +35,12 @@ export default function MainScreen(props:{handler:(state:boolean)=>void}) {
                 // initialPage={0}
             >
                 {/* TODO: 순서는 FB에서 가져온 순서로 map 돌려서 만들어 주면 될듯? */}
+                {/* TODO: put background color props to each info */}
                 <View style={styles.page}>
                     <TimeInfo />
+                </View>
+                <View style={styles.page}>
+                    <Greeting />
                 </View>
                 <View style={styles.page}>
                     <TodoInfo />
@@ -45,7 +55,7 @@ export default function MainScreen(props:{handler:(state:boolean)=>void}) {
                     <OthersYesterdayInfo />
                 </View>
                 <View style={styles.page}>
-                    <CloseMainScreen handler={props.handler}/>
+                    <CloseMainScreen handler={props.handler} />
                 </View>
             </PagerView>
         </View>
@@ -53,11 +63,12 @@ export default function MainScreen(props:{handler:(state:boolean)=>void}) {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: "#292929" },
+    container: {
+        flex: 1,
+        backgroundColor: "#292929",
+    },
     pagerView: {
         flex: 1,
-        // justifyContent: "center",
-        width: Dimensions.get("window").width,
     },
     page: {
         justifyContent: "center",

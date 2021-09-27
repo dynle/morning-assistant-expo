@@ -20,14 +20,15 @@ import {
 import moment from "moment";
 import "moment/locale/ko";
 import Letter from "../../../assets/homescreen/Letter.png";
+import Camera from '../../../assets/homescreen/Camera.png';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import * as ImagePicker from "expo-image-picker";
 import { modalStyle } from "../../Styles/ModalStyle";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const clock_height = RFPercentage(20);
-const clock_width = RFPercentage(20);
+const clock_height = RFPercentage(16);
+const clock_width = RFPercentage(16);
 
 export default function MenuShare(props: { navigation: any }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -179,7 +180,7 @@ export default function MenuShare(props: { navigation: any }) {
                                     <Image
                                         source={{ uri: image }}
                                         style={{
-                                            width: width * 0.3,
+                                            width: width * 0.5,
                                             height: height * 0.2,
                                         }}
                                     />
@@ -188,9 +189,9 @@ export default function MenuShare(props: { navigation: any }) {
                                             name: "remove",
                                             size: 20,
                                             color: "black",
-                                            style:{left:-RFPercentage(0.2)}
                                         }}
                                         onPress={() => setImage(null)}
+                                        iconContainerStyle={styles.removeIconContainer}
                                         buttonStyle={styles.removeButtonStyle}
                                         containerStyle={
                                             styles.removeButtonContainer
@@ -199,23 +200,23 @@ export default function MenuShare(props: { navigation: any }) {
                                 </View>
                             ) : (
                                 <View style={{ alignItems: "center" }}>
+                                    <Image
+                                        source={Camera}
+                                    >
+                                    </Image>
                                     <Text style={styles.uploadButtonText}>
                                         사진 업로드 하기
                                     </Text>
                                     <Button
                                         icon={{
                                             name: "add",
-                                            size: RFPercentage(4),
+                                            size: RFPercentage(2.5),
                                             color: "black",
                                         }}
+                                        iconContainerStyle={styles.CameraIconContainer}
                                         onPress={pickImage}
-                                        buttonStyle={{
-                                            backgroundColor: "#F2EDE1",
-                                            borderRadius: RFPercentage(2),
-                                        }}
-                                        containerStyle={{
-                                            width: RFPercentage(8),
-                                        }}
+                                        buttonStyle={styles.CameraButtonContainer}
+                                        containerStyle={styles.CameraContainer}
                                     />
                                 </View>
                             )}
@@ -226,30 +227,30 @@ export default function MenuShare(props: { navigation: any }) {
                             value={text}
                             maxLength={80}
                             multiline
-                            placeholder="오늘 하루에 대해서 이야기 해 보세요."
-                            placeholderTextColor="white"
+                            placeholder="오늘 하루를 간단하게 말해보세요!"
+                            placeholderTextColor="#B7B7B7"
                             autoCorrect={false}
                             textAlignVertical={"center"}
                         />
+                        <Button
+                            title="보내기"
+                            titleStyle={{ color: "black",fontSize:RFPercentage(2.5) }}
+                            disabled={IsButtonDisabled}
+                            buttonStyle={[commonStyle.buttonStyle,{minWidth:RFPercentage(13),height:RFPercentage(4.5)}]}
+                            disabledStyle={[
+                                commonStyle.buttonStyle,
+                                { opacity: 0.3 },
+                            ]}
+                            onPress={() => {
+                                if (text) {
+                                    console.log("sent");
+                                    setIsButtonDisabled(true);
+                                } else {
+                                    Alert.alert("텍스트를 입력하세요.");
+                                }
+                            }}
+                        />
                     </View>
-                    <Button
-                        title="보내기"
-                        titleStyle={{ color: "black" }}
-                        disabled={IsButtonDisabled}
-                        buttonStyle={commonStyle.buttonStyle}
-                        disabledStyle={[
-                            commonStyle.buttonStyle,
-                            { opacity: 0.3 },
-                        ]}
-                        onPress={() => {
-                            if (text) {
-                                console.log("sent");
-                                setIsButtonDisabled(true);
-                            } else {
-                                Alert.alert("텍스트를 입력하세요.");
-                            }
-                        }}
-                    />
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
                     <Button
@@ -284,7 +285,7 @@ const styles = StyleSheet.create({
     dayOfWeekStyle: {
         textAlign: "center",
         color: "#DFCA96",
-        fontSize: RFPercentage(4),
+        fontSize: RFPercentage(3.5),
         marginTop: "5%",
     },
     dateStyle: {
@@ -294,8 +295,8 @@ const styles = StyleSheet.create({
         marginTop: "3%",
     },
     textInput: {
-        height: height * 0.2,
-        width: width * 0.55,
+        height: height * 0.12,
+        width: width * 0.8,
         color: "white",
         borderRadius: RFPercentage(2),
         fontSize: RFPercentage(3),
@@ -323,28 +324,33 @@ const styles = StyleSheet.create({
         marginTop: RFPercentage(2),
     },
     picNletterContainer: {
-        flexDirection: "row",
         backgroundColor: "#535351",
         width: width * 0.9,
-        height: height * 0.3,
+        height: height * 0.4,
         justifyContent: "space-evenly",
         alignItems: "center",
-        marginTop: RFPercentage(5),
+        borderRadius:RFPercentage(2)
     },
     picContainer: {
         backgroundColor: "#747473",
-        width: width * 0.3,
+        width: width * 0.5,
         height: height * 0.2,
         marginTop: "2%",
         justifyContent: "center",
         alignItems: "center",
+    },
+    removeIconContainer:{
+        width:25,
+        height:25,
+        justifyContent:'center',
+        alignItems:'center'
     },
     removeButtonStyle: {
         backgroundColor: "#F2EDE1",
         borderRadius: RFPercentage(10),
         width: 25,
         height: 25,
-        padding: 0,
+        // padding: 0,
     },
     removeButtonContainer: {
         position: "absolute",
@@ -352,7 +358,26 @@ const styles = StyleSheet.create({
         top: -RFPercentage(1),
     },
     uploadButtonText: {
-        color: "white",
+        color: "#B7B7B7",
         marginBottom: RFPercentage(3),
     },
+    CameraIconContainer:{
+        width:20,
+        height:20,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:RFPercentage(2)
+    },
+    CameraButtonContainer:{
+        backgroundColor: "#F2EDE1",
+        borderRadius: RFPercentage(2),
+        width:10,
+        height:10,
+    },
+    CameraContainer:{
+        width: RFPercentage(8),
+        position:'absolute',
+        alignItems:'center',
+        top:'20%',
+    }
 });
