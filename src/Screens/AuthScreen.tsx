@@ -101,6 +101,13 @@ export default function AuthScren() {
                         >
                             Sign In
                         </Text>
+                        <SocialIcon
+                            title="Sign Up With Google"
+                            button
+                            type="google"
+                            style={{ marginTop: 30 }}
+                            onPress={GoogleLogin}
+                        ></SocialIcon>
                     </>
                 ) : (
                     <>

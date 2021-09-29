@@ -6,7 +6,7 @@ const width= Dimensions.get("window").width
 export const commonStyle = StyleSheet.create({
     buttonStyle: {
         width:"30%",
-        minWidth:RFPercentage(20),
+        minWidth:RFPercentage(21),
         borderRadius: 20,
         backgroundColor: "#F3EDE1",
         // shadowColor:"#000",

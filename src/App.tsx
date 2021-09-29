@@ -80,16 +80,16 @@ function App() {
                 <MainScreen handler={notiHandler}/>
             );
         }else{
-            return <Test/>
-            // return (
-            //     // originial code
-            //     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            //         <View style={styles.container}>
-            //             <StatusBar style="light" />
-            //             <LoginProvider/>
-            //         </View>
-            //     </TouchableWithoutFeedback>
-            // );
+            // return <Test/>
+            return (
+                // originial code
+                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                    <View style={styles.container}>
+                        <StatusBar style="light" />
+                        <LoginProvider/>
+                    </View>
+                </TouchableWithoutFeedback>
+            );
         } 
     }
 }

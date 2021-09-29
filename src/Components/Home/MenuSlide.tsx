@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { commonStyle } from "../../Styles/CommonStyles";
 import {
     BackgroundCircle,
@@ -53,7 +54,7 @@ export default function MenuSlide(props: { navigation: any }) {
                     슬라이드 변경
                 </Text>
             </View>
-            <View style={homescreenStyle.containerBottom}>
+            <View style={[homescreenStyle.containerBottom,{marginTop:-RFPercentage(5)}]}>
                 <View
                     style={{ flex: 5, width: Dimensions.get("window").width }}
                 >
