@@ -16,6 +16,8 @@ import axios from "axios";
 import * as Location from "expo-location";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import Loading from "../Common/LoadingComponent";
+import moment from "moment";
+import { LineChart, XAxis } from "react-native-svg-charts";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -35,9 +37,14 @@ export default function WeatherInfo() {
         null
     );
     const [currStatusImage, setCurrStatusImage] = useState<any>(null);
-    const [currPM25, setCurrPM25] = useState<number | null>(null);
+    const [currPM10, setCurrPM10] = useState<number | null>(null);
     const [currWind, setCurrWind] = useState<number | null>(null);
     const [currUV, setCurrUV] = useState<number | null>(null);
+
+    // const [hourData, setHourData] = useState<any>([]);
+    const [hourDataTemp, setHourDataTemp] = useState<any>([]);
+    const [hourDataTime, setHourDataTime] = useState<any>([]);
+    const [hourDataImage, setHourDataImage] = useState<any>([]);
 
     async function getWeather(latitude: number, longitude: number) {
         const { data } = await axios.get(
@@ -48,9 +55,33 @@ export default function WeatherInfo() {
         setCurrHumidity(data.current.humidity);
         setCurrPrecipitation(data.current.precip_mm);
         setCurrStatusImage(data.current.condition.icon);
-        setCurrPM25(Math.round(data.current.air_quality.pm2_5));
+        setCurrPM10(Math.round(data.current.air_quality.pm10));
         setCurrWind(data.current.wind_kph);
         setCurrUV(data.current.uv);
+        // TODO:hourData는 왜 useState로 관리가 안될까?
+        const hourData = data.forecast.forecastday[0].hour;
+        var hourTempTemp: any = [];
+        await hourData.map((dt: any) => {
+            hourTempTemp.push([
+                parseInt(dt.time.substring(11, 13)),
+                dt.temp_c,
+                dt.condition.icon,
+            ]);
+        });
+
+        var hourDataTimetmp: any = hourTempTemp
+            .map((item: any) => item[0])
+            .filter((a: any, i: any) => i % 3 === 0);
+        var hourDataTemptmp: any = hourTempTemp
+            .map((item: any) => item[1])
+            .filter((a: any, i: any) => i % 3 === 0);
+        var hourDataImagetmp: any = hourTempTemp
+            .map((item: any) => item[2])
+            .filter((a: any, i: any) => i % 3 === 0);
+        
+        setHourDataTime(hourDataTimetmp);
+        setHourDataTemp(hourDataTemptmp);
+        setHourDataImage(hourDataImagetmp);
     }
 
     async function getGeolocation(latitude: number, longitude: number) {
@@ -61,7 +92,7 @@ export default function WeatherInfo() {
         console.log(data.response.result[0].structure.level4L);
     }
 
-    async function getLocation() {
+    async function getWeatherLocation() {
         try {
             await Location.requestForegroundPermissionsAsync();
             const {
@@ -80,7 +111,7 @@ export default function WeatherInfo() {
 
     useEffect(() => {
         setIsLoading(true);
-        getLocation();
+        getWeatherLocation();
     }, []);
 
     return (
@@ -90,9 +121,7 @@ export default function WeatherInfo() {
             ) : (
                 <View style={styles.container}>
                     <View style={styles.containerTop}>
-                        <Text style={styles.containerTopText}>
-                            <Text>{currLocation}</Text>
-                        </Text>
+                        <Text style={styles.containerTopText}>날씨</Text>
                     </View>
                     <View style={styles.containerBottom}>
                         <View style={styles.weatherContainer}>
@@ -103,17 +132,28 @@ export default function WeatherInfo() {
                                             uri: `http:${currStatusImage}`,
                                         }}
                                         style={{
-                                            width: RFPercentage(25),
-                                            height: RFPercentage(25),
+                                            width: RFPercentage(23),
+                                            height: RFPercentage(23),
+                                            marginTop: -RFPercentage(5),
                                         }}
                                     />
                                     <Text
                                         style={{
                                             fontSize: RFPercentage(4),
-                                            color: "gray",
+                                            color: "white",
+                                            marginTop:-RFPercentage(1)
                                         }}
                                     >
-                                        {currStatus}
+                                        {currLocation}
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: RFPercentage(3),
+                                            color: "gray",
+                                            marginTop: RFPercentage(1),
+                                        }}
+                                    >
+                                        {moment().format("dddd")}
                                     </Text>
                                 </View>
                                 <View style={styles.weatherContainerRight}>
@@ -141,44 +181,242 @@ export default function WeatherInfo() {
                                     </Text>
                                 </View>
                             </View>
+                            {/* ////////////////////////////////line chart goes here///////////////////////////////////// */}
+                            {(hourDataTemp != [] && hourDataTime != [] && hourDataImage != []) && (
+                                <View style={{marginTop:RFPercentage(1)}}>
+                                    <View
+                                        style={{
+                                            width: width * 0.8,
+                                            height: height * 0.05,
+                                            flexDirection: "column",
+                                            // backgroundColor: "blue",
+                                        }}
+                                    >
+                                        <XAxis
+                                            data={hourDataTemp}
+                                            svg={{
+                                                fontSize: 10,
+                                                fill: "white",
+                                            }}
+                                            formatLabel={(index: any) =>
+                                                hourDataTemp[index] + "°"
+                                            }
+                                            contentInset={{
+                                                left: RFPercentage(3),
+                                                right: RFPercentage(3),
+                                            }}
+                                        />
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                justifyContent: "space-between",
+                                                marginHorizontal:RFPercentage(1.3)
+                                            }}
+                                        >
+                                            {hourDataImage.map((item: any) => {
+                                                return (
+                                                    <Image
+                                                        source={{
+                                                            uri: `http:${item}`,
+                                                        }}
+                                                        style={{
+                                                            width: RFPercentage(
+                                                                3
+                                                            ),
+                                                            height: RFPercentage(
+                                                                3
+                                                            ),
+                                                        }}
+                                                    ></Image>
+                                                );
+                                            })}
+                                        </View>
+                                    </View>
+                                    <LineChart
+                                        data={hourDataTemp}
+                                        style={{
+                                            height: height * 0.05,
+                                            width: width * 0.8,
+                                            // backgroundColor: "red",
+                                        }}
+                                        svg={{
+                                            stroke: "white",
+                                            strokeWidth: RFPercentage(0.5),
+                                        }}
+                                        contentInset={{ left: RFPercentage(3), right: RFPercentage(3) }}
+                                    />
+                                    <View
+                                        style={{
+                                            width: width * 0.8,
+                                            height: height * 0.05,
+                                            marginTop: RFPercentage(1),
+                                            // backgroundColor: "blue",
+                                        }}
+                                    >
+                                        <XAxis
+                                            data={hourDataTime}
+                                            svg={{
+                                                fontSize: 10,
+                                                fill: "white",
+                                            }}
+                                            formatLabel={(index: any) =>
+                                                hourDataTime[index]+"시"
+                                            }
+                                            contentInset={{
+                                                left: RFPercentage(3),
+                                                right: RFPercentage(3),
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+                            )}
+                        </View>
+                        <View style={styles.pm25Container}>
+                            <View
+                                style={[
+                                    styles.currPM10Container,
+                                    currPM10! > 50
+                                        ? currPM10! > 100
+                                            ? { backgroundColor: "#F5706D" }
+                                            : { backgroundColor: "#FBB96E" }
+                                        : currPM10! > 30
+                                        ? { backgroundColor: "#9ED26D" }
+                                        : { backgroundColor: "#94D3FF" },
+                                ]}
+                            >
+                                <Text style={styles.currPM10Text}>
+                                    {currPM10}
+                                </Text>
+                            </View>
                             <View>
-                                {/* ////////////////////////////////line chart goes here///////////////////////////////////// */}
+                                <Text
+                                    style={{
+                                        color: "white",
+                                        fontSize: RFPercentage(4),
+                                        marginLeft: RFPercentage(2),
+                                    }}
+                                >
+                                    미세먼지&nbsp;
+                                    {(() => {
+                                        if (currPM10! > 50) {
+                                            if (currPM10! > 100)
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#F5706D",
+                                                        }}
+                                                    >
+                                                        매우나쁨
+                                                    </Text>
+                                                );
+                                            else
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#FBB96E",
+                                                        }}
+                                                    >
+                                                        나쁨
+                                                    </Text>
+                                                );
+                                        } else {
+                                            if (currPM10! > 30)
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#9ED26D",
+                                                        }}
+                                                    >
+                                                        보통
+                                                    </Text>
+                                                );
+                                            else
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#94D3FF",
+                                                        }}
+                                                    >
+                                                        좋음
+                                                    </Text>
+                                                );
+                                        }
+                                    })()}
+                                </Text>
                             </View>
                         </View>
                         <View style={styles.pm25Container}>
                             <View
                                 style={[
-                                    styles.currPM25Container,
-                                    currPM25! > 20
-                                        ? { backgroundColor: "#EACE6F" }
-                                        : { backgroundColor: "#15B741" },
+                                    styles.currPM10Container,
+                                    currUV! > 5
+                                        ? currUV! > 7
+                                            ? { backgroundColor: "#F5706D" }
+                                            : { backgroundColor: "#FBB96E" }
+                                        : currUV! > 2
+                                        ? { backgroundColor: "#9ED26D" }
+                                        : { backgroundColor: "#94D3FF" },
                                 ]}
                             >
-                                <Text style={styles.currPM25Text}>
-                                    {currPM25}
-                                </Text>
-                            </View>
-                            <View>
-                                <Text style={{ color: "white" }}>
-                                    미세먼지 정보
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.pm25Container}>
-                            <View
-                                style={[
-                                    styles.currPM25Container,
-                                    currPM25! > 20
-                                        ? { backgroundColor: "#EACE6F" }
-                                        : { backgroundColor: "#15B741" },
-                                ]}
-                            >
-                                <Text style={styles.currPM25Text}>
+                                <Text style={styles.currPM10Text}>
                                     {currUV}
                                 </Text>
                             </View>
                             <View>
-                                <Text style={{ color: "white" }}>UV 정보</Text>
+                                <Text
+                                    style={{
+                                        color: "white",
+                                        fontSize: RFPercentage(4),
+                                        marginLeft: RFPercentage(2),
+                                    }}
+                                >
+                                    UV&nbsp;
+                                    {(() => {
+                                        if (currUV! > 5) {
+                                            if (currUV! > 7)
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#F5706D",
+                                                        }}
+                                                    >
+                                                        아주높음
+                                                    </Text>
+                                                );
+                                            else
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#FBB96E",
+                                                        }}
+                                                    >
+                                                        높음
+                                                    </Text>
+                                                );
+                                        } else {
+                                            if (currUV! > 2)
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#9ED26D",
+                                                        }}
+                                                    >
+                                                        보통
+                                                    </Text>
+                                                );
+                                            else
+                                                return (
+                                                    <Text
+                                                        style={{
+                                                            color: "#94D3FF",
+                                                        }}
+                                                    >
+                                                        낮음
+                                                    </Text>
+                                                );
+                                        }
+                                    })()}
+                                </Text>
                             </View>
                         </View>
                     </View>
@@ -229,7 +467,7 @@ const styles = StyleSheet.create({
     weatherContainerRight: {
         flex: 1,
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         width: width * 0.45,
     },
     currTempText: {
@@ -245,15 +483,15 @@ const styles = StyleSheet.create({
         marginTop: RFPercentage(1),
         flexDirection: "row",
     },
-    currPM25Container: {
+    currPM10Container: {
         width: "30%",
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: RFPercentage(3),
     },
-    currPM25Text: {
-        fontSize: RFPercentage(12),
+    currPM10Text: {
+        fontSize: RFPercentage(9),
         fontWeight: "bold",
     },
     weatherinfosText: {
