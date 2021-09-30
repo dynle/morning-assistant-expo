@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     StyleSheet,
     View,
@@ -16,6 +16,7 @@ import Alarm from "../../assets/homescreen/Alarm.png";
 import Slide from "../../assets/homescreen/Slide.png";
 import Setting from "../../assets/homescreen/Setting.png";
 import { homescreenStyle, BackgroundCircle } from "../Styles/HomeScreenStyle";
+import moment from "moment";
 
 const menu = [
     {

@@ -1,10 +1,23 @@
 import { authService, dbService, UserType, firebaseInstance } from "../fbase";
+import {setNotification } from '../Utils/NotificationUtil';
 
 // TODO: 설정한 다른 field들도 추가해야함
-export const CreateDBUtil = async(user: UserType)=>{
-    // const uid = authService.currentUser!.uid;
-    await dbService.collection('users').doc(`${user.uid}`).set({
-        userName: authService.currentUser?.displayName,
+export const CreateDBUtil = async(user: UserType,settingData:any[])=>{
+    const docRef = dbService.collection('users').doc(`${user.uid}`)
+    const days = ['mon','tues','wed','thurs','fri','sat','sun']
+    await docRef.set({
+        userName: settingData[0],
         created_at: firebaseInstance.firestore.Timestamp.now()
     })
+    // for (var i=0;i<7;i++){
+    //     await docRef.collection('alarmTime').add({
+    //         time: firebaseInstance.firestore.Timestamp.fromDate(settingData[1][i].timestamp)
+    //     })
+    // }
+    for (var i=0;i<7;i++){
+        await docRef.collection('alarmTime').doc(`${days[i]}`).set({
+            hour: settingData[1][i].hour[1],
+            minutes: settingData[1][i].minutes
+        })
+    }
 }

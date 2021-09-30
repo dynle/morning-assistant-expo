@@ -15,7 +15,7 @@ import {
     homescreenStyle,
 } from "../../Styles/HomeScreenStyle";
 import { signOutUtil } from "../../Utils/AuthUtil";
-import {DeleteUserUtil} from '../../Utils/DeleteDBUtil';
+import {DeleteUserUtil} from '../../Utils/DeleteUserUtil';
 
 function MenuStyle(menuName: string, func?: (user?:any)=>any,user?:UserType) {
     return (
@@ -32,6 +32,7 @@ function MenuStyle(menuName: string, func?: (user?:any)=>any,user?:UserType) {
 }
 
 export default function MenuSetting(props: { user:UserType, navigation: any }) {
+    console.log("MenuSetting current user: ",props.user.uid);
     return (
         <View style={homescreenStyle.container}>
             <BackgroundCircle />

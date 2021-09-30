@@ -213,7 +213,7 @@ export default function WeatherInfo() {
                                                 marginHorizontal:RFPercentage(1.3)
                                             }}
                                         >
-                                            {hourDataImage.map((item: any) => {
+                                            {hourDataImage.map((item: any,index:number) => {
                                                 return (
                                                     <Image
                                                         source={{
@@ -227,6 +227,7 @@ export default function WeatherInfo() {
                                                                 3
                                                             ),
                                                         }}
+                                                        key={index}
                                                     ></Image>
                                                 );
                                             })}

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, View, Text, Dimensions, TextInput } from "react-native";
 import { Button, Icon } from "react-native-elements";
-import { signOutUtil } from "../../Utils/AuthUtil";
+import { SettingContext } from "../../Contexts/SettingContext";
 
 export default function Setting1Name(props: {
     pageMoveHandler: (pageNumber: number) => void;
@@ -10,6 +10,9 @@ export default function Setting1Name(props: {
     const [name, setName] = useState("");
     const [hasInput, setHasInput] = useState(false);
     // const [isUniqueUserName, setIsUniqueUserName] = useState(false);
+
+    const {settingData, setSettingData} = useContext(SettingContext);
+
     return (
         <View style={styles.container}>
             <View style={styles.containerTop}>
@@ -61,6 +64,7 @@ export default function Setting1Name(props: {
                             console.log({ name });
                             if (name) {
                                 setHasInput(true);
+                                setSettingData([...settingData,name])
                                 props.scrollEnabledHandler(true);
                                 props.pageMoveHandler(1);
                             }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -6,11 +6,13 @@ import { UserType } from "../../fbase";
 import { commonStyle } from "../../Styles/CommonStyles";
 import { signOutUtil } from "../../Utils/AuthUtil";
 import { CreateDBUtil } from "../../Utils/CreateDBUtil";
+import { SettingContext } from "../../Contexts/SettingContext";
 
 export default function Setting6Completion(props: {
     handlerIsNewUser: (state: boolean) => void;
     user: UserType;
 }) {
+    const {settingData} = useContext(SettingContext)
     return (
         <View style={styles.container}>
             <View style={styles.containerTop}>
@@ -31,7 +33,8 @@ export default function Setting6Completion(props: {
                     buttonStyle={commonStyle.buttonStyle}
                     onPress={async () => {
                         console.log("셋팅 확인");
-                        await CreateDBUtil(props.user);
+                        console.log("all data: ",settingData);
+                        await CreateDBUtil(props.user,settingData);
                         props.handlerIsNewUser(false);
                     }}
                 ></Button>

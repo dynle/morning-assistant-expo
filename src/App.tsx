@@ -17,7 +17,7 @@ import AppLoading from "expo-app-loading";
 import { setCustomText, setCustomTextInput } from "react-native-global-props";
 import Test from "./Components/Main/test";
 import * as Notifications from "expo-notifications";
-import NotificationUtil from './Utils/NotificationUtil'
+import {registerNotificationUtil} from './Utils/NotificationUtil'
 import MainScreen from "./Screens/MainScreen";
 
 const customTextProps = {
@@ -37,6 +37,7 @@ async function delay_splash() {
 }
 
 function App() {
+    // TODO: Use createContext, useContext here to manage current user info
     ////////////////////////// initial settings//////////////////////////
     let [fontsLoaded] = Font.useFonts({
         Cafe24Simplehae: require("../assets/fonts/Cafe24Simplehae.ttf"),
@@ -53,7 +54,7 @@ function App() {
         setIsNoti(state)
     }
     useEffect(() => {
-        NotificationUtil();
+        registerNotificationUtil();
         Notifications.addNotificationResponseReceivedListener((response) => {
             console.log("user tapped the noti");
             setIsNoti(true);

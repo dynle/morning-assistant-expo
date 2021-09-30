@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import {
     StyleSheet,
     View,
@@ -6,6 +6,7 @@ import {
     Dimensions,
     FlatList,
     TouchableOpacity,
+    Alert,
 } from "react-native";
 import { Button, ThemeProvider } from "react-native-elements";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
@@ -13,56 +14,65 @@ import moment from "moment";
 import Setting3Clock from "./Setting3Clock";
 import { Divider } from "react-native-elements/dist/divider/Divider";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { SettingContext } from "../../../Contexts/SettingContext";
+
+interface DATA_TYPE {
+    key: number;
+    title: string;
+    meridiem: string;
+    hour: number[];
+    minutes: number;
+}
 
 // Dummy data
-const DATA = [
+const DATA: DATA_TYPE[] = [
     {
         key: 0,
         title: "월요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 1,
         title: "화요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 2,
         title: "수요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 3,
         title: "목요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 4,
         title: "금요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 5,
         title: "토요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 6,
         title: "일요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
 ];
@@ -71,7 +81,7 @@ export default function Setting3WakeUpTime(props: {
     pageMoveHandler: (pageNumber: number) => void;
     scrollEnabledHandler: (enabled: boolean) => void;
 }) {
-    // TODO: 초반 값을 0으로 설정하고 다음 시계 클릭하면 백엔드에 저장하도록, 마지막은 저장 버튼으로?
+    const { settingData, setSettingData } = useContext(SettingContext);
     const [item, setItem] = useState(DATA[0]);
     const [date, setDate] = useState(new Date());
     const [currDayOfWeek, setCurrDayOfWeek] = useState("월요일");
@@ -80,7 +90,7 @@ export default function Setting3WakeUpTime(props: {
     const width = Dimensions.get("window").width;
     let clock_height = 200;
     let clock_width = 200;
-    
+
     // let clock_height = width*0.6;
     // let clock_width = width*0.6;
 
@@ -88,7 +98,7 @@ export default function Setting3WakeUpTime(props: {
         const currentDate = selectedDate || date;
         setDate(currentDate);
         item.meridiem = moment(currentDate).format("a").toUpperCase();
-        item.hour = Number(moment(currentDate).format("h"));
+        item.hour = [Number(moment(currentDate).format("h")),Number(moment(currentDate).format("H"))];
         item.minutes = Number(moment(currentDate).format("mm"));
     };
 
@@ -148,10 +158,10 @@ export default function Setting3WakeUpTime(props: {
                                             justifyContent: "center",
                                         },
                                         (item.meridiem == "오전" &&
-                                            item.hour >= 7 &&
-                                            item.hour < 12) ||
+                                            item.hour[0] >= 7 &&
+                                            item.hour[0] < 12) ||
                                         (item.meridiem == "오후" &&
-                                            (item.hour <= 5 || item.hour == 12))
+                                            (item.hour[0] <= 5 || item.hour[0] == 12))
                                             ? {
                                                 backgroundColor: "#FFEEC0",
                                                 shadowColor: "#E3BF7C",
@@ -170,7 +180,7 @@ export default function Setting3WakeUpTime(props: {
                                         <Setting3Clock
                                             width={clock_width}
                                             height={clock_width}
-                                            hour={item.hour}
+                                            hour={item.hour[0]}
                                             minutes={item.minutes}
                                         ></Setting3Clock>
                                     )}
@@ -202,7 +212,7 @@ export default function Setting3WakeUpTime(props: {
                         {"- " +
                             item.meridiem +
                             " " +
-                            item.hour +
+                            item.hour[0] +
                             ":" +
                             item.minutes.toLocaleString("en-US", {
                                 minimumIntegerDigits: 2,
@@ -228,9 +238,22 @@ export default function Setting3WakeUpTime(props: {
                                 }}
                                 style={{ alignItems: "center" }}
                                 onPress={() => {
-                                    props.scrollEnabledHandler(true);
-                                    props.pageMoveHandler(3);
-                                    console.log(DATA);
+                                    var found = false;
+                                    for (var i = 0; i < 7; i++) {
+                                        if (DATA[i].hour[0] == 0) {
+                                            found = true;
+                                            Alert.alert(
+                                                "모든 요일에 시간을 입력해 주세요."
+                                            );
+                                            break;
+                                        }
+                                    }
+                                    if (!found) {
+                                        setSettingData([...settingData,DATA])
+                                        props.scrollEnabledHandler(true);
+                                        props.pageMoveHandler(3);
+                                        console.log(DATA);
+                                    }
                                 }}
                             ></Button>
                         </ThemeProvider>
