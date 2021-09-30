@@ -104,7 +104,6 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
                 ></FlatList>
                 {/* test */}
                 <Button title="get" onPress={async ()=> {console.log(await getAllScheduledNotificationsAsync());}}/>
-                <Button title="cancel" onPress={()=>{console.log("cancalled");cancelAllScheduledPushNotification();}}></Button>
             </View>
         </View>
     );

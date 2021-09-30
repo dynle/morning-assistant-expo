@@ -91,7 +91,6 @@ function App() {
                 <MainScreen handler={notiHandler}/>
             );
         }else{
-            // return <Test/>
             return (
                 // originial code
                 <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -101,6 +100,7 @@ function App() {
                     </View>
                 </TouchableWithoutFeedback>
             );
+            // return <Test/>
         } 
     }
 }

@@ -19,55 +19,63 @@ import {
 } from "../../Styles/HomeScreenStyle";
 import Setting3Clock from "../InitSetting/Setting3WakeUpTime/Setting3Clock";
 
+interface DATA_TYPE {
+    key: number;
+    title: string;
+    meridiem: string;
+    hour: number[];
+    minutes: number;
+}
+
 // Dummy data
 const DATA = [
     {
         key: 0,
         title: "월요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 1,
         title: "화요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 2,
         title: "수요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 3,
         title: "목요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 4,
         title: "금요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 5,
         title: "토요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
     {
         key: 6,
         title: "일요일",
         meridiem: "",
-        hour: 0,
+        hour: [0,0],
         minutes: 0,
     },
 ];
@@ -89,7 +97,7 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
         const currentDate = selectedDate || date;
         setDate(currentDate);
         item.meridiem = moment(currentDate).format("a").toUpperCase();
-        item.hour = Number(moment(currentDate).format("h"));
+        item.hour = [Number(moment(currentDate).format("h")),Number(moment(currentDate).format("H"))];
         item.minutes = Number(moment(currentDate).format("mm"));
     };
 
@@ -153,11 +161,11 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
                                                 justifyContent: "center",
                                             },
                                             (item.meridiem == "오전" &&
-                                                item.hour >= 7 &&
-                                                item.hour < 12) ||
+                                                item.hour[0] >= 7 &&
+                                                item.hour[0] < 12) ||
                                             (item.meridiem == "오후" &&
-                                                (item.hour <= 5 ||
-                                                    item.hour == 12))
+                                                (item.hour[0] <= 5 ||
+                                                    item.hour[0] == 12))
                                                 ? {
                                                     backgroundColor:"#FFEEC0",
                                                     shadowColor: "#E3BF7C",
@@ -176,7 +184,7 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
                                             <Setting3Clock
                                                 width={clock_width}
                                                 height={clock_width}
-                                                hour={item.hour}
+                                                hour={item.hour[0]}
                                                 minutes={item.minutes}
                                             ></Setting3Clock>
                                         )}
@@ -210,7 +218,7 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
                             {"- " +
                                 item.meridiem +
                                 " " +
-                                item.hour +
+                                item.hour[0] +
                                 ":" +
                                 item.minutes.toLocaleString("en-US", {
                                     minimumIntegerDigits: 2,
@@ -222,7 +230,7 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
                     </View>
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
-                    {/* TODO: 저장된 Noti를 지우고 다시 설정 */}
+                    {/* TODO: 저장된 Noti를 지우고 Update.tsx 만들기 */}
                     <Button
                         title="저장"
                         titleStyle={{ color: "black" }}
