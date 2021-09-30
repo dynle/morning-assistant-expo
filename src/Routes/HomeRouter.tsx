@@ -22,14 +22,24 @@ export default function HomeRouter(props: { user: UserType }) {
             >
                 <Stack.Screen
                     name="Home"
-                    component={HomeScreen}
-                    // initialParams={{ user: props.user }}
-                />
-                <Stack.Screen name="Todo" component={MenuTodo} options={{headerBackVisible:true}} />
-                <Stack.Screen name="Share" component={MenuShare} />
-                <Stack.Screen name="Alarm" component={MenuAlarm} />
-                <Stack.Screen name="Slide" component={MenuSlide} />
-                <Stack.Screen name="Setting" component={MenuSetting} />
+                >
+                    {_props=> <HomeScreen {..._props} user={props.user}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Todo" options={{headerBackVisible:true}}>
+                    {_props=> <MenuTodo {..._props} user={props.user}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Share">
+                    {_props=> <MenuShare {..._props} user={props.user}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Alarm">
+                    {_props=> <MenuAlarm {..._props} user={props.user}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Slide">
+                    {_props=> <MenuSlide {..._props} user={props.user}/>}
+                </Stack.Screen>
+                <Stack.Screen name="Setting">
+                    {_props=> <MenuSetting {..._props} user={props.user}/>}
+                </Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
     );

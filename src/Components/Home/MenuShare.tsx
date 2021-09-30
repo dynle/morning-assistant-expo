@@ -24,13 +24,14 @@ import Camera from '../../../assets/homescreen/Camera.png';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import * as ImagePicker from "expo-image-picker";
 import { modalStyle } from "../../Styles/ModalStyle";
+import { UserType } from "../../fbase";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const clock_height = RFPercentage(16);
 const clock_width = RFPercentage(16);
 
-export default function MenuShare(props: { navigation: any }) {
+export default function MenuShare(props: { user:UserType, navigation: any }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState<string | null>(null);
     const [text, setText] = useState<string>("");

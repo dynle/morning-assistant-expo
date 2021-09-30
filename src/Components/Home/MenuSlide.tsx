@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Dimensions } from "react-native";
 import { Button } from "react-native-elements";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { UserType } from "../../fbase";
 import { commonStyle } from "../../Styles/CommonStyles";
 import {
     BackgroundCircle,
@@ -15,7 +16,7 @@ import ModalTodo from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalTodo";
 import ModalWeather from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalWeather";
 import ModalYesterday from "../InitSetting/Setting4SlideSet/Setting4Modal/ModalYesterday";
 
-export default function MenuSlide(props: { navigation: any }) {
+export default function MenuSlide(props: { user: UserType, navigation: any }) {
     const [infoModalVisible, setInfoModalVisible] = useState([false, ""]);
 
     const modalHandler = (state: boolean, condition: string) => {

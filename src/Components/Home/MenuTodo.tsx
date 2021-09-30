@@ -15,6 +15,7 @@ import {
 import { Button, Icon, Input } from "react-native-elements";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { UserType } from "../../fbase";
 import { commonStyle } from "../../Styles/CommonStyles";
 import {
     homescreenStyle,
@@ -52,7 +53,7 @@ var todoData: TodoDataType[] = [
 const colors1 = ["#6C95D6", "#5AA7AA", "#D66B6B", "#D6D16B"];
 const colors2 = ["#D66BAC", "#88C778", "#A06BD6", "#D59E6B"];
 
-export default function MenuTodo(props: { navigation: any }) {
+export default function MenuTodo(props: { user:UserType, navigation: any }) {
     const [todoList, setTodoList] = useState<TodoDataType[]>(todoData);
     const [modalVisible, setModalVisible] = useState(false);
     const [newTodoTitle, setNewTodoTitle] = useState<string>("");

@@ -8,17 +8,19 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { UserType } from "../../fbase";
 import { commonStyle } from "../../Styles/CommonStyles";
 import {
     BackgroundCircle,
     homescreenStyle,
 } from "../../Styles/HomeScreenStyle";
 import { signOutUtil } from "../../Utils/AuthUtil";
+import {DeleteUserUtil} from '../../Utils/DeleteDBUtil';
 
-function MenuStyle(menuName: string, func?: () => void) {
+function MenuStyle(menuName: string, func?: (user?:any)=>any,user?:UserType) {
     return (
         <TouchableOpacity
-            onPress={func}
+            onPress={()=>func!(user)}
             activeOpacity={0.5}
             style={[styles.buttonStyle]}
         >
@@ -29,7 +31,7 @@ function MenuStyle(menuName: string, func?: () => void) {
     );
 }
 
-export default function MenuSetting(props: { navigation: any }) {
+export default function MenuSetting(props: { user:UserType, navigation: any }) {
     return (
         <View style={homescreenStyle.container}>
             <BackgroundCircle />
@@ -61,7 +63,7 @@ export default function MenuSetting(props: { navigation: any }) {
                     </Text>
                     {MenuStyle("이름 변경")}
                     {MenuStyle("로그아웃", signOutUtil)}
-                    {MenuStyle("계정 삭제")}
+                    {MenuStyle("계정 삭제",DeleteUserUtil,props.user)}
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
                     <Button

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { useEffect } from "react-native-vector-icons/node_modules/@types/react";
+import { UserType } from "../../fbase";
 import { commonStyle } from "../../Styles/CommonStyles";
 import {
     BackgroundCircle,
@@ -72,7 +72,7 @@ const DATA = [
     },
 ];
 
-export default function MenuAlarm(props: { navigation: any }) {
+export default function MenuAlarm(props: { user:UserType, navigation: any }) {
     const [item, setItem] = useState(DATA[0]);
     const [date, setDate] = useState(new Date());
     const [currDayOfWeek, setCurrDayOfWeek] = useState("월요일");
