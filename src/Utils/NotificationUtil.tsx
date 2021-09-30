@@ -17,7 +17,14 @@ export async function registerNotificationUtil() {
                 await Notifications.getPermissionsAsync();
             let finalStatus = existingStatus;
             if (existingStatus !== "granted") {
-                const { status } = await Notifications.requestPermissionsAsync();
+                const { status } = await Notifications.requestPermissionsAsync({
+                    ios:{
+                        allowAlert: true,
+                        allowBadge: true,
+                        allowSound: true,
+                        allowAnnouncements: true
+                    }
+                });
                 finalStatus = status;
             }
             if (finalStatus !== "granted") {
@@ -40,6 +47,47 @@ export async function registerNotificationUtil() {
         }
 }
 
-export async function setNotification(){
-    // for android: WeeklyTriggerInput, for ios: calendarTriggerInput
+export async function schedulePushNotification(settingData:any){
+    // for android: WeeklyTriggerInput / getNotificationChannelAsync, for ios: calendarTriggerInput
+    // if(Platform.OS === 'ios'){
+    // }else{}
+
+    // var scheduleTime = new Date();
+    console.log(settingData);
+    for(var i=0;i<7;i++){
+        // scheduleTime.setHours(settingData[1][i].hour[1]);
+        // scheduleTime.setMinutes(settingData[1][i].minutes);
+        // scheduleTime.setSeconds(0);
+        if(i!=6){
+            await Notifications.scheduleNotificationAsync({
+                content:{
+                    title: "오늘의 아침을 확인하세요!",
+                    body: "클릭해서 정보를 받아보세요.",
+                },
+                trigger:{
+                    repeats: true,
+                    weekday: i+2,
+                    hour: settingData[1][i].hour[1],
+                    minute: settingData[1][i].minutes,
+                }
+            })
+        }else{
+            await Notifications.scheduleNotificationAsync({
+                content:{
+                    title: "오늘의 아침을 확인하세요!",
+                    body: "클릭해서 정보를 받아보세요.",
+                },
+                trigger:{
+                    repeats:true,
+                    weekday: 1,
+                    hour: settingData[1][i].hour[1],
+                    minute: settingData[1][i].minutes,
+                }
+            })
+        }
+    }
+}
+
+export async function cancelAllScheduledPushNotification(){
+    await Notifications.cancelAllScheduledNotificationsAsync();
 }

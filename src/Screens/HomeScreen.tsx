@@ -16,7 +16,9 @@ import Alarm from "../../assets/homescreen/Alarm.png";
 import Slide from "../../assets/homescreen/Slide.png";
 import Setting from "../../assets/homescreen/Setting.png";
 import { homescreenStyle, BackgroundCircle } from "../Styles/HomeScreenStyle";
-import moment from "moment";
+import { cancelAllScheduledPushNotification } from "../Utils/NotificationUtil";
+import { Button } from "react-native-elements";
+import { getAllScheduledNotificationsAsync } from "expo-notifications";
 
 const menu = [
     {
@@ -100,6 +102,9 @@ export default function HomeScreen(props: { user: UserType; navigation: any }) {
                     keyExtractor={(item) => item.key}
                     scrollEnabled={false}
                 ></FlatList>
+                {/* test */}
+                <Button title="get" onPress={async ()=> {console.log(await getAllScheduledNotificationsAsync());}}/>
+                <Button title="cancel" onPress={()=>{console.log("cancalled");cancelAllScheduledPushNotification();}}></Button>
             </View>
         </View>
     );

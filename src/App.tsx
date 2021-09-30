@@ -50,9 +50,19 @@ function App() {
     const [isNoti,setIsNoti] = useState(false);
     const notificationListener = useRef();
     const responseListener = useRef();
+
+    // homescreen으로 돌아오기 위한 handler
     const notiHandler = (state:boolean) => {
         setIsNoti(state)
     }
+    
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+            shouldShowAlert: true,
+            shouldPlaySound: true,
+            shouldSetBadge: true,
+        }),
+    });
     useEffect(() => {
         registerNotificationUtil();
         Notifications.addNotificationResponseReceivedListener((response) => {
