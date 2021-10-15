@@ -1,4 +1,4 @@
-import { authService, dbService, UserType, firebaseInstance } from "../fbase";
+import { dbService, UserType, firebaseInstance } from "../fbase";
 import { schedulePushNotification } from "../Utils/NotificationUtil";
 
 // TODO: 설정한 다른 field들도 추가해야함
@@ -9,11 +9,6 @@ export const CreateDBUtil = async (user: UserType, settingData: any[]) => {
         userName: settingData[0],
         created_at: firebaseInstance.firestore.Timestamp.now(),
     });
-    // for (var i=0;i<7;i++){
-    //     await docRef.collection('alarmTime').add({
-    //         time: firebaseInstance.firestore.Timestamp.fromDate(settingData[1][i].timestamp)
-    //     })
-    // }
     for (var i = 0; i < 7; i++) {
         await docRef.collection("alarmTime").doc(`${days[i]}`).set({
             hour: settingData[1][i].hour[1],
@@ -22,3 +17,11 @@ export const CreateDBUtil = async (user: UserType, settingData: any[]) => {
     }
     schedulePushNotification(settingData);
 };
+
+export const CreateTodoDBUtil = () => {
+    
+}
+
+export const CreateShareDBUtil = () => {
+    
+}

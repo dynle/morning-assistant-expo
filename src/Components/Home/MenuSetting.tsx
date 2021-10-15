@@ -21,6 +21,7 @@ import {
     cancelAllScheduledNotificationsAsync,
     getAllScheduledNotificationsAsync,
 } from "expo-notifications";
+import { ChangeNameDBUtil } from "../../Utils/UpdateDBUtil";
 
 function MenuStyle(
     menuName: string,
@@ -62,11 +63,27 @@ export default function MenuSetting(props: {
                     <Text
                         style={{ color: "#C6BF9F", fontSize: RFPercentage(4) }}
                     >
-                        커스텀 알림
+                        알람 설정
                     </Text>
                     {MenuStyle("모든 알람 취소", () => {
-                        cancelAllScheduledNotificationsAsync();
-                        Alert.alert("모든 알람을 취소했습니다.");
+                        Alert.alert(
+                            "정말 취소할까요?",
+                            undefined,
+                            [
+                                {
+                                    text:"취소",
+                                    style:'cancel'
+                                },
+                                {
+                                    text:"확인",
+                                    onPress:()=>{
+                                        cancelAllScheduledNotificationsAsync();
+                                        Alert.alert("모든 알람을 취소했습니다.");
+                                    }
+                                }
+                            ]
+                        )
+                        
                     })}
                     {/* {MenuStyle("로컬 파일 불러오기")}
                     {MenuStyle("스포티파이 연동하기")} */}
@@ -77,7 +94,7 @@ export default function MenuSetting(props: {
                     >
                         계정 관리
                     </Text>
-                    {MenuStyle("이름 변경")}
+                    {MenuStyle("이름 변경",ChangeNameDBUtil, props.user)}
                     {MenuStyle("로그아웃", signOutUtil)}
                     {MenuStyle("계정 삭제", DeleteUserUtil, props.user)}
                 </View>

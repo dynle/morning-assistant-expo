@@ -42,7 +42,6 @@ export default function Setting1Name(props: {
                                 type="outline"
                                 buttonStyle={{ borderColor: "red" }}
                                 onPress={() => {
-                                    // FIXME: DB에서 확인하고 true 값으로 바뀌게 처리
                                     setIsUniqueUserName(true);
                                     console.log("중복 확인 버튼");
                                 }}
@@ -51,7 +50,6 @@ export default function Setting1Name(props: {
                     </Text>
                 </View> */}
                 <View style={{ flexDirection: "row" }}>
-                    {/* TODO: 확인 버튼으로 중복확인까지 할 수 있게 */}
                     <Button
                         title="확인"
                         titleStyle={{ color: "black" }}

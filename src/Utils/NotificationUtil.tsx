@@ -53,7 +53,6 @@ export async function schedulePushNotification(settingData:any){
     // }else{}
 
     // var scheduleTime = new Date();
-    console.log(settingData);
     for(var i=0;i<7;i++){
         // scheduleTime.setHours(settingData[1][i].hour[1]);
         // scheduleTime.setMinutes(settingData[1][i].minutes);

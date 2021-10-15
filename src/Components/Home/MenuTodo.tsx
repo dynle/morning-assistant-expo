@@ -82,7 +82,7 @@ export default function MenuTodo(props: { user:UserType, navigation: any }) {
 
     const onTimeChange = (event: any, selectedTime: Date | undefined) => {
         const currTime = selectedTime || spinnerTime;
-        // TODO: firebase에 저장할때는 9시간 더해서 저장해야함
+        // IDEA: firebase에 저장할때는 9시간 더해서 저장해야함
         setSpinnerTime(currTime);
         var convertedTime = moment(currTime).add(1,'days');
         setNewTodoTime(convertedTime);

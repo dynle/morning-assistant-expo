@@ -1,6 +1,6 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     View,
     Text,
@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Dimensions,
     StyleSheet,
+    Alert,
 } from "react-native";
 import { Button } from "react-native-elements";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -17,6 +18,7 @@ import {
     BackgroundCircle,
     homescreenStyle,
 } from "../../Styles/HomeScreenStyle";
+import { UpdateAlarmDBUtil } from "../../Utils/UpdateDBUtil";
 import Setting3Clock from "../InitSetting/Setting3WakeUpTime/Setting3Clock";
 
 interface DATA_TYPE {
@@ -27,60 +29,60 @@ interface DATA_TYPE {
     minutes: number;
 }
 
-// Dummy data
-const DATA = [
+// TODO: FB에 올려져 있는 시간들을 넣어줘야함
+const DATA: DATA_TYPE[] = [
     {
         key: 0,
         title: "월요일",
         meridiem: "",
-        hour: [0,0],
+        hour: [0, 0],
         minutes: 0,
     },
     {
         key: 1,
         title: "화요일",
         meridiem: "",
-        hour: [0,0],
+        hour: [0, 0],
         minutes: 0,
     },
     {
         key: 2,
         title: "수요일",
         meridiem: "",
-        hour: [0,0],
+        hour: [0, 0],
         minutes: 0,
     },
     {
         key: 3,
         title: "목요일",
         meridiem: "",
-        hour: [0,0],
+        hour: [0, 0],
         minutes: 0,
     },
     {
         key: 4,
         title: "금요일",
         meridiem: "",
-        hour: [0,0],
+        hour: [0, 0],
         minutes: 0,
     },
     {
         key: 5,
         title: "토요일",
         meridiem: "",
-        hour: [0,0],
+        hour: [0, 0],
         minutes: 0,
     },
     {
         key: 6,
         title: "일요일",
         meridiem: "",
-        hour: [0,0],
+        hour: [0, 0],
         minutes: 0,
     },
 ];
 
-export default function MenuAlarm(props: { user:UserType, navigation: any }) {
+export default function MenuAlarm(props: { user: UserType; navigation: any }) {
     const [item, setItem] = useState(DATA[0]);
     const [date, setDate] = useState(new Date());
     const [currDayOfWeek, setCurrDayOfWeek] = useState("월요일");
@@ -97,7 +99,10 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
         const currentDate = selectedDate || date;
         setDate(currentDate);
         item.meridiem = moment(currentDate).format("a").toUpperCase();
-        item.hour = [Number(moment(currentDate).format("h")),Number(moment(currentDate).format("H"))];
+        item.hour = [
+            Number(moment(currentDate).format("h")),
+            Number(moment(currentDate).format("H")),
+        ];
         item.minutes = Number(moment(currentDate).format("mm"));
     };
 
@@ -167,16 +172,20 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
                                                 (item.hour[0] <= 5 ||
                                                     item.hour[0] == 12))
                                                 ? {
-                                                    backgroundColor:"#FFEEC0",
+                                                    backgroundColor:
+                                                        "#FFEEC0",
                                                     shadowColor: "#E3BF7C",
                                                     shadowOpacity: 10,
-                                                    shadowRadius: RFPercentage(2),
+                                                    shadowRadius:
+                                                        RFPercentage(2),
                                                 }
                                                 : {
-                                                    backgroundColor:"#BEBEBE",
+                                                    backgroundColor:
+                                                        "#BEBEBE",
                                                     shadowColor: "#5E6574",
                                                     shadowOpacity: 10,
-                                                    shadowRadius: RFPercentage(2),
+                                                    shadowRadius:
+                                                        RFPercentage(2),
                                                 },
                                         ]}
                                     >
@@ -206,7 +215,7 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
                 <View style={homescreenStyle.containerBottomMid}>
                     <View style={styles.containerTimePicker}>
                         <RNDateTimePicker
-                            style={{ maxHeight: "70%",minWidth:"70%" }}
+                            style={{ maxHeight: "70%", minWidth: "70%" }}
                             value={date}
                             mode={"time"}
                             display="spinner"
@@ -230,12 +239,28 @@ export default function MenuAlarm(props: { user:UserType, navigation: any }) {
                     </View>
                 </View>
                 <View style={homescreenStyle.containerBottomButton}>
-                    {/* TODO: 저장된 Noti를 지우고 Update.tsx 만들기 */}
                     <Button
                         title="저장"
                         titleStyle={{ color: "black" }}
                         buttonStyle={commonStyle.buttonStyle}
-                        onPress={() => props.navigation.goBack()}
+                        onPress={async() => {
+                            var found = false;
+                                    for (var i = 0; i < 7; i++) {
+                                        if (DATA[i].hour[0] == 0) {
+                                            found = true;
+                                            Alert.alert(
+                                                "모든 요일에 시간을 입력해 주세요."
+                                            );
+                                            break;
+                                        }
+                                    }
+                                    if (!found) {
+                                        Alert.alert("업데이트 중...");
+                                        await UpdateAlarmDBUtil(props.user,DATA);
+                                        props.navigation.goBack();
+                                        Alert.alert("업데이트 완료");
+                                    }
+                        }}
                     ></Button>
                 </View>
             </View>
