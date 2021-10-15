@@ -86,6 +86,8 @@ function App() {
     } else {
         setCustomText(customTextProps);
         setCustomTextInput(customTextProps);
+        // return <MainScreen handler={notiHandler}/>
+
         if (isNoti){
             return (
                 <MainScreen handler={notiHandler}/>
@@ -100,8 +102,7 @@ function App() {
                     </View>
                 </TouchableWithoutFeedback>
             );
-            // return <Test/>
-        } 
+        }
     }
 }
 

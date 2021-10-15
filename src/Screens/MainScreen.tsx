@@ -43,10 +43,10 @@ export default function MainScreen(props: {
                     <Greeting />
                 </View>
                 <View style={styles.page}>
-                    <TodoInfo />
+                    <WeatherInfo />
                 </View>
                 <View style={styles.page}>
-                    <WeatherInfo />
+                    <TodoInfo />
                 </View>
                 <View style={styles.page}>
                     <NewsInfo />
