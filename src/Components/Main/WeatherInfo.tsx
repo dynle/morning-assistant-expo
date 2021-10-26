@@ -12,6 +12,7 @@ import {
     Platform,
     ImageSourcePropType,
 } from "react-native";
+import { MainScreenStyles } from "../../Styles/MainScreenStyles";
 import axios from "axios";
 import * as Location from "expo-location";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -119,11 +120,11 @@ export default function WeatherInfo() {
             {isLoading ? (
                 <Loading />
             ) : (
-                <View style={styles.container}>
-                    <View style={styles.containerTop}>
-                        <Text style={styles.containerTopText}>날씨</Text>
+                <View style={[MainScreenStyles.container,{backgroundColor: "#4B4C4C"}]}>
+                    <View style={MainScreenStyles.containerTop}>
+                        <Text style={[MainScreenStyles.containerTopText,{color: "#E0DFD0"}]}>날씨</Text>
                     </View>
-                    <View style={styles.containerBottom}>
+                    <View style={MainScreenStyles.containerBottom}>
                         <View style={styles.weatherContainer}>
                             <View style={{ flexDirection: "row" }}>
                                 <View style={styles.weatherContainerLeft}>
@@ -428,29 +429,29 @@ export default function WeatherInfo() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        width: width,
-        backgroundColor: "#4B4C4C",
-    },
-    containerTop: {
-        flex: 1,
-        width: width,
-        justifyContent: "flex-end",
-        alignItems: "center",
-        // backgroundColor: "green",
-    },
-    containerBottom: {
-        flex: 5,
-        width: width,
-        alignItems: "center",
-    },
-    containerTopText: {
-        color: "#E0DFD0",
-        fontSize: RFPercentage(6),
-    },
+    // container: {
+    //     flex: 1,
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //     width: width,
+    //     backgroundColor: "#4B4C4C",
+    // },
+    // containerTop: {
+    //     flex: 1,
+    //     width: width,
+    //     justifyContent: "flex-end",
+    //     alignItems: "center",
+    //     // backgroundColor: "green",
+    // },
+    // containerBottom: {
+    //     flex: 5,
+    //     width: width,
+    //     alignItems: "center",
+    // },
+    // containerTopText: {
+    //     color: "#E0DFD0",
+    //     fontSize: RFPercentage(6),
+    // },
     weatherContainer: {
         backgroundColor: "#535351",
         width: width * 0.9,

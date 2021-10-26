@@ -86,23 +86,23 @@ function App() {
     } else {
         setCustomText(customTextProps);
         setCustomTextInput(customTextProps);
-        // return <MainScreen handler={notiHandler}/>
+        return <MainScreen handler={notiHandler}/>
 
-        if (isNoti){
-            return (
-                <MainScreen handler={notiHandler}/>
-            );
-        }else{
-            return (
-                // originial code
-                <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                    <View style={styles.container}>
-                        <StatusBar style="light" />
-                        <LoginProvider/>
-                    </View>
-                </TouchableWithoutFeedback>
-            );
-        }
+        // if (isNoti){
+        //     return (
+        //         <MainScreen handler={notiHandler}/>
+        //     );
+        // }else{
+        //     return (
+        //         // originial code
+        //         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        //             <View style={styles.container}>
+        //                 <StatusBar style="light" />
+        //                 <LoginProvider/>
+        //             </View>
+        //         </TouchableWithoutFeedback>
+        //     );
+        // }
     }
 }
 
