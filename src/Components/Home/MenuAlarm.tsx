@@ -18,7 +18,9 @@ import {
     BackgroundCircle,
     homescreenStyle,
 } from "../../Styles/HomeScreenStyle";
+import { FetchAlarmList } from "../../Utils/FetchDBUtil";
 import { UpdateAlarmDBUtil } from "../../Utils/UpdateDBUtil";
+import LoadingComponent from "../Common/LoadingComponent";
 import Setting3Clock from "../InitSetting/Setting3WakeUpTime/Setting3Clock";
 
 interface DATA_TYPE {
@@ -82,11 +84,15 @@ const DATA: DATA_TYPE[] = [
     },
 ];
 
+const mmt = moment()
+
 export default function MenuAlarm(props: { user: UserType; navigation: any }) {
-    const [item, setItem] = useState(DATA[0]);
-    const [date, setDate] = useState(new Date());
+    const [alarmDataList, SetAlarmDataList] = useState(DATA);
+    const [item, setItem] = useState(alarmDataList[0]);
+    const [date, setDate] = useState<Date>(new Date());
     const [currDayOfWeek, setCurrDayOfWeek] = useState("월요일");
     const [isSelected, setIsSelected] = useState(0);
+    const [isLoading, SetIsLoading] = useState(true);
 
     const width = Dimensions.get("window").width;
     let clock_height = 200;
@@ -107,10 +113,21 @@ export default function MenuAlarm(props: { user: UserType; navigation: any }) {
     };
 
     // TODO: 컴포넌트 렌더링 될때마다 FB에 저장된 시간 불러와서 초기값 설정해 주기
-    // useEffect(()=>{})
+    useEffect(()=>{
+        async function FetchData(){
+            const data: any = await FetchAlarmList(props.user);
+            const sortedData = data.sort((a:any,b:any)=>parseFloat(a.key) - parseFloat(b.key));
+            console.log("sorted data: ",sortedData);
+            SetAlarmDataList(sortedData);
+            setItem(alarmDataList[0]);
+            SetIsLoading(false);
+        }
+        FetchData();
+    },[])
 
     return (
-        <View style={homescreenStyle.container}>
+        <>
+        {isLoading ? (<LoadingComponent/>) : (<View style={homescreenStyle.container}>
             <BackgroundCircle />
             <View style={homescreenStyle.containerTop}>
                 <Text
@@ -126,7 +143,7 @@ export default function MenuAlarm(props: { user: UserType; navigation: any }) {
                 <View style={[homescreenStyle.containerBottomFig, { flex: 4 }]}>
                     <View style={styles.containerClock}>
                         <FlatList
-                            data={DATA}
+                            data={alarmDataList}
                             contentContainerStyle={{
                                 paddingHorizontal: width / 2 - 100,
                             }}
@@ -148,7 +165,7 @@ export default function MenuAlarm(props: { user: UserType; navigation: any }) {
                                     onPress={() => {
                                         setCurrDayOfWeek(item.title);
                                         setIsSelected(index);
-                                        setItem(DATA[index]);
+                                        setItem(alarmDataList[index]);
                                         refContainer.current!.scrollToIndex({
                                             index: item.key,
                                             animated: true,
@@ -246,7 +263,7 @@ export default function MenuAlarm(props: { user: UserType; navigation: any }) {
                         onPress={async() => {
                             var found = false;
                                     for (var i = 0; i < 7; i++) {
-                                        if (DATA[i].hour[0] == 0) {
+                                        if (alarmDataList[i].hour[0] == 0) {
                                             found = true;
                                             Alert.alert(
                                                 "모든 요일에 시간을 입력해 주세요."
@@ -255,8 +272,9 @@ export default function MenuAlarm(props: { user: UserType; navigation: any }) {
                                         }
                                     }
                                     if (!found) {
-                                        Alert.alert("업데이트 중...");
-                                        await UpdateAlarmDBUtil(props.user,DATA);
+                                        SetIsLoading(true);
+                                        await UpdateAlarmDBUtil(props.user,alarmDataList);
+                                        SetIsLoading(false);
                                         props.navigation.goBack();
                                         Alert.alert("업데이트 완료");
                                     }
@@ -264,7 +282,8 @@ export default function MenuAlarm(props: { user: UserType; navigation: any }) {
                     ></Button>
                 </View>
             </View>
-        </View>
+        </View>)}
+        </>
     );
 }
 

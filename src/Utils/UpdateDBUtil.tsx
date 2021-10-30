@@ -8,8 +8,15 @@ export const UpdateAlarmDBUtil = async (user: UserType, _settingData: any[]) => 
     const settingData = [null,_settingData];
     for (var i = 0; i < 7; i++) {
         await docRef.collection("alarmTime").doc(`${days[i]}`).set({
-            hour: settingData[1]![i].hour[1],
-            minutes: settingData[1]![i].minutes,
+            key: settingData[1]![i].key,
+            title: settingData[1]![i].title,
+            meridiem: settingData[1]![i].meridiem,
+            hour: settingData[1]![i].hour,
+            minutes: settingData[1]![i].minutes
+
+            // original
+            // hour: settingData[1]![i].hour[1],
+            // minutes: settingData[1]![i].minutes,
         });
     }
     schedulePushNotification(settingData);

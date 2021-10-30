@@ -371,13 +371,15 @@ export default function MenuTodo(props: { user: UserType; navigation: any }) {
                                             {
                                                 text: "확인",
                                                 onPress: async () => {
+                                                    SetIsLoading(true);
                                                     await CreateTodoDBUtil(
                                                         props.user,
                                                         todoList
                                                     );
+                                                    SetIsLoading(false);
                                                     Alert.alert(
                                                         "저장되었습니다."
-                                                    );
+                                                        );
                                                     props.navigation.goBack();
                                                 },
                                             },
