@@ -22,16 +22,44 @@ const _renderItem = (_props: { item: any }) => {
     return (
         <TouchableOpacity style={styles.containerButton} activeOpacity={0.8}>
             <View style={styles.buttonContent}>
-                <View style={[styles.iconStyle, { alignSelf:'center'}]}>
+                <View style={[styles.iconStyle, { alignSelf: "center" }]}>
                     <Image
-                        source={{uri: _props.item.image}}
-                        style={{width:'100%',height:'75%'}}
+                        source={{ uri: _props.item.image }}
+                        style={{ width: "100%", height: "75%" }}
                     ></Image>
                 </View>
-                <View style={{marginLeft:RFPercentage(1)}}>
-                    <Text style={{color:'#d9d9db',marginTop:RFPercentage(0.5),marginBottom:RFPercentage(1)}}>{_props.item.website} | {_props.item.date} {_props.item.time}</Text>
-                    <Text numberOfLines={2} style={{color:'white',fontSize:RFPercentage(2.5,), marginBottom:RFPercentage(1),width:'55%'}}>{_props.item.title} ...</Text>
-                    <Text numberOfLines={2} style={{color:'#d9d9db',fontSize:RFPercentage(2.5),width:'55%'}}>{_props.item.des} ...</Text>
+                <View style={{ marginLeft: RFPercentage(1) }}>
+                    <Text
+                        style={{
+                            color: "#d9d9db",
+                            marginTop: RFPercentage(0.5),
+                            marginBottom: RFPercentage(1),
+                        }}
+                    >
+                        {_props.item.website} | {_props.item.date}{" "}
+                        {_props.item.time}
+                    </Text>
+                    <Text
+                        numberOfLines={2}
+                        style={{
+                            color: "white",
+                            fontSize: RFPercentage(2.5),
+                            marginBottom: RFPercentage(1),
+                            width: "55%",
+                        }}
+                    >
+                        {_props.item.title} ...
+                    </Text>
+                    <Text
+                        numberOfLines={2}
+                        style={{
+                            color: "#d9d9db",
+                            fontSize: RFPercentage(2.5),
+                            width: "55%",
+                        }}
+                    >
+                        {_props.item.des} ...
+                    </Text>
                 </View>
             </View>
         </TouchableOpacity>
@@ -45,21 +73,34 @@ export default function NewsInfo() {
         const { data } = await axios.get(
             `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${NEWS_API_KEY}`
         );
-        let _newsList= new Array(10);
-        for (let i = 0; i < 10; i++) {
-            _newsList[i] = {
-                key: i.toString(),
-                website: data.articles[i].source.name,
-                title: data.articles[i].title.substring(0,30),
-                des: data.articles[i].description.substring(0,30),
-                url: data.articles[i].url,
-                image: data.articles[i].urlToImage,
-                date: data.articles[i].publishedAt.substring(5,10),
-                time: data.articles[i].publishedAt.substring(11,16)
-            };
+        let _newsList = new Array(10);
+        let i = 0;
+        let num = 0;
+        while (true) {
+            if (
+                data.articles[i].source.name &&
+                data.articles[i].description &&
+                data.articles[i].url &&
+                data.articles[i].urlToImage &&
+                data.articles[i].publishedAt
+            ) {
+                _newsList[num] = {
+                    key: num.toString(),
+                    website: data.articles[i].source.name,
+                    title: data.articles[i].title.substring(0, 30),
+                    des: data.articles[i].description.substring(0, 30),
+                    url: data.articles[i].url,
+                    image: data.articles[i].urlToImage,
+                    date: data.articles[i].publishedAt.substring(5, 10),
+                    time: data.articles[i].publishedAt.substring(11, 16),
+                };
+                num++;
+                if(num==10) break;
+            }
+            i++;
         }
-        SetNewsList(_newsList)
-        console.log(newsList);
+        SetNewsList(_newsList);
+        // console.log(newsList);
     }
 
     useEffect(() => {
@@ -77,7 +118,7 @@ export default function NewsInfo() {
                 </Text>
             </View>
             <View style={MainScreenStyles.containerBottom}>
-                <Text style={styles.dayofweekText}>
+                <Text style={[MainScreenStyles.dayofweekText,{color: "#7D773D"}]}>
                     {moment().format("dddd")}
                 </Text>
                 <FlatList
@@ -93,12 +134,6 @@ export default function NewsInfo() {
 }
 
 const styles = StyleSheet.create({
-    dayofweekText: {
-        color: "#7D773D",
-        fontSize: RFPercentage(5),
-        marginTop: RFPercentage(3),
-    },
-
     containerButton: {
         justifyContent: "center",
         width: Dimensions.get("window").width * 0.95,
@@ -114,7 +149,7 @@ const styles = StyleSheet.create({
     },
     iconStyle: {
         height: "90%",
-        width: "35%",
+        width: "30%",
         marginLeft: "2%",
         borderRadius: 10,
         justifyContent: "center",

@@ -18,8 +18,15 @@ export const CreateDBUtil = async (user: UserType, settingData: any[]) => {
     schedulePushNotification(settingData);
 };
 
-export const CreateTodoDBUtil = () => {
-    
+export const CreateTodoDBUtil = async (user: UserType,data:Array<any>) => {
+    const docRef = dbService.collection("users").doc(`${user.uid}`);
+    for (let i=0;i<data.length;i++){
+        await docRef.collection("todoList").doc(`${data[i].title+data[i].time.toDate()}`).set({
+            title: data[i].title,
+            time: data[i].time.toDate(),
+            color: data[i].color
+        });
+    }
 }
 
 export const CreateShareDBUtil = () => {

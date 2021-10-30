@@ -27,4 +27,9 @@ export const MainScreenStyles = StyleSheet.create({
         fontSize: RFPercentage(6),
         // add color
     },
+    dayofweekText: {
+        fontSize: RFPercentage(5),
+        marginTop: RFPercentage(3),
+        // add color
+    },
 })

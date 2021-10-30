@@ -16,7 +16,7 @@ import {
     homescreenStyle,
 } from "../../Styles/HomeScreenStyle";
 import { signOutUtil } from "../../Utils/AuthUtil";
-import { DeleteUserUtil } from "../../Utils/DeleteUserUtil";
+import { DeleteUserUtil } from "../../Utils/DeleteDBUtil";
 import {
     cancelAllScheduledNotificationsAsync,
     getAllScheduledNotificationsAsync,

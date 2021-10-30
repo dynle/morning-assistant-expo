@@ -86,7 +86,17 @@ function App() {
     } else {
         setCustomText(customTextProps);
         setCustomTextInput(customTextProps);
-        return <MainScreen handler={notiHandler}/>
+
+        return (
+                    // originial code
+                    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                        <View style={styles.container}>
+                            <StatusBar style="light" />
+                            <LoginProvider/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                );
+        // return <MainScreen handler={notiHandler}/>
 
         // if (isNoti){
         //     return (

@@ -7,7 +7,7 @@ export default function CheckDBUtil(
     var docData = dbService.collection("users").doc(`${user.uid}`);
     docData
         .get()
-        .then(async (doc) => {
+        .then((doc) => {
             if (!doc.exists) {
                 handler(true);
                 console.log("New User");
