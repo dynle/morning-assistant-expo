@@ -28,28 +28,30 @@ export const UpdateAlarmDBUtil = async (
 export const ChangeNameDBUtil = (user: UserType) => {
     var docRef = dbService.collection("users").doc(`${user.uid}`);
     let docData:any;
+    
     docRef.get().then((doc)=>{
         if(doc.exists){
             docData = doc.data();
-            console.log(docData);
         }
+    }).then(()=>{
+        Alert.prompt(
+            "새로운 이름을 입력해 주세요.",
+            `현재 이름: ${docData.userName}`,
+            // undefined,
+            [
+                {
+                    text: "취소",
+                    style: "cancel",
+                },
+                {
+                    text: "확인",
+                    onPress: (newName) => UpdateUserNameDBUtil(user, newName),
+                },
+            ]
+        );
     })
 
-    Alert.prompt(
-        "새로운 이름을 입력해 주세요.",
-        // `현재 이름: ${docData.userName}`,
-        undefined,
-        [
-            {
-                text: "취소",
-                style: "cancel",
-            },
-            {
-                text: "확인",
-                onPress: (newName) => UpdateUserNameDBUtil(user, newName),
-            },
-        ]
-    );
+    
 };
 
 const UpdateUserNameDBUtil = async (
