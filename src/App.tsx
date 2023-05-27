@@ -77,6 +77,8 @@ function App() {
                 responseListener.current!
             );
         };
+
+        // TODO: delete old todo list items if time passed
     },[]);
     ///////////////////////////////////////////////////////////////////////////
 
@@ -88,7 +90,6 @@ function App() {
         setCustomTextInput(customTextProps);
 
         return (
-                    // originial code
                     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                         <View style={styles.container}>
                             <StatusBar style="light" />
@@ -96,8 +97,10 @@ function App() {
                         </View>
                     </TouchableWithoutFeedback>
                 );
+
         // return <MainScreen handler={notiHandler}/>
 
+        // originial code
         // if (isNoti){
         //     return (
         //         <MainScreen handler={notiHandler}/>
